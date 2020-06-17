@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 
 import Main from './../main/main.jsx';
 
-
-
 const App = (props) => {
   const {movieTitle, genre, releaseDate, movies} = props;
 

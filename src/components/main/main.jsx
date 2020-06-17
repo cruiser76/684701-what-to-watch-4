@@ -1,10 +1,6 @@
 import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
 
-const GENRES_LIST = [
-  `Comedie`, `Crime`, `Documentary`, `Drama`, `Horror`, `Kids & Family`, `Romance`, `Sci-Fi`, `Thriller`
-];
-
 const Main = (props) => {
   let {movieTitle, genre, releaseDate, movies} = props;
   movieTitle = movieTitle ? movieTitle : `something go wrong`;
