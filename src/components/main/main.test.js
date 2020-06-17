@@ -11,11 +11,13 @@ const movies = [
   `Revenant`, `Johnny, English`, `Shutter Island`, `Pulp Fiction`, `No Country for Old Men`, `Snatch`, `Moonrise Kingdom`,
   `Seven Years in Tibet`, `Midnight Special`, `War of the Worlds`, `Dardjeeling Limited`, `Orlando`, `Mindhunter`
 ];
+const onMovieCardTitleClick = () => {};
 
 it(`Main should render Main`, () => {
   const tree = renderer
     .create(
         <Main
+          onMovieCardTitleClick={onMovieCardTitleClick}
           movieTitle={movieTitle}
           genre={genre}
           releaseDate={releaseDate}
