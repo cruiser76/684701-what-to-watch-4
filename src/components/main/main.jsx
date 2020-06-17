@@ -150,7 +150,7 @@ const Main = (props) => {
 
 Main.propTypes = {
   movieTitle: PropTypes.string.isRequired,
-  genre: PropTypes.oneOf(GENRES_LIST).isRequired,
+  genre: PropTypes.string.isRequired,
   releaseDate: PropTypes.number.isRequired,
   movies: PropTypes.arrayOf(PropTypes.string).isRequired
 };
