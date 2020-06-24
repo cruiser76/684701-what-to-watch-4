@@ -1,5 +1,5 @@
 import React from 'react';
-import Enzyme, {shallow} from 'enzyme';
+import Enzyme, {mount} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import Main from './main.jsx';
 
@@ -11,13 +11,18 @@ const movieTitle = `Fantastic Beasts: The Crimes of Grindelwald`;
 const genre = `Drama`;
 const releaseDate = 2014;
 const movies = [
-  `Fantastic Beasts: The Crimes of Grindelwald`
+  {
+    src: `fantastic-beasts-the-crimes-of-grindelwald.jpg`,
+    title: `Fantastic Beasts: The Crimes of Grindelwald`,
+    link: `movie-page.html`,
+    key: `fantastic-beasts-the-crimes-of-grindelwald`
+  },
 ];
 
 it(`Should movie-card-title click`, () => {
   const onMovieCardTitleClick = jest.fn();
 
-  const main = shallow(
+  const main = mount(
       <Main
         movieTitle={movieTitle}
         genre={genre}

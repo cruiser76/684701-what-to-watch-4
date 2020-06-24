@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import App from './components/app/app.jsx';
+import Films from './mocks/films.js';
 
 const init = () => {
 
@@ -11,18 +12,12 @@ const init = () => {
     RELEASE: 2014
   };
 
-  const MOVIES = [
-    `Fantastic Beasts: The Crimes of Grindelwald`, `Bohemian Rhapsody`, `Macbeth`, `Aviator`, `We need to talk about Kevin`, `What We Do in the Shadows`,
-    `Revenant`, `Johnny, English`, `Shutter Island`, `Pulp Fiction`, `No Country for Old Men`, `Snatch`, `Moonrise Kingdom`,
-    `Seven Years in Tibet`, `Midnight Special`, `War of the Worlds`, `Dardjeeling Limited`, `Orlando`, `Mindhunter`
-  ];
-
   ReactDOM.render(
       <App
         movieTitle = {Promo.FILM}
         genre = {Promo.GENRE}
         releaseDate = {Promo.RELEASE}
-        movies = {MOVIES}
+        movies = {Films}
       />,
       document.querySelector(`#root`)
   );
