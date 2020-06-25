@@ -12,8 +12,8 @@ export default class MovieList extends PureComponent {
     this._mouseEnterHandle = this._mouseEnterHandle.bind(this);
   }
 
-  _mouseEnterHandle(evt) {
-    this.setState({hoverElement: evt.currentTarget});
+  _mouseEnterHandle(target) {
+    this.setState({hoverElement: target});
     return;
   }
 
@@ -25,7 +25,7 @@ export default class MovieList extends PureComponent {
         <MovieCard
           key={el.key}
           movie={el}
-          onMouseEnter={this._mouseEnterHandle}
+          mouseEnterHandle={this._mouseEnterHandle}
           onMovieCardTitleClick={onMovieCardTitleClick}
         />
       );
