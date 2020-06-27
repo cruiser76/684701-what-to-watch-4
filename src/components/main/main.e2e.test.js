@@ -13,15 +13,25 @@ const genre = `Drama`;
 const releaseDate = 2014;
 const movies = [
   {
-    src: `fantastic-beasts-the-crimes-of-grindelwald.jpg`,
-    title: `Fantastic Beasts: The Crimes of Grindelwald`,
+    img: {
+      src: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
+      posterSrc: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
+      bgSrc: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`
+    },
+    brief: {
+      title: `Fantastic Beasts: The Crimes of Grindelwald`,
+      genre: `Drama`,
+      year: `2000`,
+      score: `9`,
+      level: `Good`
+    },
     link: `movie-page.html`,
-    key: `fantastic-beasts-the-crimes-of-grindelwald`
+    key: `fantastic-beasts-the-crimes-of-grindelwald`,
   },
 ];
 
 it(`Should movie-card-title click`, () => {
-  const onMovieCardTitleClick = jest.fn();
+  const movieCardClickHandle = jest.fn();
 
   const main = mount(
       <Main
@@ -29,12 +39,12 @@ it(`Should movie-card-title click`, () => {
         genre={genre}
         releaseDate={releaseDate}
         movies = {movies}
-        onMovieCardTitleClick={onMovieCardTitleClick}
+        movieCardClickHandle={movieCardClickHandle}
       />
   );
 
   const catalogLink = main.find(`.small-movie-card__link`);
   catalogLink.simulate(`click`);
 
-  expect(onMovieCardTitleClick.mock.calls.length).toBe(1);
+  expect(movieCardClickHandle.mock.calls.length).toBe(1);
 });

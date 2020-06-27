@@ -3,25 +3,26 @@ import PropTypes from 'prop-types';
 
 const MovieCard = (props) => {
 
-  const {movie, mouseEnterHandle, onMovieCardTitleClick} = props;
-  const {src, title, link} = movie;
+  const {movie, mouseEnterHandle, movieCardClickHandle} = props;
+  const {img, brief, link} = movie;
 
   return (
     <article className="small-movie-card catalog__movies-card"
       onMouseEnter={(evt) => {
         mouseEnterHandle(evt.currentTarget);
       }}
+      onClick={(evt) => {
+        evt.preventDefault();
+        movieCardClickHandle();
+      }}
     >
       <div className="small-movie-card__image">
-        <img src={`img/${src}`} alt={title} width="280" height="175" />
+        <img src={`img/${img.src}`} alt={brief.title} width="280" height="175" />
       </div>
       <h3 className="small-movie-card__title">
-        <a className="small-movie-card__link" href={link}
-          onClick={(evt) => {
-            evt.preventDefault();
-            onMovieCardTitleClick(evt);
-          }}
-        >{title}</a>
+        <a className="small-movie-card__link"
+          href={link}
+        >{brief.title}</a>
       </h3>
     </article>
   );
@@ -30,7 +31,7 @@ const MovieCard = (props) => {
 MovieCard.propTypes = {
   movie: PropTypes.object.isRequired,
   mouseEnterHandle: PropTypes.func.isRequired,
-  onMovieCardTitleClick: PropTypes.func.isRequired,
+  movieCardClickHandle: PropTypes.func.isRequired,
 };
 
 export default MovieCard;

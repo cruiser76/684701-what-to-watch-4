@@ -18,7 +18,7 @@ export default class MovieList extends PureComponent {
   }
 
   render() {
-    const {movies, onMovieCardTitleClick} = this.props;
+    const {movies, movieCardClickHandle} = this.props;
     const movieList = movies.map((el) => {
 
       return (
@@ -26,7 +26,7 @@ export default class MovieList extends PureComponent {
           key={el.key}
           movie={el}
           mouseEnterHandle={this._mouseEnterHandle}
-          onMovieCardTitleClick={onMovieCardTitleClick}
+          movieCardClickHandle={() => movieCardClickHandle(el)}
         />
       );
     });
@@ -41,5 +41,5 @@ export default class MovieList extends PureComponent {
 
 MovieList.propTypes = {
   movies: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
-  onMovieCardTitleClick: PropTypes.func.isRequired
+  movieCardClickHandle: PropTypes.func.isRequired
 };
