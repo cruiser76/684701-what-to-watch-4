@@ -1,12 +1,4 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
-
-import Main from './main.jsx';
-
-const movieTitle = `Fantastic Beasts: The Crimes of Grindelwald`;
-const genre = `Drama`;
-const releaseDate = 2014;
-const movies = [
+export default [
   {
     src: `fantastic-beasts-the-crimes-of-grindelwald.jpg`,
     title: `Fantastic Beasts: The Crimes of Grindelwald`,
@@ -49,21 +41,3 @@ const movies = [
     key: `johnny-english`
   }
 ];
-
-const onMovieCardTitleClick = () => {};
-
-it(`Main should render Main`, () => {
-  const tree = renderer
-    .create(
-        <Main
-          onMovieCardTitleClick={onMovieCardTitleClick}
-          movieTitle={movieTitle}
-          genre={genre}
-          releaseDate={releaseDate}
-          movies = {movies}
-        />
-    )
-    .toJSON();
-
-  expect(tree).toMatchSnapshot();
-});
