@@ -5,56 +5,31 @@ import MovieList from './movie-list.jsx';
 
 const movies = [
   {
-    src: `fantastic-beasts-the-crimes-of-grindelwald.jpg`,
-    title: `Fantastic Beasts: The Crimes of Grindelwald`,
+    img: {
+      src: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
+      posterSrc: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
+      bgSrc: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`
+    },
+    brief: {
+      title: `Fantastic Beasts: The Crimes of Grindelwald`,
+      genre: `Drama`,
+      year: `2000`,
+      score: `9`,
+      level: `Good`
+    },
     link: `movie-page.html`,
-    key: `fantastic-beasts-the-crimes-of-grindelwald`
-  }, {
-    src: `bohemian-rhapsody.jpg`,
-    title: `Bohemian Rhapsody`,
-    link: `movie-page.html`,
-    key: `bohemian-rhapsody`
-  }, {
-    src: `macbeth.jpg`,
-    title: `Macbeth`,
-    link: `movie-page.html`,
-    key: `macbeth`
-  }, {
-    src: `aviator.jpg`,
-    title: `Aviator`,
-    link: `movie-page.html`,
-    key: `aviator`
-  }, {
-    src: `we-need-to-talk-about-kevin.jpg`,
-    title: `We need to talk about Kevin`,
-    link: `movie-page.html`,
-    key: `we-need-to-talk-about-kevin`
-  }, {
-    src: `what-we-do-in-the-shadows.jpg`,
-    title: `What We Do in the Shadows`,
-    link: `movie-page.html`,
-    key: `what-we-do-in-the-shadows`
-  }, {
-    src: `revenant.jpg`,
-    title: `Revenant`,
-    link: `movie-page.html`,
-    key: `revenant`
-  }, {
-    src: `johnny-english.jpg`,
-    title: `Johnny English`,
-    link: `movie-page.html`,
-    key: `johnny-english`
+    key: `fantastic-beasts-the-crimes-of-grindelwald`,
   }
 ];
 
-const onMovieCardTitleClick = () => {};
+const movieCardClickHandle = () => {};
 
 it(`Movie-list is render correctly`, () => {
   const tree = renderer
     .create(
         <MovieList
           movies={movies}
-          onMovieCardTitleClick={onMovieCardTitleClick}
+          movieCardClickHandle={movieCardClickHandle}
         />
     ).toJSON();
 

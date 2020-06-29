@@ -1,9 +1,10 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import MovieCard from './movie-card.jsx';
+import MoviePage from './movie-page.jsx';
 
-const movie = {
+const movie =
+{
   img: {
     src: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
     posterSrc: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
@@ -20,15 +21,10 @@ const movie = {
   key: `fantastic-beasts-the-crimes-of-grindelwald`,
 };
 
-const mouseEnterHandle = () => {};
-const movieCardClickHandle = () => {};
-
-it(`movie card was render correctly`, () => {
+it(`Movie Page is render correctly`, () => {
   const tree = renderer
     .create(
-        <MovieCard
-          mouseEnterHandle={mouseEnterHandle}
-          movieCardClickHandle={movieCardClickHandle}
+        <MoviePage
           movie={movie}
         />
     ).toJSON();
