@@ -1,17 +1,52 @@
-import React from 'react';
+import React, {PureComponent} from 'react';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
 
 import Main from './../main/main.jsx';
+import MoviePage from './../movie-page/movie-page.jsx';
 
-const movieCardTitleClickHandle = () => {};
+export default class App extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentMovie: null
+    };
+    this.movieCardClickHandle = this.movieCardClickHandle.bind(this);
+  }
 
-const App = (props) => {
+  _performCardClick(el) {
+    this.setState({currentMovie: el});
+  }
 
-  return (
-    <Main
-      {...props}
-      onMovieCardTitleClick={movieCardTitleClickHandle}
-    />
-  );
-};
+  movieCardTitleClickHandle(el) {
+    this._performCardClick(el);
+  }
 
-export default App;
+  movieCardClickHandle(el) {
+    this._performCardClick(el);
+  }
+
+  render() {
+    return (
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/">
+            {this.state.currentMovie ?
+              <MoviePage
+                movie={this.state.currentMovie}
+              /> :
+              <Main
+                {...this.props}
+                movieCardClickHandle={this.movieCardClickHandle}
+              />
+            }
+          </Route>
+          <Route exact path="/dev-component">
+            <MoviePage
+              movie={{}}
+            />
+          </Route>
+        </Switch>
+      </BrowserRouter>
+    );
+  }
+}

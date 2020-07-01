@@ -8,22 +8,36 @@ configure({
   adapter: new Adapter(),
 });
 
+const mockEvent = {
+  preventDefault() {}
+};
+
 const film = {
-  src: `fantastic-beasts-the-crimes-of-grindelwald.jpg`,
-  title: `Fantastic Beasts: The Crimes of Grindelwald`,
+  img: {
+    src: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
+    posterSrc: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
+    bgSrc: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`
+  },
+  brief: {
+    title: `Fantastic Beasts: The Crimes of Grindelwald`,
+    genre: `Drama`,
+    year: `2000`,
+    score: `9`,
+    level: `Good`
+  },
   link: `movie-page.html`,
-  key: `fantastic-beasts-the-crimes-of-grindelwald`
+  key: `fantastic-beasts-the-crimes-of-grindelwald`,
 };
 
 it(`when hover over a movie card, the handler gets information about the movie`, () => {
   const mouseEnterHandle = jest.fn();
-  const onMovieCardTitleClick = jest.fn();
+  const movieCardClickHandle = jest.fn();
 
   const movieCardScreen = shallow(
       <MovieCard
         movie={film}
         mouseEnterHandle={mouseEnterHandle}
-        onMovieCardTitleClick={onMovieCardTitleClick}
+        movieCardClickHandle={movieCardClickHandle}
       />
   );
 
@@ -32,4 +46,21 @@ it(`when hover over a movie card, the handler gets information about the movie`,
 
   expect(mouseEnterHandle).toHaveBeenCalledTimes(1);
   expect(mouseEnterHandle).toBeCalledWith(expect.objectContaining(currentCard));
+});
+
+it(`clicking on the movie card calls callback once`, () => {
+  const mouseEnterHandle = jest.fn();
+  const movieCardClickHandle = jest.fn();
+
+  const movieCardScreen = shallow(
+      <MovieCard
+        movie={film}
+        mouseEnterHandle={mouseEnterHandle}
+        movieCardClickHandle={movieCardClickHandle}
+      />
+  );
+
+  movieCardScreen.simulate(`click`, mockEvent);
+
+  expect(movieCardClickHandle).toHaveBeenCalledTimes(1);
 });
