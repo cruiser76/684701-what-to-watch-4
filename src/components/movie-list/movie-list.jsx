@@ -19,6 +19,7 @@ export default class MovieList extends PureComponent {
 
   render() {
     const {movies, movieCardClickHandle} = this.props;
+
     const movieList = movies.map((el) => {
 
       return (

@@ -30,8 +30,11 @@ it(`movie card was render correctly`, () => {
           mouseEnterHandle={mouseEnterHandle}
           movieCardClickHandle={movieCardClickHandle}
           movie={movie}
-        />
-    ).toJSON();
+        />, {
+          createNodeMock: () => {
+            return {};
+          }
+        }).toJSON();
 
   expect(tree).toMatchSnapshot();
 });

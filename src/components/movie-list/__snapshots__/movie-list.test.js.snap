@@ -7,17 +7,13 @@ exports[`Movie-list is render correctly 1`] = `
   <article
     className="small-movie-card catalog__movies-card"
     onClick={[Function]}
-    onMouseEnter={[Function]}
   >
     <div
       className="small-movie-card__image"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
     >
-      <img
-        alt="Fantastic Beasts: The Crimes of Grindelwald"
-        height="175"
-        src="img/img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
-        width="280"
-      />
+      <video />
     </div>
     <h3
       className="small-movie-card__title"

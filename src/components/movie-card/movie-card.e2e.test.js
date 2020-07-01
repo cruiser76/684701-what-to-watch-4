@@ -29,24 +29,6 @@ const film = {
   key: `fantastic-beasts-the-crimes-of-grindelwald`,
 };
 
-it(`when hover over a movie card, the handler gets information about the movie`, () => {
-  const mouseEnterHandle = jest.fn();
-  const movieCardClickHandle = jest.fn();
-
-  const movieCardScreen = shallow(
-      <MovieCard
-        movie={film}
-        mouseEnterHandle={mouseEnterHandle}
-        movieCardClickHandle={movieCardClickHandle}
-      />
-  );
-
-  const currentCard = movieCardScreen.find(`article.catalog__movies-card`);
-  movieCardScreen.simulate(`mouseEnter`, {});
-
-  expect(mouseEnterHandle).toHaveBeenCalledTimes(1);
-  expect(mouseEnterHandle).toBeCalledWith(expect.objectContaining(currentCard));
-});
 
 it(`clicking on the movie card calls callback once`, () => {
   const mouseEnterHandle = jest.fn();
