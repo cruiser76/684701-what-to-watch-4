@@ -17,19 +17,6 @@ export default class App extends PureComponent {
     this.setState({currentMovie: el});
   }
 
-  _renderApp() {
-    if (!this.state.currentMovie) {
-      return (<Main
-        {...this.props}
-        movieCardClickHandle={this.movieCardClickHandle}
-      />);
-    } else {
-      return (<MoviePage
-        movie={this.state.currentMovie}
-      />);
-    }
-  }
-
   movieCardTitleClickHandle(el) {
     this._performCardClick(el);
   }
@@ -43,7 +30,15 @@ export default class App extends PureComponent {
       <BrowserRouter>
         <Switch>
           <Route exact path="/">
-            {this._renderApp()}
+            {this.state.currentMovie ?
+              <MoviePage
+                movie={this.state.currentMovie}
+              /> :
+              <Main
+                {...this.props}
+                movieCardClickHandle={this.movieCardClickHandle}
+              />
+            }
           </Route>
           <Route exact path="/dev-component">
             <MoviePage
