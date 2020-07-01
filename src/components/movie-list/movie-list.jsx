@@ -27,7 +27,9 @@ export default class MovieList extends PureComponent {
           movie={el}
           mouseEnterHandle={this._mouseEnterHandle}
           movieCardClickHandle={() => movieCardClickHandle(el)}
-        />
+        >
+
+        </MovieCard>
       );
     });
 
