@@ -13,7 +13,17 @@ exports[`Movie-list is render correctly 1`] = `
       onMouseEnter={[Function]}
       onMouseLeave={[Function]}
     >
-      <video />
+      <video
+        style={
+          Object {
+            "height": "100%",
+            "left": "0",
+            "position": "absolute",
+            "top": "0",
+            "width": "100%",
+          }
+        }
+      />
     </div>
     <h3
       className="small-movie-card__title"

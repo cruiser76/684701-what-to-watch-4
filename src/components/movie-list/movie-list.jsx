@@ -13,7 +13,10 @@ export default class MovieList extends PureComponent {
   }
 
   _mouseEnterHandle(target) {
-    this.setState({hoverElement: target});
+    if (target) {
+      return;
+    }
+    // this.setState({hoverElement: target});
     return;
   }
 
