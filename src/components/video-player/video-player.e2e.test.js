@@ -7,18 +7,16 @@ import VideoPlayer from './video-player.jsx';
 configure({adapter: new Adapter()});
 
 it(`Hover on card toggle state`, () => {
-  const screen = mount(
+  const videoPlayer = mount(
       <VideoPlayer
-        src={``}
-        poster={``}
-        onMouseEnter={() => {}}
+        src={`123`}
+        poster={`122`}
+        isPlaying={true}
       />
   );
-  expect(screen.state().isPlaying).toBe(false);
-  screen.props().onMouseEnter();
-
-  setTimeout(() => {
-    expect(screen.state().isPlaying).toBe(true);
-  }, 2000);
+  expect(videoPlayer.props()).toStrictEqual({
+    src: `123`,
+    poster: `122`,
+    isPlaying: true
+  });
 });
-

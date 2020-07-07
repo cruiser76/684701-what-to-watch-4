@@ -10,10 +10,10 @@ export default class App extends PureComponent {
     this.state = {
       currentMovie: null
     };
-    this.movieCardClickHandle = this.movieCardClickHandle.bind(this);
+    this.handleCardClick = this.handleCardClick.bind(this);
   }
 
-  movieCardClickHandle(el) {
+  handleCardClick(el) {
     this.setState({currentMovie: el});
   }
 
@@ -28,7 +28,7 @@ export default class App extends PureComponent {
               /> :
               <Main
                 {...this.props}
-                movieCardClickHandle={this.movieCardClickHandle}
+                onCardClick={this.handleCardClick}
               />
             }
           </Route>

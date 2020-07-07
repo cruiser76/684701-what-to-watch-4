@@ -260,22 +260,16 @@ Array [
         <article
           className="small-movie-card catalog__movies-card"
           onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
         >
           <div
             className="small-movie-card__image"
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
           >
             <video
-              style={
-                Object {
-                  "height": "100%",
-                  "left": "0",
-                  "position": "absolute",
-                  "top": "0",
-                  "width": "100%",
-                }
-              }
+              muted={true}
+              onCanPlayThrough={[Function]}
+              poster="img/img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
             />
           </div>
           <h3

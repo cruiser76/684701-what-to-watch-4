@@ -1,5 +1,5 @@
 import React from 'react';
-import {shallow, configure} from 'enzyme';
+import {configure, shallow} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
 import MovieCard from './movie-card.jsx';
@@ -23,7 +23,8 @@ const film = {
     genre: `Drama`,
     year: `2000`,
     score: `9`,
-    level: `Good`
+    level: `Good`,
+    filmLink: ``
   },
   link: `movie-page.html`,
   key: `fantastic-beasts-the-crimes-of-grindelwald`,
@@ -31,18 +32,26 @@ const film = {
 
 
 it(`clicking on the movie card calls callback once`, () => {
-  const mouseEnterHandle = jest.fn();
-  const movieCardClickHandle = jest.fn();
+  const onCardMouseEnter = jest.fn();
+  const onCardMouseLeave = jest.fn();
+  const onCardClick = jest.fn();
 
   const movieCardScreen = shallow(
       <MovieCard
         movie={film}
-        mouseEnterHandle={mouseEnterHandle}
-        movieCardClickHandle={movieCardClickHandle}
+        onCardClick={onCardClick}
+        onCardMouseEnter={onCardMouseEnter}
+        onCardMouseLeave={onCardMouseLeave}
+        isPlaying={false}
       />
   );
 
   movieCardScreen.simulate(`click`, mockEvent);
+  expect(onCardClick).toHaveBeenCalledTimes(1);
 
-  expect(movieCardClickHandle).toHaveBeenCalledTimes(1);
+  movieCardScreen.simulate(`mouseEnter`);
+  expect(onCardMouseEnter).toHaveBeenCalledTimes(1);
+
+  movieCardScreen.simulate(`mouseLeave`);
+  expect(onCardMouseLeave).toHaveBeenCalledTimes(1);
 });
