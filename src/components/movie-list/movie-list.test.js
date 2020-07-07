@@ -30,8 +30,11 @@ it(`Movie-list is render correctly`, () => {
         <MovieList
           movies={movies}
           movieCardClickHandle={movieCardClickHandle}
-        />
-    ).toJSON();
+        />, {
+          createNodeMock: () => {
+            return {};
+          }
+        }).toJSON();
 
   expect(tree).toMatchSnapshot();
 });

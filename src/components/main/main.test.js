@@ -36,9 +36,11 @@ it(`Main should render Main`, () => {
           genre={genre}
           releaseDate={releaseDate}
           movies = {movies}
-        />
-    )
-    .toJSON();
+        />, {
+          createNodeMock: () => {
+            return {};
+          }
+        }).toJSON();
 
   expect(tree).toMatchSnapshot();
 });

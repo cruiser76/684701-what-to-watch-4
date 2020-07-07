@@ -50,11 +50,17 @@ const getLevel = (score) => {
   return level;
 };
 
+const FILM_LINK = [
+  `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
+  `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`
+];
+
 export default MOVIES.map((movie) => {
   const score = getRandomNumber(1, 10);
   const level = getLevel(score);
   const genre = getRandomElement(GENRES_LIST);
   const year = getRandomNumber(1950, 2020);
+  const filmLink = getRandomElement(FILM_LINK);
 
   return (
     {
@@ -64,7 +70,8 @@ export default MOVIES.map((movie) => {
         genre,
         year,
         score,
-        level
+        level,
+        filmLink
       },
       link: `movie-page.html`,
       key: doKeyStr(movie),

@@ -1,24 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const MovieCard = (props) => {
+import VideoPlayer from './../video-player/video-player.jsx';
 
-  const {movie, mouseEnterHandle, movieCardClickHandle} = props;
-  const {img, brief, link} = movie;
+const MovieCard = (props) => {
+  const {movie, onCardClick, onCardMouseEnter, onCardMouseLeave, isPlaying} = props;
+  const {img, brief, link, key} = movie;
+
+  const handleCardMouseEnter = () => {
+    onCardMouseEnter(key);
+  };
 
   return (
     <article className="small-movie-card catalog__movies-card"
-      onMouseEnter={(evt) => {
-        mouseEnterHandle(evt.currentTarget);
-      }}
       onClick={(evt) => {
         evt.preventDefault();
-        movieCardClickHandle();
+        onCardClick();
       }}
+      onMouseEnter={handleCardMouseEnter}
+      onMouseLeave={onCardMouseLeave}
     >
-      <div className="small-movie-card__image">
-        <img src={`img/${img.src}`} alt={brief.title} width="280" height="175" />
-      </div>
+      <VideoPlayer
+        src={brief.filmLink}
+        poster={`img/${img.src}`}
+        isPlaying={isPlaying}
+      />
       <h3 className="small-movie-card__title">
         <a className="small-movie-card__link"
           href={link}
@@ -30,8 +36,10 @@ const MovieCard = (props) => {
 
 MovieCard.propTypes = {
   movie: PropTypes.object.isRequired,
-  mouseEnterHandle: PropTypes.func.isRequired,
-  movieCardClickHandle: PropTypes.func.isRequired,
+  onCardMouseEnter: PropTypes.func.isRequired,
+  onCardMouseLeave: PropTypes.func.isRequired,
+  onCardClick: PropTypes.func.isRequired,
+  isPlaying: PropTypes.bool.isRequired,
 };
 
 export default MovieCard;

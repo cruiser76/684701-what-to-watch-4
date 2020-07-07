@@ -33,8 +33,11 @@ it(`App should render App`, () => {
           genre={genre}
           releaseDate={releaseDate}
           movies = {movies}
-        />
-    ).toJSON();
+        />, {
+          createNodeMock: () => {
+            return {};
+          }
+        }).toJSON();
 
   expect(tree).toMatchSnapshot();
 });

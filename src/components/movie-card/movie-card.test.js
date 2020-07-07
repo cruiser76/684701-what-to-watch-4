@@ -14,24 +14,31 @@ const movie = {
     genre: `Drama`,
     year: `2000`,
     score: `9`,
-    level: `Good`
+    level: `Good`,
+    filmLink: ``
   },
   link: `movie-page.html`,
   key: `fantastic-beasts-the-crimes-of-grindelwald`,
 };
 
-const mouseEnterHandle = () => {};
-const movieCardClickHandle = () => {};
+const props = {
+  onCardMouseEnter: () => {},
+  onCardMouseLeave: () => {},
+  onCardClick: () => {},
+  isPlaying: false,
+  movie
+};
 
 it(`movie card was render correctly`, () => {
   const tree = renderer
     .create(
         <MovieCard
-          mouseEnterHandle={mouseEnterHandle}
-          movieCardClickHandle={movieCardClickHandle}
-          movie={movie}
-        />
-    ).toJSON();
+          {...props}
+        />, {
+          createNodeMock: () => {
+            return {};
+          }
+        }).toJSON();
 
   expect(tree).toMatchSnapshot();
 });

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import MovieList from './../movie-list/movie-list.jsx';
 
 const Main = (props) => {
-  const {movieTitle, genre, releaseDate, movies, movieCardClickHandle} = props;
+  const {movieTitle, genre, releaseDate, movies, onCardClick} = props;
 
   return (
     <Fragment>
@@ -102,7 +102,7 @@ const Main = (props) => {
 
           <MovieList
             movies={movies}
-            movieCardClickHandle={movieCardClickHandle}
+            onCardClick={onCardClick}
           />
 
           <div className="catalog__more">
@@ -133,7 +133,7 @@ Main.propTypes = {
   genre: PropTypes.string.isRequired,
   releaseDate: PropTypes.number.isRequired,
   movies: PropTypes.array.isRequired,
-  movieCardClickHandle: PropTypes.func.isRequired
+  onCardClick: PropTypes.func.isRequired
 };
 
 export default Main;

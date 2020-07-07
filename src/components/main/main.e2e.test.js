@@ -31,7 +31,7 @@ const movies = [
 ];
 
 it(`Should movie-card-title click`, () => {
-  const movieCardClickHandle = jest.fn();
+  const onCardClick = jest.fn();
 
   const main = mount(
       <Main
@@ -39,12 +39,12 @@ it(`Should movie-card-title click`, () => {
         genre={genre}
         releaseDate={releaseDate}
         movies = {movies}
-        movieCardClickHandle={movieCardClickHandle}
+        onCardClick={onCardClick}
       />
   );
 
   const catalogLink = main.find(`.small-movie-card__link`);
   catalogLink.simulate(`click`);
 
-  expect(movieCardClickHandle.mock.calls.length).toBe(1);
+  expect(onCardClick.mock.calls.length).toBe(1);
 });
