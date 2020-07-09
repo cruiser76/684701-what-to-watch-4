@@ -6,6 +6,12 @@ import Main from './main.jsx';
 const movieTitle = `Fantastic Beasts: The Crimes of Grindelwald`;
 const genre = `Drama`;
 const releaseDate = 2014;
+const promo = {
+  movieTitle,
+  genre,
+  releaseDate
+};
+
 const movies = [
   {
     img: {
@@ -18,24 +24,31 @@ const movies = [
       genre: `Drama`,
       year: `2000`,
       score: `9`,
-      level: `Good`
+      level: `Good`,
+      filmLink: ``
     },
     link: `movie-page.html`,
     key: `fantastic-beasts-the-crimes-of-grindelwald`,
   }
 ];
 
-const movieCardClickHandle = () => {};
+const props = {
+  movies,
+  promo,
+  currentMovie: null,
+  genresList: [`All genres`],
+  activeGenre: `All genres`,
+  isMoreBtnShow: true,
+  onCardClick: () => {},
+  onMoreBtnClick: () => {},
+  onGenreClick: () => {},
+};
 
 it(`Main should render Main`, () => {
   const tree = renderer
     .create(
         <Main
-          movieCardClickHandle={movieCardClickHandle}
-          movieTitle={movieTitle}
-          genre={genre}
-          releaseDate={releaseDate}
-          movies = {movies}
+          {...props}
         />, {
           createNodeMock: () => {
             return {};

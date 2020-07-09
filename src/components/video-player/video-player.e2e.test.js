@@ -6,17 +6,19 @@ import VideoPlayer from './video-player.jsx';
 
 configure({adapter: new Adapter()});
 
-it(`Hover on card toggle state`, () => {
+it(`VideoPlayer children is video`, () => {
   const videoPlayer = mount(
       <VideoPlayer
         src={`123`}
         poster={`122`}
         isPlaying={true}
-      />
+      >
+      </VideoPlayer>
   );
-  expect(videoPlayer.props()).toStrictEqual({
-    src: `123`,
-    poster: `122`,
-    isPlaying: true
-  });
+
+  const video = videoPlayer.find(`video`);
+  expect(video).toHaveLength(1);
+
+  expect(videoPlayer.props().isPlaying).toBe(true);
+
 });

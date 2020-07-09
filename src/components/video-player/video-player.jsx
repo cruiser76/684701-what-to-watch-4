@@ -1,28 +1,42 @@
-import React, {createRef} from 'react';
+import React, {createRef, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
-const VideoPlayer = (props) => {
-  const {src, poster, isPlaying} = props;
-  const videoRef = createRef();
+class VideoPlayer extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.videoRef = createRef();
+  }
 
-  return (
-    <div className="small-movie-card__image">
-      <video
-        key={isPlaying}
-        poster={poster}
-        src={src}
-        muted={true}
-        ref={videoRef}
-        onCanPlayThrough={() => {
-          const video = videoRef.current;
-          if (isPlaying) {
-            video.play();
-          }
-        }}
-      />
-    </div>
-  );
-};
+  componentDidUpdate(prevProps) {
+    if (prevProps.isPlaying !== this.props.isPlaying) {
+      const video = this.videoRef.current;
+      if (this.props.isPlaying) {
+        video.play();
+      } else {
+        video.load();
+      }
+    }
+  }
+
+  componentDidMount() {
+    this.isMount = true;
+    const video = this.videoRef.current;
+    video.muted = true;
+  }
+
+  render() {
+    const {src, poster} = this.props;
+    return (
+      <div className="small-movie-card__image">
+        <video
+          poster={poster}
+          src={src}
+          ref={this.videoRef}
+        />
+      </div>
+    );
+  }
+}
 
 VideoPlayer.propTypes = {
   src: PropTypes.string.isRequired,

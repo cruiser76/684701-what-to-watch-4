@@ -4,10 +4,6 @@ import Adapter from 'enzyme-adapter-react-16';
 
 import MovieCard from './movie-card.jsx';
 
-configure({
-  adapter: new Adapter(),
-});
-
 const mockEvent = {
   preventDefault() {}
 };
@@ -30,6 +26,9 @@ const film = {
   key: `fantastic-beasts-the-crimes-of-grindelwald`,
 };
 
+configure({
+  adapter: new Adapter(),
+});
 
 it(`clicking on the movie card calls callback once`, () => {
   const onCardMouseEnter = jest.fn();

@@ -1,4 +1,4 @@
-import React, {PureComponent} from 'react';
+import React, {PureComponent, Fragment} from 'react';
 import PropTypes from 'prop-types';
 
 import MovieCard from './../movie-card/movie-card.jsx';
@@ -33,8 +33,7 @@ export default class MovieList extends PureComponent {
   }
 
   render() {
-    const {movies, onCardClick} = this.props;
-
+    const {movies, onCardClick, onMoreBtnClick, isMoreBtnShow} = this.props;
     const movieList = movies.map((el) => {
 
       return (
@@ -50,14 +49,25 @@ export default class MovieList extends PureComponent {
     });
 
     return (
-      <div className="catalog__movies-list">
-        {movieList}
-      </div>
+      <Fragment>
+        <div className="catalog__movies-list">
+          {movieList}
+        </div>
+        <div className={`catalog__more${isMoreBtnShow ? `` : ` visually-hidden`}`}>
+          <button
+            className={`catalog__button`}
+            type="button"
+            onClick={onMoreBtnClick}
+          >Show more</button>
+        </div>
+      </Fragment>
     );
   }
 }
 
 MovieList.propTypes = {
   movies: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
-  onCardClick: PropTypes.func.isRequired
+  onCardClick: PropTypes.func.isRequired,
+  onMoreBtnClick: PropTypes.func.isRequired,
+  isMoreBtnShow: PropTypes.bool.isRequired
 };

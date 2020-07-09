@@ -1,34 +1,46 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Movie-list is render correctly 1`] = `
-<div
-  className="catalog__movies-list"
->
-  <article
-    className="small-movie-card catalog__movies-card"
-    onClick={[Function]}
-    onMouseEnter={[Function]}
-    onMouseLeave={[Function]}
+Array [
+  <div
+    className="catalog__movies-list"
   >
-    <div
-      className="small-movie-card__image"
+    <article
+      className="small-movie-card catalog__movies-card"
+      onClick={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
     >
-      <video
-        muted={true}
-        onCanPlayThrough={[Function]}
-        poster="img/img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
-      />
-    </div>
-    <h3
-      className="small-movie-card__title"
-    >
-      <a
-        className="small-movie-card__link"
-        href="movie-page.html"
+      <div
+        className="small-movie-card__image"
       >
-        Fantastic Beasts: The Crimes of Grindelwald
-      </a>
-    </h3>
-  </article>
-</div>
+        <video
+          poster="img/img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
+          src=""
+        />
+      </div>
+      <h3
+        className="small-movie-card__title"
+      >
+        <a
+          className="small-movie-card__link"
+          href="movie-page.html"
+        >
+          Fantastic Beasts: The Crimes of Grindelwald
+        </a>
+      </h3>
+    </article>
+  </div>,
+  <div
+    className="catalog__more"
+  >
+    <button
+      className="catalog__button"
+      onClick={[Function]}
+      type="button"
+    >
+      Show more
+    </button>
+  </div>,
+]
 `;
