@@ -1,10 +1,4 @@
-const getRandomNumber = (min, max) => {
-  return Math.floor((Math.random() * (max - min + 1)) + min);
-};
-
-const getRandomElement = function (arr) {
-  return arr[getRandomNumber(0, arr.length - 1)];
-};
+import {getRandomNumber, getRandomElement} from './../utils.js';
 
 const GENRES_LIST = [
   `Comedie`, `Crime`, `Documentary`, `Drama`, `Horror`, `Kids & Family`, `Romance`, `Sci-Fi`, `Thriller`
@@ -15,7 +9,7 @@ const MOVIES = [
   `Revenant`, `Johnny, English`, `Shutter Island`, `Pulp Fiction`, `No Country for Old Men`, `Snatch`, `Moonrise Kingdom`,
   `Seven Years in Tibet`, `Midnight Special`, `War of the Worlds`, `Dardjeeling Limited`, `Orlando`, `Mindhunter`];
 
-MOVIES.length = 8;
+// MOVIES.length = 8;
 
 const doKeyStr = (el) => {
   return el.replace(/[^а-яёa-z\s]/giu, ``)
@@ -78,3 +72,9 @@ export default MOVIES.map((movie) => {
     }
   );
 });
+
+export const Promo = {
+  movieTitle: `The Grand Budapest Hotel`,
+  genre: `Drama`,
+  releaseDate: 2014
+};

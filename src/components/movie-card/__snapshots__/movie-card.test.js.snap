@@ -12,7 +12,6 @@ exports[`movie card was render correctly 1`] = `
   >
     <video
       muted={true}
-      onCanPlayThrough={[Function]}
       poster="img/img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
       src=""
     />

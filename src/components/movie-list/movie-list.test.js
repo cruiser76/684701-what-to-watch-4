@@ -15,21 +15,29 @@ const movies = [
       genre: `Drama`,
       year: `2000`,
       score: `9`,
-      level: `Good`
+      level: `Good`,
+      filmLink: ``
     },
     link: `movie-page.html`,
     key: `fantastic-beasts-the-crimes-of-grindelwald`,
   }
 ];
 
-const movieCardClickHandle = () => {};
+const props = {
+  movies,
+  genresList: [`All genre`],
+  activeGenre: `All genre`,
+  isMoreBtnShow: true,
+  onCardClick: () => {},
+  onMoreBtnClick: () => {},
+  onGenreClick: () => {},
+};
 
 it(`Movie-list is render correctly`, () => {
   const tree = renderer
     .create(
         <MovieList
-          movies={movies}
-          movieCardClickHandle={movieCardClickHandle}
+          {...props}
         />, {
           createNodeMock: () => {
             return {};
