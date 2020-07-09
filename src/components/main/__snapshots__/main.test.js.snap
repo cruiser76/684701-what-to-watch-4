@@ -161,7 +161,7 @@ Array [
             className="catalog__genres-link"
             href="#"
           >
-            All genre
+            All genres
           </a>
         </li>
       </ul>
@@ -178,7 +178,6 @@ Array [
             className="small-movie-card__image"
           >
             <video
-              muted={true}
               poster="img/img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
               src=""
             />

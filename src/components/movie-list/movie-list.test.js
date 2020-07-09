@@ -25,8 +25,8 @@ const movies = [
 
 const props = {
   movies,
-  genresList: [`All genre`],
-  activeGenre: `All genre`,
+  genresList: [`All genres`],
+  activeGenre: `All genres`,
   isMoreBtnShow: true,
   onCardClick: () => {},
   onMoreBtnClick: () => {},

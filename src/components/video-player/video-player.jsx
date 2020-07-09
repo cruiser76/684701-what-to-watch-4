@@ -5,11 +5,10 @@ class VideoPlayer extends PureComponent {
   constructor(props) {
     super(props);
     this.videoRef = createRef();
-    this.isMount = false;
   }
 
-  componentDidUpdate() {
-    if (this.isMount) {
+  componentDidUpdate(prevProps) {
+    if (prevProps.isPlaying !== this.props.isPlaying) {
       const video = this.videoRef.current;
       if (this.props.isPlaying) {
         video.play();
@@ -21,6 +20,8 @@ class VideoPlayer extends PureComponent {
 
   componentDidMount() {
     this.isMount = true;
+    const video = this.videoRef.current;
+    video.muted = true;
   }
 
   render() {
@@ -30,7 +31,6 @@ class VideoPlayer extends PureComponent {
         <video
           poster={poster}
           src={src}
-          muted={true}
           ref={this.videoRef}
         />
       </div>

@@ -12,7 +12,7 @@ exports[`GenreList render correctly 1`] = `
       className="catalog__genres-link"
       href="#"
     >
-      All genre
+      All genres
     </a>
   </li>
   <li

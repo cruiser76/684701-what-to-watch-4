@@ -9,8 +9,6 @@ const MOVIES = [
   `Revenant`, `Johnny, English`, `Shutter Island`, `Pulp Fiction`, `No Country for Old Men`, `Snatch`, `Moonrise Kingdom`,
   `Seven Years in Tibet`, `Midnight Special`, `War of the Worlds`, `Dardjeeling Limited`, `Orlando`, `Mindhunter`];
 
-// MOVIES.length = 8;
-
 const doKeyStr = (el) => {
   return el.replace(/[^а-яёa-z\s]/giu, ``)
     .toLowerCase()

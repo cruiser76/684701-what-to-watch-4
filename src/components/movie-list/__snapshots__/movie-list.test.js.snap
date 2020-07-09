@@ -15,7 +15,6 @@ Array [
         className="small-movie-card__image"
       >
         <video
-          muted={true}
           poster="img/img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
           src=""
         />

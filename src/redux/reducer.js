@@ -3,7 +3,12 @@ import ActionType from './action-type.js';
 import {extend} from './../utils.js';
 import {NUMBER_FILMS_IN_LIST} from './../const.js';
 
-const genresList = [`All genres`, ...[...(new Set(Films.map((el) => el.brief.genre)))].sort()].slice(0, 9);
+const getGenresList = () => {
+  const allGenres = Films.map((el) => el.brief.genre);
+  const uniqueGenres = [...new Set(allGenres)].sort();
+  const resultGenresList = [`All genres`, ...uniqueGenres].slice(0, 10);
+  return resultGenresList;
+};
 
 const movies = Films.slice(0, NUMBER_FILMS_IN_LIST);
 
@@ -12,7 +17,7 @@ const initialState = {
   movies,
   promo: Promo,
   currentMovie: null,
-  genresList,
+  genresList: getGenresList(),
   activeGenre: `All genres`,
   numberFilmsInList: NUMBER_FILMS_IN_LIST,
   isMoreBtnShow: movies.length < Films.length

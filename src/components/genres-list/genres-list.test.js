@@ -7,9 +7,9 @@ it(`GenreList render correctly`, () => {
   const tree = renderer
     .create(
         <GenresList
-          genresList={[`All genre`, `Drama`]}
+          genresList={[`All genres`, `Drama`]}
           onGenreClick={() => {}}
-          activeGenre={`All genre`}
+          activeGenre={`All genres`}
         />
     ).toJSON();
 
