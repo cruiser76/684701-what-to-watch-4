@@ -9,13 +9,6 @@ export function openMoviePage(movie) {
   };
 }
 
-export function changeActiveGenre(genre) {
-  return {
-    type: ActionType.CHANGE_ACTIVE_GENRE,
-    genre
-  };
-}
-
 const getFilterMovies = (genre) => {
   if (genre !== `All genres`) {
     return Films.filter((el) => el.brief.genre === genre);
@@ -48,11 +41,5 @@ export function resetNumberMoviesInList() {
   return {
     type: ActionType.RESET_NUMBER_MOVIES_IN_LIST,
     payload: NUMBER_FILMS_IN_LIST
-  };
-}
-
-export function switchMoreBtnVisibility() {
-  return {
-    type: ActionType.SWITCH_MORE_BTN_VISIBILITY,
   };
 }

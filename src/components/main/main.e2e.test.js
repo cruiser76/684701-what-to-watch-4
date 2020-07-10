@@ -39,10 +39,10 @@ const movies = [
 
 const props = {
   movies,
+  moviesList: movies,
   promo,
   currentMovie: null,
   genresList: [`All genre`],
-  activeGenre: `All genre`,
   isMoreBtnShow: true,
   onMoreBtnClick: () => {},
   onGenreClick: () => {},

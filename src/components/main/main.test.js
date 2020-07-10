@@ -34,11 +34,10 @@ const movies = [
 
 const props = {
   movies,
+  moviesList: movies,
   promo,
   currentMovie: null,
   genresList: [`All genres`],
-  activeGenre: `All genres`,
-  isMoreBtnShow: true,
   onCardClick: () => {},
   onMoreBtnClick: () => {},
   onGenreClick: () => {},

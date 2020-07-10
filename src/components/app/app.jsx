@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import {connect} from 'react-redux';
 
-import {openMoviePage, changeActiveGenre, filterMovieList, changeNumberMovies, changeNumberMoviesInList,
-  resetNumberMoviesInList, switchMoreBtnVisibility} from './../../redux/actions.js';
+import {openMoviePage, filterMovieList, changeNumberMovies, changeNumberMoviesInList,
+  resetNumberMoviesInList} from './../../redux/actions.js';
 import Main from './../main/main.jsx';
 import MoviePage from './../movie-page/movie-page.jsx';
 
@@ -43,11 +43,10 @@ class App extends PureComponent {
 const mapStateToProps = (state) => {
   return {
     movies: state.movies,
+    moviesList: state.moviesList,
     promo: state.promo,
     currentMovie: state.currentMovie,
     genresList: state.genresList,
-    activeGenre: state.activeGenre,
-    isMoreBtnShow: state.isMoreBtnShow
   };
 };
 
@@ -57,17 +56,14 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(openMoviePage(movie));
     },
     onGenreClick: (genre) => {
-      dispatch(changeActiveGenre(genre));
       dispatch(filterMovieList(genre));
       dispatch(resetNumberMoviesInList());
       dispatch(changeNumberMovies());
-      dispatch(switchMoreBtnVisibility());
     },
     onMoreBtnClick: (evt) => {
       evt.preventDefault();
       dispatch(changeNumberMoviesInList());
       dispatch(changeNumberMovies());
-      dispatch(switchMoreBtnVisibility());
     }
   };
 };
