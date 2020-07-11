@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import {connect} from 'react-redux';
 
-import {openMoviePage, filterMovieList, changeNumberMovies, changeNumberMoviesInList,
-  resetNumberMoviesInList} from './../../redux/actions.js';
+import {openMoviePage, changeNumberMoviesInList, resetNumberMoviesInList, setActiveGenre} from './../../redux/actions.js';
 import Main from './../main/main.jsx';
 import MoviePage from './../movie-page/movie-page.jsx';
 
@@ -42,11 +41,12 @@ class App extends PureComponent {
 
 const mapStateToProps = (state) => {
   return {
-    movies: state.movies,
-    moviesList: state.moviesList,
+    movies: state.activeGenre === `All genres` ? state.movies : state.movies.filter((movie) => movie.brief.genre === state.activeGenre),
     promo: state.promo,
     currentMovie: state.currentMovie,
     genresList: state.genresList,
+    activeGenre: state.activeGenre,
+    numberMoviesInList: state.numberMoviesInList
   };
 };
 
@@ -56,14 +56,12 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(openMoviePage(movie));
     },
     onGenreClick: (genre) => {
-      dispatch(filterMovieList(genre));
       dispatch(resetNumberMoviesInList());
-      dispatch(changeNumberMovies());
+      dispatch(setActiveGenre(genre));
     },
     onMoreBtnClick: (evt) => {
       evt.preventDefault();
       dispatch(changeNumberMoviesInList());
-      dispatch(changeNumberMovies());
     }
   };
 };

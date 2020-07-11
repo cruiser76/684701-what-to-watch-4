@@ -10,20 +10,18 @@ const getGenresList = () => {
   return resultGenresList;
 };
 
-const movies = Films.slice(0, NUMBER_FILMS_IN_LIST);
-
 it(`Reducer without add parameters return initial state`, () => {
   expect(reducer(undefined, {})).toEqual({
-    moviesList: Films,
-    movies,
+    movies: Films,
     promo: Promo,
     currentMovie: null,
     genresList: getGenresList(),
-    numberFilmsInList: NUMBER_FILMS_IN_LIST,
+    numberMoviesInList: NUMBER_FILMS_IN_LIST,
+    activeGenre: getGenresList()[0]
   });
 });
 
-it(`Reducer sould change currmove`, () => {
+it(`Reducer sould change current move`, () => {
   expect(reducer({
     currentMovie: null
   }, {
@@ -31,6 +29,38 @@ it(`Reducer sould change currmove`, () => {
     movie: `id`
   })).toEqual({
     currentMovie: `id`
+  });
+});
+
+it(`Reducer sould change activeGenre`, () => {
+  expect(reducer({
+    activeGenre: `All genres`
+  }, {
+    type: ActionType.SET_ACTIVE_GENRE,
+    activeGenre: `Drama`
+  })).toEqual({
+    activeGenre: `Drama`
+  });
+});
+
+it(`Reducer sould change numberMoviesInList`, () => {
+  expect(reducer({
+    numberMoviesInList: 8
+  }, {
+    type: ActionType.CHANGE_NUMBER_MOVIES_IN_LIST,
+    payload: 8
+  })).toEqual({
+    numberMoviesInList: 16
+  });
+});
+
+it(`Reducer sould reset numberMoviesInList`, () => {
+  expect(reducer({
+    numberMoviesInList: 32
+  }, {
+    type: ActionType.RESET_NUMBER_MOVIES_IN_LIST,
+  })).toEqual({
+    numberMoviesInList: 8
   });
 });
 

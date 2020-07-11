@@ -6,7 +6,7 @@ import GenresList from './../genres-list/genres-list.jsx';
 import ShowMore from './../show-more/show-more.jsx';
 
 const Main = (props) => {
-  const {promo, movies, moviesList, onCardClick, genresList, onGenreClick, onMoreBtnClick} = props;
+  const {promo, movies, numberMoviesInList, onCardClick, genresList, onGenreClick, onMoreBtnClick, activeGenre} = props;
 
   return (
     <Fragment>
@@ -72,17 +72,18 @@ const Main = (props) => {
           <GenresList
             genresList={genresList}
             onGenreClick={onGenreClick}
+            activeGenre={activeGenre}
           />
 
           <MovieList
             movies={movies}
             onCardClick={onCardClick}
-
+            numberMoviesInList={numberMoviesInList}
           />
 
           <ShowMore
             onMoreBtnClick={onMoreBtnClick}
-            isMoreBtnShow={movies.length < moviesList.length}
+            isMoreBtnShow={numberMoviesInList < movies.length}
           />
 
         </section>
@@ -108,11 +109,12 @@ const Main = (props) => {
 Main.propTypes = {
   promo: PropTypes.object.isRequired,
   movies: PropTypes.array.isRequired,
-  moviesList: PropTypes.array.isRequired,
   onCardClick: PropTypes.func.isRequired,
   genresList: PropTypes.array.isRequired,
   onGenreClick: PropTypes.func.isRequired,
   onMoreBtnClick: PropTypes.func.isRequired,
+  numberMoviesInList: PropTypes.number.isRequired,
+  activeGenre: PropTypes.string.isRequired
 };
 
 export default Main;

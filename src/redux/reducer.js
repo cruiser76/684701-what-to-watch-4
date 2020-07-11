@@ -10,29 +10,25 @@ const getGenresList = () => {
   return resultGenresList;
 };
 
-const movies = Films.slice(0, NUMBER_FILMS_IN_LIST);
-
 const initialState = {
-  moviesList: Films,
-  movies,
+  movies: Films,
   promo: Promo,
   currentMovie: null,
   genresList: getGenresList(),
-  numberFilmsInList: NUMBER_FILMS_IN_LIST,
+  numberMoviesInList: NUMBER_FILMS_IN_LIST,
+  activeGenre: getGenresList()[0]
 };
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case ActionType.OPEN_MOVIE_PAGE:
       return extend(state, {currentMovie: action.movie});
-    case ActionType.FILTER_MOVIE_LIST:
-      return extend(state, {moviesList: action.movies});
-    case ActionType.CHANGE_NUMBER_MOVIES:
-      return extend(state, {movies: state.moviesList.slice(0, state.numberFilmsInList)});
     case ActionType.CHANGE_NUMBER_MOVIES_IN_LIST:
-      return extend(state, {numberFilmsInList: state.numberFilmsInList + action.payload});
+      return extend(state, {numberMoviesInList: state.numberMoviesInList + action.payload});
     case ActionType.RESET_NUMBER_MOVIES_IN_LIST:
-      return extend(state, {numberFilmsInList: action.payload});
+      return extend(state, {numberMoviesInList: NUMBER_FILMS_IN_LIST});
+    case ActionType.SET_ACTIVE_GENRE:
+      return extend(state, {activeGenre: action.activeGenre});
     default:
       return state;
   }

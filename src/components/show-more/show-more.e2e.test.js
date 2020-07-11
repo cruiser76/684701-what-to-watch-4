@@ -22,3 +22,16 @@ it(`Click on showmore-btn calls callback once`, () => {
   expect(onMoreBtnClick).toHaveBeenCalledTimes(1);
 
 });
+
+it(`Showmore-btn have visually-hidden class`, () => {
+  const onMoreBtnClick = jest.fn();
+
+  const moreBtn = shallow(
+      <ShowMore
+        onMoreBtnClick={onMoreBtnClick}
+        isMoreBtnShow={false}
+      />
+  );
+
+  expect(moreBtn.hasClass(`visually-hidden`)).toEqual(true);
+});

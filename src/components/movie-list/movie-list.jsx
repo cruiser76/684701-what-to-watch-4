@@ -29,12 +29,14 @@ export default class MovieList extends PureComponent {
     if (this.timerOnHoverID) {
       clearTimeout(this.timerOnHoverID);
     }
-    this.setState({hoverElementID: null});
+    if (this.state.hoverElementID) {
+      this.setState({hoverElementID: null});
+    }
   }
 
   render() {
-    const {movies, onCardClick} = this.props;
-    const movieList = movies.map((el) => {
+    const {movies, onCardClick, numberMoviesInList} = this.props;
+    const movieList = movies.slice(0, numberMoviesInList).map((el) => {
 
       return (
         <MovieCard
@@ -59,4 +61,5 @@ export default class MovieList extends PureComponent {
 MovieList.propTypes = {
   movies: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
   onCardClick: PropTypes.func.isRequired,
+  numberMoviesInList: PropTypes.number.isRequired
 };
