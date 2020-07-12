@@ -1,4 +1,4 @@
-import React, {PureComponent, Fragment} from 'react';
+import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
 import MovieCard from './../movie-card/movie-card.jsx';
@@ -29,12 +29,14 @@ export default class MovieList extends PureComponent {
     if (this.timerOnHoverID) {
       clearTimeout(this.timerOnHoverID);
     }
-    this.setState({hoverElementID: null});
+    if (this.state.hoverElementID) {
+      this.setState({hoverElementID: null});
+    }
   }
 
   render() {
-    const {movies, onCardClick, onMoreBtnClick, isMoreBtnShow} = this.props;
-    const movieList = movies.map((el) => {
+    const {movies, onCardClick, numberMoviesInList} = this.props;
+    const movieList = movies.slice(0, numberMoviesInList).map((el) => {
 
       return (
         <MovieCard
@@ -49,18 +51,9 @@ export default class MovieList extends PureComponent {
     });
 
     return (
-      <Fragment>
-        <div className="catalog__movies-list">
-          {movieList}
-        </div>
-        <div className={`catalog__more${isMoreBtnShow ? `` : ` visually-hidden`}`}>
-          <button
-            className={`catalog__button`}
-            type="button"
-            onClick={onMoreBtnClick}
-          >Show more</button>
-        </div>
-      </Fragment>
+      <div className="catalog__movies-list">
+        {movieList}
+      </div>
     );
   }
 }
@@ -68,6 +61,5 @@ export default class MovieList extends PureComponent {
 MovieList.propTypes = {
   movies: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
   onCardClick: PropTypes.func.isRequired,
-  onMoreBtnClick: PropTypes.func.isRequired,
-  isMoreBtnShow: PropTypes.bool.isRequired
+  numberMoviesInList: PropTypes.number.isRequired
 };

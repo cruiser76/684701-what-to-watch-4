@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const GenresList = (props) => {
-
-  const {genresList, activeGenre, onGenreClick} = props;
+  const {genresList, onGenreClick, activeGenre} = props;
 
   return (
     <ul className="catalog__genres-list">
@@ -14,7 +13,9 @@ const GenresList = (props) => {
             key={genre}
             onClick={(evt) => {
               evt.preventDefault();
-              onGenreClick(genre);
+              if (activeGenre !== genre) {
+                onGenreClick(genre);
+              }
             }}
           >
             <a href="#" className="catalog__genres-link">{genre}</a>
@@ -31,5 +32,5 @@ export default GenresList;
 GenresList.propTypes = {
   onGenreClick: PropTypes.func.isRequired,
   genresList: PropTypes.array.isRequired,
-  activeGenre: PropTypes.string.isRequired
+  activeGenre: PropTypes.string.isRequired,
 };

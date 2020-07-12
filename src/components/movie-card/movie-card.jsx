@@ -11,6 +11,10 @@ const MovieCard = (props) => {
     onCardMouseEnter(key);
   };
 
+  const handleCardMouseLeave = () => {
+    onCardMouseLeave(key);
+  };
+
   return (
     <article className="small-movie-card catalog__movies-card"
       onClick={(evt) => {
@@ -18,7 +22,7 @@ const MovieCard = (props) => {
         onCardClick();
       }}
       onMouseEnter={handleCardMouseEnter}
-      onMouseLeave={onCardMouseLeave}
+      onMouseLeave={handleCardMouseLeave}
     >
       <VideoPlayer
         src={brief.filmLink}

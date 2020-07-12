@@ -195,7 +195,7 @@ Array [
         </article>
       </div>
       <div
-        className="catalog__more"
+        className="catalog__more visually-hidden"
       >
         <button
           className="catalog__button"
