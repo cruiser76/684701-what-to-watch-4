@@ -33,6 +33,7 @@ const props = {
   onCardClick: () => {},
   onMoreBtnClick: () => {},
   onGenreClick: () => {},
+  renderActiveCard: () => {},
 };
 
 it(`Movie-list is render correctly`, () => {
