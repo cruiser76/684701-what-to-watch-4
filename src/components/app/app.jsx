@@ -6,6 +6,7 @@ import {connect} from 'react-redux';
 import {openMoviePage, changeNumberMoviesInList, resetNumberMoviesInList, setActiveGenre} from './../../redux/actions.js';
 import Main from './../main/main.jsx';
 import MoviePage from './../movie-page/movie-page.jsx';
+import MainVideoPlayer from './../main-video-player/main-video-player.jsx';
 
 
 class App extends PureComponent {
@@ -31,6 +32,11 @@ class App extends PureComponent {
           <Route exact path="/dev-component">
             <MoviePage
               movie={{}}
+            />
+          </Route>
+          <Route exact path="/dev-player">
+            <MainVideoPlayer
+              movie={this.props.movies[0]}
             />
           </Route>
         </Switch>

@@ -24,11 +24,13 @@ const MovieCard = (props) => {
       onMouseEnter={handleCardMouseEnter}
       onMouseLeave={handleCardMouseLeave}
     >
-      <VideoPlayer
-        src={brief.filmLink}
-        poster={`img/${img.src}`}
-        isPlaying={isPlaying}
-      />
+      <div className="small-movie-card__image">
+        <VideoPlayer
+          src={brief.filmLink}
+          poster={`img/${img.src}`}
+          isPlaying={isPlaying}
+        />
+      </div>
       <h3 className="small-movie-card__title">
         <a className="small-movie-card__link"
           href={link}
