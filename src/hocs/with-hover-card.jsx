@@ -1,7 +1,6 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
-import MovieCard from './../components/movie-card/movie-card.jsx';
 import {PLAYER_DELAY as delay} from './../const.js';
 
 const withHoverCard = (Component) => {
@@ -37,23 +36,13 @@ const withHoverCard = (Component) => {
     }
 
     render() {
-      const {movies, onCardClick, numberMoviesInList} = this.props;
-      const moviesList = movies.slice(0, numberMoviesInList);
+
       return (
         <Component
-          movies={moviesList}
-          renderActiveCard={(el) => {
-            return (
-              <MovieCard
-                key={el.key}
-                movie={el}
-                onCardMouseEnter={this.handleCardMouseEnter}
-                onCardMouseLeave={this.handleCardMouseLeave}
-                onCardClick={() => onCardClick(el)}
-                isPlaying={this.state.hoverElementID === el.key}
-              />
-            );
-          }}
+          {...this.props}
+          onCardMouseEnter={this.handleCardMouseEnter}
+          onCardMouseLeave={this.handleCardMouseLeave}
+          cardId={this.state.hoverElementID}
         />
       );
     }
