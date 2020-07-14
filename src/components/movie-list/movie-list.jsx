@@ -13,7 +13,7 @@ const MovieList = (props) => {
           <MovieCard
             key={film.key}
             onCardClick={onCardClick}
-            onCardMouseEnter={() => onCardMouseEnter(film.key)}
+            onCardMouseEnter={onCardMouseEnter}
             onCardMouseLeave={onCardMouseLeave}
             isPlaying={cardId === film.key}
             movie={film}

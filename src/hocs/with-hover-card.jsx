@@ -1,8 +1,8 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
-import {PLAYER_DELAY as delay} from './../const.js';
 
+// import {PLAYER_DELAY as delay} from './../const.js';
 const withHoverCard = (Component) => {
   class WithHoverCard extends PureComponent {
     constructor(props) {
@@ -11,25 +11,17 @@ const withHoverCard = (Component) => {
       this.state = {
         hoverElementID: null
       };
-      this.timerOnHoverID = null;
       this.handleCardMouseEnter = this.handleCardMouseEnter.bind(this);
       this.handleCardMouseLeave = this.handleCardMouseLeave.bind(this);
     }
 
-    componentWillUnmount() {
-      clearTimeout(this.timerOnHoverID);
-    }
-
     handleCardMouseEnter(target) {
       if (target) {
-        this.timerOnHoverID = setTimeout(() => this.setState({hoverElementID: target}), delay);
+        this.setState({hoverElementID: target});
       }
     }
 
     handleCardMouseLeave() {
-      if (this.timerOnHoverID) {
-        clearTimeout(this.timerOnHoverID);
-      }
       if (this.state.hoverElementID) {
         this.setState({hoverElementID: null});
       }

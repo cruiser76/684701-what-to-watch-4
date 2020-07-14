@@ -30,7 +30,7 @@ configure({
   adapter: new Adapter(),
 });
 
-it(`clicking on the movie card calls callback once`, () => {
+it(`interaction with movie card calls callbacks once`, () => {
   const onCardMouseEnter = jest.fn();
   const onCardMouseLeave = jest.fn();
   const onCardClick = jest.fn();
@@ -49,7 +49,9 @@ it(`clicking on the movie card calls callback once`, () => {
   expect(onCardClick).toHaveBeenCalledTimes(1);
 
   movieCardScreen.simulate(`mouseEnter`);
-  expect(onCardMouseEnter).toHaveBeenCalledTimes(1);
+  setTimeout(() => {
+    expect(onCardMouseEnter).toHaveBeenCalledTimes(1);
+  }, 1000);
 
   movieCardScreen.simulate(`mouseLeave`);
   expect(onCardMouseLeave).toHaveBeenCalledTimes(1);
