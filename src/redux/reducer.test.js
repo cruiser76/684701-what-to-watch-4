@@ -17,7 +17,8 @@ it(`Reducer without add parameters return initial state`, () => {
     currentMovie: null,
     genresList: getGenresList(),
     numberMoviesInList: NUMBER_FILMS_IN_LIST,
-    activeGenre: getGenresList()[0]
+    activeGenre: getGenresList()[0],
+    playingMovie: null
   });
 });
 

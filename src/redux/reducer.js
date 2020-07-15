@@ -16,7 +16,8 @@ const initialState = {
   currentMovie: null,
   genresList: getGenresList(),
   numberMoviesInList: NUMBER_FILMS_IN_LIST,
-  activeGenre: getGenresList()[0]
+  activeGenre: getGenresList()[0],
+  playingMovie: null
 };
 
 export default function reducer(state = initialState, action) {
@@ -29,6 +30,8 @@ export default function reducer(state = initialState, action) {
       return extend(state, {numberMoviesInList: NUMBER_FILMS_IN_LIST});
     case ActionType.SET_ACTIVE_GENRE:
       return extend(state, {activeGenre: action.activeGenre});
+    case ActionType.SET_PLAY_MOVIE:
+      return extend(state, {playingMovie: action.playingMovie});
     default:
       return state;
   }

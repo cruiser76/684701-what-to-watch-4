@@ -72,7 +72,15 @@ export default MOVIES.map((movie) => {
 });
 
 export const Promo = {
-  movieTitle: `The Grand Budapest Hotel`,
-  genre: `Drama`,
-  releaseDate: 2014
+  img: getImgSrc(`The Grand Budapest Hotel Poster`),
+  brief: {
+    title: `The Grand Budapest Hotel`,
+    genre: `Drama`,
+    year: 2014,
+    score: 8,
+    level: `not bad`,
+    filmLink: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`
+  },
+  link: `movie-page.html`,
+  key: doKeyStr(`The Grand Budapest Hotel`),
 };
