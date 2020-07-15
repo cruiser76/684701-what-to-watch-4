@@ -1,30 +1,22 @@
 import React, {PureComponent} from 'react';
-import PropTypes from 'prop-types';
 
-
-// import {PLAYER_DELAY as delay} from './../const.js';
 const withHoverCard = (Component) => {
   class WithHoverCard extends PureComponent {
     constructor(props) {
       super(props);
 
       this.state = {
-        hoverElementID: null
+        activeElement: null
       };
-      this.handleCardMouseEnter = this.handleCardMouseEnter.bind(this);
-      this.handleCardMouseLeave = this.handleCardMouseLeave.bind(this);
+      this.setActiveElement = this.setActiveElement.bind(this);
     }
 
-    handleCardMouseEnter(target) {
-      if (target) {
-        this.setState({hoverElementID: target});
-      }
+    setActiveElement(target) {
+      this.setState({activeElement: target});
     }
 
-    handleCardMouseLeave() {
-      if (this.state.hoverElementID) {
-        this.setState({hoverElementID: null});
-      }
+    componentWillUnmount() {
+      this.setState = () => {};
     }
 
     render() {
@@ -32,19 +24,12 @@ const withHoverCard = (Component) => {
       return (
         <Component
           {...this.props}
-          onCardMouseEnter={this.handleCardMouseEnter}
-          onCardMouseLeave={this.handleCardMouseLeave}
-          cardId={this.state.hoverElementID}
+          setActiveElement={this.setActiveElement}
+          activeElement={this.state.activeElement}
         />
       );
     }
   }
-
-  WithHoverCard.propTypes = {
-    movies: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
-    onCardClick: PropTypes.func.isRequired,
-    numberMoviesInList: PropTypes.number.isRequired
-  };
 
   return WithHoverCard;
 };

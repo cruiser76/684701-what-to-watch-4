@@ -31,16 +31,14 @@ configure({
 });
 
 it(`interaction with movie card calls callbacks once`, () => {
-  const onCardMouseEnter = jest.fn();
-  const onCardMouseLeave = jest.fn();
+  const setActiveElement = jest.fn();
   const onCardClick = jest.fn();
 
   const movieCardScreen = shallow(
       <MovieCard
         movie={film}
         onCardClick={onCardClick}
-        onCardMouseEnter={onCardMouseEnter}
-        onCardMouseLeave={onCardMouseLeave}
+        setActiveElement={setActiveElement}
         isPlaying={false}
       />
   );
@@ -50,9 +48,9 @@ it(`interaction with movie card calls callbacks once`, () => {
 
   movieCardScreen.simulate(`mouseEnter`);
   setTimeout(() => {
-    expect(onCardMouseEnter).toHaveBeenCalledTimes(1);
+    expect(setActiveElement).toHaveBeenCalledTimes(1);
   }, 1000);
 
   movieCardScreen.simulate(`mouseLeave`);
-  expect(onCardMouseLeave).toHaveBeenCalledTimes(1);
+  expect(setActiveElement).toHaveBeenCalledTimes(1);
 });

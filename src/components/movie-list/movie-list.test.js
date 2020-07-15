@@ -27,8 +27,7 @@ const props = {
   movies,
   numberMoviesInList: 8,
   onCardClick: () => {},
-  onCardMouseEnter: () => {},
-  onCardMouseLeave: () => {},
+  setActiveElement: () => {},
   cardId: ``
 };
 

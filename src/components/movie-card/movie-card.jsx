@@ -13,14 +13,16 @@ class MovieCard extends PureComponent {
   }
 
   _handleCardMouseEnter() {
-    this.timerOnHoverID = setTimeout(() => this.props.onCardMouseEnter(this.props.movie.key), delay);
+    this.timerOnHoverID = setTimeout(() => this.props.setActiveElement(this.props.movie.key), delay);
   }
 
   _handleCardMouseLeave() {
     if (this.timerOnHoverID) {
       clearTimeout(this.timerOnHoverID);
     }
-    this.props.onCardMouseLeave();
+    if (this.props.movie.key) {
+      this.props.setActiveElement(null);
+    }
   }
 
   render() {
@@ -30,7 +32,7 @@ class MovieCard extends PureComponent {
       <article className="small-movie-card catalog__movies-card"
         onClick={(evt) => {
           evt.preventDefault();
-          onCardClick();
+          onCardClick(movie);
         }}
         onMouseEnter={this._handleCardMouseEnter}
         onMouseLeave={this._handleCardMouseLeave}
@@ -52,8 +54,7 @@ class MovieCard extends PureComponent {
 
 MovieCard.propTypes = {
   movie: PropTypes.object.isRequired,
-  onCardMouseEnter: PropTypes.func.isRequired,
-  onCardMouseLeave: PropTypes.func.isRequired,
+  setActiveElement: PropTypes.func.isRequired,
   onCardClick: PropTypes.func.isRequired,
   isPlaying: PropTypes.bool.isRequired,
 };

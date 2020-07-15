@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import MovieCard from './../movie-card/movie-card.jsx';
 
 const MovieList = (props) => {
-  const {movies, onCardClick, numberMoviesInList, onCardMouseEnter, onCardMouseLeave, cardId} = props;
+  const {movies, onCardClick, numberMoviesInList, setActiveElement, activeElement} = props;
 
   return (
     <div className="catalog__movies-list">
@@ -13,9 +13,8 @@ const MovieList = (props) => {
           <MovieCard
             key={film.key}
             onCardClick={onCardClick}
-            onCardMouseEnter={onCardMouseEnter}
-            onCardMouseLeave={onCardMouseLeave}
-            isPlaying={cardId === film.key}
+            setActiveElement={setActiveElement}
+            isPlaying={activeElement === film.key}
             movie={film}
           />
         );
@@ -27,10 +26,9 @@ const MovieList = (props) => {
 MovieList.propTypes = {
   movies: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
   onCardClick: PropTypes.func.isRequired,
-  onCardMouseEnter: PropTypes.func.isRequired,
-  onCardMouseLeave: PropTypes.func.isRequired,
+  setActiveElement: PropTypes.func.isRequired,
   numberMoviesInList: PropTypes.number.isRequired,
-  cardId: PropTypes.any
+  activeElement: PropTypes.string
 };
 
 export default MovieList;
