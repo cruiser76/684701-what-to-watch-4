@@ -3,15 +3,6 @@ import renderer from 'react-test-renderer';
 
 import Main from './main.jsx';
 
-const movieTitle = `Fantastic Beasts: The Crimes of Grindelwald`;
-const genre = `Drama`;
-const releaseDate = 2014;
-const promo = {
-  movieTitle,
-  genre,
-  releaseDate
-};
-
 const movies = [
   {
     img: {
@@ -34,7 +25,7 @@ const movies = [
 
 const props = {
   movies,
-  promo,
+  promo: movies[0],
   currentMovie: null,
   genresList: [`All genres`],
   activeGenre: `All genres`,
@@ -42,6 +33,7 @@ const props = {
   onCardClick: () => {},
   onMoreBtnClick: () => {},
   onGenreClick: () => {},
+  onPlayButtonClick: () => {},
 };
 
 it(`Main should render Main`, () => {

@@ -1,10 +1,10 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
+import PropTypes from 'prop-types';
 
-import MoviePage from './movie-page.jsx';
+import withMainVideoPlayer from './with-main-video-player.jsx';
 
-const movie =
-{
+const movie = {
   img: {
     src: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
     posterSrc: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
@@ -21,14 +21,33 @@ const movie =
   key: `fantastic-beasts-the-crimes-of-grindelwald`,
 };
 
-it(`Movie Page is render correctly`, () => {
+const MockComponent = (props) => {
+  const {children} = props;
+
+  return (
+    <div>
+      {children}
+    </div>
+  );
+};
+
+MockComponent.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
+const MockComponentWrapped = withMainVideoPlayer(MockComponent);
+
+it(`withMainVideoPlayer component render correctly`, () => {
   const tree = renderer
     .create(
-        <MoviePage
+        (<MockComponentWrapped
           movie={movie}
-          onPlayButtonClick={()=>{}}
         />
-    ).toJSON();
+        ), {
+          createNodeMock() {
+            return {};
+          }
+        }).toJSON();
 
   expect(tree).toMatchSnapshot();
 });

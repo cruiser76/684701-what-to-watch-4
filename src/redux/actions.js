@@ -33,3 +33,10 @@ export function setActiveGenre(genre) {
     activeGenre: genre
   };
 }
+
+export function setPlayingMovie(movie) {
+  return {
+    type: ActionType.SET_PLAY_MOVIE,
+    playingMovie: movie
+  };
+}

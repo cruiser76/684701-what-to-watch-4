@@ -2,7 +2,8 @@ import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
 
 const MoviePage = (props) => {
-  const {brief, img} = props.movie;
+  const {movie, onPlayButtonClick} = props;
+  const {brief, img} = movie;
   const {posterSrc, bgSrc} = img;
   const {title, genre, year, score, level} = brief;
   return (
@@ -40,7 +41,11 @@ const MoviePage = (props) => {
               </p>
 
               <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button">
+                <button className="btn btn--play movie-card__button" type="button"
+                  onClick={() => {
+                    onPlayButtonClick(movie);
+                  }}
+                >
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
@@ -162,8 +167,9 @@ const MoviePage = (props) => {
   );
 };
 
-export default MoviePage;
-
 MoviePage.propTypes = {
+  onPlayButtonClick: PropTypes.func.isRequired,
   movie: PropTypes.object.isRequired
 };
+
+export default MoviePage;

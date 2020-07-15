@@ -1,8 +1,8 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
-import MovieCard from './../components/movie-card/movie-card.jsx';
-import {PLAYER_DELAY as delay} from './../const.js';
+import MovieCard from '../../components/movie-card/movie-card.jsx';
+import {PLAYER_DELAY as delay} from '../../const.js';
 
 const withHoverCard = (Component) => {
   class WithHoverCard extends PureComponent {
