@@ -22,8 +22,7 @@ const movie = {
 };
 
 const props = {
-  onCardMouseEnter: () => {},
-  onCardMouseLeave: () => {},
+  setActiveElement: () => {},
   onCardClick: () => {},
   isPlaying: false,
   movie

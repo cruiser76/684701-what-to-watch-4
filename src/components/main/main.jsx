@@ -4,6 +4,9 @@ import PropTypes from 'prop-types';
 import MovieList from './../movie-list/movie-list.jsx';
 import GenresList from './../genres-list/genres-list.jsx';
 import ShowMore from './../show-more/show-more.jsx';
+import withHoverCard from './../../hocs/with-hover-card.jsx';
+
+const MovieListWrapped = withHoverCard(MovieList);
 
 const Main = (props) => {
   const {promo, movies, numberMoviesInList, onCardClick, genresList, onGenreClick, onMoreBtnClick, activeGenre} = props;
@@ -75,7 +78,7 @@ const Main = (props) => {
             activeGenre={activeGenre}
           />
 
-          <MovieList
+          <MovieListWrapped
             movies={movies}
             onCardClick={onCardClick}
             numberMoviesInList={numberMoviesInList}

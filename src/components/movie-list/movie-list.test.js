@@ -25,14 +25,10 @@ const movies = [
 
 const props = {
   movies,
-  genresList: [`All genres`],
-  activeGenre: `All genres`,
-  moviesList: movies,
-  isMoreBtnShow: true,
   numberMoviesInList: 8,
   onCardClick: () => {},
-  onMoreBtnClick: () => {},
-  onGenreClick: () => {},
+  setActiveElement: () => {},
+  cardId: ``
 };
 
 it(`Movie-list is render correctly`, () => {
