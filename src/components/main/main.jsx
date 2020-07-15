@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import MovieList from './../movie-list/movie-list.jsx';
 import GenresList from './../genres-list/genres-list.jsx';
 import ShowMore from './../show-more/show-more.jsx';
-import withHoverCard from './../../hocs/with-hover-card/with-hover-card.jsx';
+import withActiveElement from './../../hocs/with-active-element/with-active-element.jsx';
 
-const MovieListWrapped = withHoverCard(MovieList);
+const MovieListWrapped = withActiveElement(MovieList);
 
 const Main = (props) => {
   const {promo, movies, numberMoviesInList, onCardClick, genresList, onGenreClick, onMoreBtnClick, activeGenre, onPlayButtonClick} = props;

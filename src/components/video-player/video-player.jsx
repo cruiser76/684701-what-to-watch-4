@@ -26,12 +26,13 @@ class VideoPlayer extends PureComponent {
   render() {
     const {src, poster} = this.props;
     return (
-
-      <video
-        poster={poster}
-        src={src}
-        ref={this.videoRef}
-      />
+      <div className="small-movie-card__image">
+        <video
+          poster={poster}
+          src={src}
+          ref={this.videoRef}
+        />
+      </div>
     );
   }
 }

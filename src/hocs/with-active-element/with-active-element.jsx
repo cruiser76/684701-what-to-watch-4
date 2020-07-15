@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react';
 
-const withHoverCard = (Component) => {
-  class WithHoverCard extends PureComponent {
+const withActiveElement = (Component) => {
+  class WithActiveElement extends PureComponent {
     constructor(props) {
       super(props);
 
@@ -31,7 +31,7 @@ const withHoverCard = (Component) => {
     }
   }
 
-  return WithHoverCard;
+  return WithActiveElement;
 };
 
-export default withHoverCard;
+export default withActiveElement;
