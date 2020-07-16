@@ -23,7 +23,7 @@ const movie =
 
 const props = {
   movie,
-  onPlayButtonClick: () => {},
+  switchPlayerPlayEvent: () => {},
   duration: 10,
   progress: 0,
   isPlaying: false,

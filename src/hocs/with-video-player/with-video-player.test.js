@@ -2,7 +2,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import PropTypes from 'prop-types';
 
-import withMainVideoPlayer from './with-main-video-player.jsx';
+import withVideoPlayer from './with-video-player.jsx';
 
 const movie = {
   img: {
@@ -35,7 +35,7 @@ MockComponent.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-const MockComponentWrapped = withMainVideoPlayer(MockComponent);
+const MockComponentWrapped = withVideoPlayer(MockComponent);
 
 it(`withMainVideoPlayer component render correctly`, () => {
   const tree = renderer

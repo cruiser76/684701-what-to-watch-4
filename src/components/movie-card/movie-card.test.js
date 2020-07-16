@@ -25,7 +25,9 @@ const props = {
   setActiveElement: () => {},
   onCardClick: () => {},
   isPlaying: false,
-  movie
+  movie,
+  children: <div></div>,
+  switchPlayerPlayEvent: () => {}
 };
 
 it(`movie card was render correctly`, () => {

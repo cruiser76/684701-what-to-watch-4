@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {configure, mount} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import withMainVideoPlayer from './with-main-video-player.jsx';
+import withVideoPlayer from './with-video-player.jsx';
 
 configure({adapter: new Adapter()});
 
@@ -25,10 +25,10 @@ const movie =
 };
 
 const Player = (props) => {
-  const {onPlayButtonClick, children} = props;
+  const {switchPlayerPlayEvent, children} = props;
   return (
     <div>
-      <button onClick={onPlayButtonClick} />
+      <button onClick={switchPlayerPlayEvent} />
       {children}
     </div>
   );
@@ -39,13 +39,13 @@ const mockEvent = {
 };
 
 Player.propTypes = {
-  onPlayButtonClick: PropTypes.func.isRequired,
+  switchPlayerPlayEvent: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
 };
 
 
 it(`Checks that HOC's callback switch (play)`, () => {
-  const PlayerWrapped = withMainVideoPlayer(Player);
+  const PlayerWrapped = withVideoPlayer(Player);
   const wrapper = mount(<PlayerWrapped
     movie={movie}
   />);

@@ -32,16 +32,16 @@ const props = {
 configure({adapter: new Adapter()});
 
 
-it(`clicking on bts in main player calls calbacks`, () => {
+it(`clicking on buttons in main player calls calbacks`, () => {
   const onExitButtonClick = jest.fn();
-  const onPlayButtonClick = jest.fn();
+  const switchPlayerPlayEvent = jest.fn();
   const onFullScreenButtonClick = jest.fn();
 
   const screen = shallow(
       <MainVideoPlayer
         {...props}
         onExitButtonClick={onExitButtonClick}
-        onPlayButtonClick={onPlayButtonClick}
+        switchPlayerPlayEvent={switchPlayerPlayEvent}
         onFullScreenButtonClick={onFullScreenButtonClick}
       />
   );
@@ -56,6 +56,6 @@ it(`clicking on bts in main player calls calbacks`, () => {
 
   const playBtn = screen.find(`.player__play`);
   playBtn.simulate(`click`);
-  expect(onPlayButtonClick).toHaveBeenCalledTimes(1);
+  expect(switchPlayerPlayEvent).toHaveBeenCalledTimes(1);
 
 });

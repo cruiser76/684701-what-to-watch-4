@@ -25,7 +25,6 @@ const withActiveElement = (Component) => {
         <Component
           {...this.props}
           setActiveElement={this.setActiveElement}
-          activeElement={this.state.activeElement}
         />
       );
     }

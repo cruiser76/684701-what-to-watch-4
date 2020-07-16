@@ -10,10 +10,7 @@ exports[`movie card was render correctly 1`] = `
   <div
     className="small-movie-card__image"
   >
-    <video
-      poster="img/img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
-      src=""
-    />
+    <div />
   </div>
   <h3
     className="small-movie-card__title"

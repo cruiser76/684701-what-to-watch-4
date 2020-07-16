@@ -1,29 +1,27 @@
 import React, {PureComponent, createRef} from 'react';
 import PropTypes from 'prop-types';
 
-const withMainVideoPlayer = (Component) => {
-  class WithMainVideoPlayer extends PureComponent {
+const withVideoPlayer = (Component) => {
+  class WithVideoPlayer extends PureComponent {
     constructor(props) {
       super(props);
 
       this.state = {
-        isPlaying: false,
+        isPlaying: this.props.isActive,
         progress: 0,
-        duration: 0
+        duration: 0,
       };
 
       this.videoRef = createRef();
-      this.handlePlayButtonClick = this.handlePlayButtonClick.bind(this);
+      this.handlePlayerPlayEvent = this.handlePlayerPlayEvent.bind(this);
       this.handleFullScreenButtonClick = this.handleFullScreenButtonClick.bind(this);
     }
 
-    handlePlayButtonClick(evt) {
-      evt.preventDefault();
-      this.setState({isPlaying: !this.state.isPlaying});
+    handlePlayerPlayEvent(isPlaying) {
+      this.setState({isPlaying});
     }
 
-    handleFullScreenButtonClick(evt) {
-      evt.preventDefault();
+    handleFullScreenButtonClick() {
       const video = this.videoRef.current;
       video.requestFullscreen();
     }
@@ -34,12 +32,18 @@ const withMainVideoPlayer = (Component) => {
 
       video.src = brief.filmLink;
       video.poster = `img/${img.posterSrc}`;
+      video.muted = this.props.muted;
 
       video.onplay = () => this.setState({isPlaying: true});
       video.onpause = () => this.setState({isPlaying: false});
       video.onended = () => this.setState({isPlaying: false});
 
-      video.onloadedmetadata = () => this.setState({duration: Math.floor(video.duration)});
+      video.onloadedmetadata = () => {
+        this.setState({duration: Math.floor(video.duration)});
+        if (this.state.isPlaying) {
+          video.play();
+        }
+      };
 
       video.ontimeupdate = () => {
         this.setState({progress: Math.floor(video.currentTime)});
@@ -51,6 +55,8 @@ const withMainVideoPlayer = (Component) => {
       if (prevState.isPlaying !== this.state.isPlaying) {
         if (this.state.isPlaying) {
           video.play();
+        } else if (this.props.rePlay) {
+          video.load();
         } else {
           video.pause();
         }
@@ -59,13 +65,15 @@ const withMainVideoPlayer = (Component) => {
 
     componentWillUnmount() {
       const video = this.videoRef.current;
+      video.src = ``;
 
       video.oncanplaythrough = null;
       video.onplay = null;
       video.onpause = null;
       video.ontimeupdate = null;
       video.onended = null;
-      video.src = ``;
+      video.onloadedmetadata = null;
+      this.setState = () => {};
     }
 
     render() {
@@ -74,7 +82,7 @@ const withMainVideoPlayer = (Component) => {
           {...this.props}
           progress={this.state.progress}
           isPlaying={this.state.isPlaying}
-          onPlayButtonClick={this.handlePlayButtonClick}
+          switchPlayerPlayEvent={this.handlePlayerPlayEvent}
           duration={this.state.duration}
           onFullScreenButtonClick={this.handleFullScreenButtonClick}
         >
@@ -87,11 +95,14 @@ const withMainVideoPlayer = (Component) => {
     }
   }
 
-  WithMainVideoPlayer.propTypes = {
-    movie: PropTypes.object.isRequired
+  WithVideoPlayer.propTypes = {
+    movie: PropTypes.object.isRequired,
+    rePlay: PropTypes.bool.isRequired,
+    muted: PropTypes.bool.isRequired,
+    isActive: PropTypes.bool.isRequired,
   };
 
-  return WithMainVideoPlayer;
+  return WithVideoPlayer;
 };
 
-export default withMainVideoPlayer;
+export default withVideoPlayer;

@@ -7,9 +7,9 @@ import {openMoviePage, changeNumberMoviesInList, resetNumberMoviesInList, setAct
 import Main from './../main/main.jsx';
 import MoviePage from './../movie-page/movie-page.jsx';
 import MainVideoPlayer from './../main-video-player/main-video-player.jsx';
-import withMainVideoPlayer from './../../hocs/with-main-video-payer/with-main-video-player.jsx';
+import withVideoPlayer from './../../hocs/with-video-player/with-video-player.jsx';
 
-const MainVideoPlayerWrapped = withMainVideoPlayer(MainVideoPlayer);
+const MainVideoPlayerWrapped = withVideoPlayer(MainVideoPlayer);
 
 
 class App extends PureComponent {
@@ -31,6 +31,9 @@ class App extends PureComponent {
         <MainVideoPlayerWrapped
           movie={playingMovie}
           onExitButtonClick={onExitButtonClick}
+          isActive={true}
+          rePlay={false}
+          muted={false}
         />
       );
     } else {
@@ -59,6 +62,10 @@ class App extends PureComponent {
           <Route exact path="/dev-player">
             <MainVideoPlayerWrapped
               movie={this.props.movies[0]}
+              onExitButtonClick={() =>{}}
+              isActive={true}
+              rePlay={false}
+              muted={false}
             />
           </Route>
         </Switch>

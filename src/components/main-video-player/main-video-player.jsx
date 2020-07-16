@@ -1,29 +1,16 @@
 import React, {PureComponent, Fragment} from 'react';
 import PropTypes from 'prop-types';
+import {getTimeFromSec} from './../../utils';
 
 class MainVideoPlayer extends PureComponent {
-
-  _formatTimeString(str) {
-    return str.length > 1 ? str : `0${str}`;
-  }
-
-  _getTimeFromSec(timeInSec) {
-    let hours = Math.trunc(timeInSec / 3600).toString();
-    let minutes = Math.trunc((timeInSec % 3600) / 60).toString();
-    let sec = (timeInSec % (3600 * 60)).toString();
-
-    return `${this._formatTimeString(hours)}:${this._formatTimeString(minutes)}:${this._formatTimeString(sec)}`;
-  }
-
   render() {
-    const {movie, children, onPlayButtonClick, duration, progress, isPlaying, onFullScreenButtonClick, onExitButtonClick} = this.props;
+    const {movie, children, switchPlayerPlayEvent, duration, progress, onFullScreenButtonClick, onExitButtonClick, isPlaying} = this.props;
     const {brief} = movie;
     const progressValue = (progress * 100 / (duration === 0 ? 1 : duration));
-    const timer = this._getTimeFromSec(duration - progress);
+    const timer = getTimeFromSec(duration - progress);
 
     return (
       <div className="player">
-
         <button
           type="button"
           className="player__exit"
@@ -43,7 +30,7 @@ class MainVideoPlayer extends PureComponent {
             <button
               type="button"
               className="player__play"
-              onClick={onPlayButtonClick}
+              onClick={() => switchPlayerPlayEvent(!isPlaying)}
             >
               {isPlaying ?
                 <Fragment>
@@ -80,7 +67,7 @@ class MainVideoPlayer extends PureComponent {
 MainVideoPlayer.propTypes = {
   movie: PropTypes.object.isRequired,
   children: PropTypes.node.isRequired,
-  onPlayButtonClick: PropTypes.func.isRequired,
+  switchPlayerPlayEvent: PropTypes.func.isRequired,
   duration: PropTypes.number.isRequired,
   progress: PropTypes.number.isRequired,
   isPlaying: PropTypes.bool.isRequired,
