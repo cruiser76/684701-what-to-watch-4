@@ -4,19 +4,6 @@ import Adapter from 'enzyme-adapter-react-16';
 
 import Main from './main.jsx';
 
-Enzyme.configure({
-  adapter: new Adapter(),
-});
-
-const movieTitle = `Fantastic Beasts: The Crimes of Grindelwald`;
-const genre = `Drama`;
-const releaseDate = 2014;
-const promo = {
-  movieTitle,
-  genre,
-  releaseDate
-};
-
 const movies = [
   {
     img: {
@@ -39,7 +26,7 @@ const movies = [
 
 const props = {
   movies,
-  promo,
+  promo: movies[0],
   currentMovie: null,
   genresList: [`All genre`],
   activeGenre: `All genres`,
@@ -47,7 +34,12 @@ const props = {
   isMoreBtnShow: true,
   onMoreBtnClick: () => {},
   onGenreClick: () => {},
+  onPlayButtonClick: () => {},
 };
+
+Enzyme.configure({
+  adapter: new Adapter(),
+});
 
 it(`Should movie-card-title click`, () => {
   const onCardClick = jest.fn();

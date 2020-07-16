@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react';
 
-const withHoverCard = (Component) => {
-  class WithHoverCard extends PureComponent {
+const withActiveElement = (Component) => {
+  class WithActiveElement extends PureComponent {
     constructor(props) {
       super(props);
 
@@ -25,13 +25,12 @@ const withHoverCard = (Component) => {
         <Component
           {...this.props}
           setActiveElement={this.setActiveElement}
-          activeElement={this.state.activeElement}
         />
       );
     }
   }
 
-  return WithHoverCard;
+  return WithActiveElement;
 };
 
-export default withHoverCard;
+export default withActiveElement;

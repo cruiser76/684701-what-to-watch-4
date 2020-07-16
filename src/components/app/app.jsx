@@ -3,9 +3,13 @@ import PropTypes from 'prop-types';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import {connect} from 'react-redux';
 
-import {openMoviePage, changeNumberMoviesInList, resetNumberMoviesInList, setActiveGenre} from './../../redux/actions.js';
+import {openMoviePage, changeNumberMoviesInList, resetNumberMoviesInList, setActiveGenre, setPlayingMovie} from './../../redux/actions.js';
 import Main from './../main/main.jsx';
 import MoviePage from './../movie-page/movie-page.jsx';
+import MainVideoPlayer from './../main-video-player/main-video-player.jsx';
+import withVideoPlayer from './../../hocs/with-video-player/with-video-player.jsx';
+
+const MainVideoPlayerWrapped = withVideoPlayer(MainVideoPlayer);
 
 
 class App extends PureComponent {
@@ -13,24 +17,55 @@ class App extends PureComponent {
     super(props);
   }
 
+  _renderVideoScreen() {
+    const {currentMovie, playingMovie, onPlayButtonClick, onExitButtonClick} = this.props;
+    if (currentMovie && !playingMovie) {
+      return (
+        <MoviePage
+          movie={currentMovie}
+          onPlayButtonClick={onPlayButtonClick}
+        />
+      );
+    } else if (playingMovie) {
+      return (
+        <MainVideoPlayerWrapped
+          movie={playingMovie}
+          onExitButtonClick={onExitButtonClick}
+          isActive={true}
+          rePlay={false}
+          muted={false}
+        />
+      );
+    } else {
+      return (
+        <Main
+          {...this.props}
+        />
+      );
+    }
+  }
+
   render() {
-    const {currentMovie} = this.props;
+
     return (
       <BrowserRouter>
         <Switch>
           <Route exact path="/">
-            {currentMovie ?
-              <MoviePage
-                movie={currentMovie}
-              /> :
-              <Main
-                {...this.props}
-              />
-            }
+            {this._renderVideoScreen()}
           </Route>
           <Route exact path="/dev-component">
             <MoviePage
               movie={{}}
+              onPlayButtonClick={() => {}}
+            />
+          </Route>
+          <Route exact path="/dev-player">
+            <MainVideoPlayerWrapped
+              movie={this.props.movies[0]}
+              onExitButtonClick={() =>{}}
+              isActive={true}
+              rePlay={false}
+              muted={false}
             />
           </Route>
         </Switch>
@@ -46,7 +81,8 @@ const mapStateToProps = (state) => {
     currentMovie: state.currentMovie,
     genresList: state.genresList,
     activeGenre: state.activeGenre,
-    numberMoviesInList: state.numberMoviesInList
+    numberMoviesInList: state.numberMoviesInList,
+    playingMovie: state.playingMovie
   };
 };
 
@@ -62,13 +98,23 @@ const mapDispatchToProps = (dispatch) => {
     onMoreBtnClick: (evt) => {
       evt.preventDefault();
       dispatch(changeNumberMoviesInList());
+    },
+    onPlayButtonClick: (movie) => {
+      dispatch(setPlayingMovie(movie));
+    },
+    onExitButtonClick: () => {
+      dispatch(setPlayingMovie(null));
     }
   };
 };
 
+App.propTypes = {
+  movies: PropTypes.array.isRequired,
+  currentMovie: PropTypes.object,
+  playingMovie: PropTypes.object,
+  onPlayButtonClick: PropTypes.func.isRequired,
+  onExitButtonClick: PropTypes.func.isRequired,
+};
+
 export {App};
 export default connect(mapStateToProps, mapDispatchToProps)(App);
-
-App.propTypes = {
-  currentMovie: PropTypes.object,
-};

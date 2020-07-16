@@ -1,7 +1,6 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
-import VideoPlayer from './../video-player/video-player.jsx';
 import {PLAYER_DELAY as delay} from './../../const.js';
 
 class MovieCard extends PureComponent {
@@ -13,21 +12,26 @@ class MovieCard extends PureComponent {
   }
 
   _handleCardMouseEnter() {
-    this.timerOnHoverID = setTimeout(() => this.props.setActiveElement(this.props.movie.key), delay);
+    this.timerOnHoverID = setTimeout(() => {
+      this.props.setActiveElement(this.props.movie.key);
+      this.props.switchPlayerPlayEvent(true);
+    }, delay);
   }
 
   _handleCardMouseLeave() {
+    const {setActiveElement} = this.props;
     if (this.timerOnHoverID) {
       clearTimeout(this.timerOnHoverID);
     }
     if (this.props.movie.key) {
-      this.props.setActiveElement(null);
+      setActiveElement(null);
+      this.props.switchPlayerPlayEvent(false);
     }
   }
 
   render() {
-    const {movie, onCardClick, isPlaying} = this.props;
-    const {img, brief, link} = movie;
+    const {movie, onCardClick, children} = this.props;
+    const {brief, link} = movie;
     return (
       <article className="small-movie-card catalog__movies-card"
         onClick={(evt) => {
@@ -37,11 +41,9 @@ class MovieCard extends PureComponent {
         onMouseEnter={this._handleCardMouseEnter}
         onMouseLeave={this._handleCardMouseLeave}
       >
-        <VideoPlayer
-          src={brief.filmLink}
-          poster={`img/${img.src}`}
-          isPlaying={isPlaying}
-        />
+        <div className="small-movie-card__image">
+          {children}
+        </div>
         <h3 className="small-movie-card__title">
           <a className="small-movie-card__link"
             href={link}
@@ -56,7 +58,8 @@ MovieCard.propTypes = {
   movie: PropTypes.object.isRequired,
   setActiveElement: PropTypes.func.isRequired,
   onCardClick: PropTypes.func.isRequired,
-  isPlaying: PropTypes.bool.isRequired,
+  switchPlayerPlayEvent: PropTypes.func.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 export default MovieCard;

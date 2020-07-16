@@ -2,20 +2,25 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import MovieCard from './../movie-card/movie-card.jsx';
+import withVideoPlayer from './../../hocs/with-video-player/with-video-player.jsx';
+
+const MovieCardWrapped = withVideoPlayer(MovieCard);
 
 const MovieList = (props) => {
-  const {movies, onCardClick, numberMoviesInList, setActiveElement, activeElement} = props;
+  const {movies, onCardClick, numberMoviesInList, setActiveElement} = props;
 
   return (
     <div className="catalog__movies-list">
       {movies.slice(0, numberMoviesInList).map((film) => {
         return (
-          <MovieCard
+          <MovieCardWrapped
             key={film.key}
             onCardClick={onCardClick}
             setActiveElement={setActiveElement}
-            isPlaying={activeElement === film.key}
+            isActive={false}
             movie={film}
+            muted={true}
+            rePlay={true}
           />
         );
       })}

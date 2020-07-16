@@ -40,7 +40,10 @@ it(`interaction with movie card calls callbacks once`, () => {
         onCardClick={onCardClick}
         setActiveElement={setActiveElement}
         isPlaying={false}
-      />
+        switchPlayerPlayEvent={()=>{}}
+      >
+         children={<div />}
+      </MovieCard>
   );
 
   movieCardScreen.simulate(`click`, mockEvent);

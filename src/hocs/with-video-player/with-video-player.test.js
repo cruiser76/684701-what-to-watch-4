@@ -1,7 +1,8 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
+import PropTypes from 'prop-types';
 
-import MovieCard from './movie-card.jsx';
+import withVideoPlayer from './with-video-player.jsx';
 
 const movie = {
   img: {
@@ -14,29 +15,36 @@ const movie = {
     genre: `Drama`,
     year: `2000`,
     score: `9`,
-    level: `Good`,
-    filmLink: ``
+    level: `Good`
   },
   link: `movie-page.html`,
   key: `fantastic-beasts-the-crimes-of-grindelwald`,
 };
 
-const props = {
-  setActiveElement: () => {},
-  onCardClick: () => {},
-  isPlaying: false,
-  movie,
-  children: <div></div>,
-  switchPlayerPlayEvent: () => {}
+const MockComponent = (props) => {
+  const {children} = props;
+
+  return (
+    <div>
+      {children}
+    </div>
+  );
 };
 
-it(`movie card was render correctly`, () => {
+MockComponent.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
+const MockComponentWrapped = withVideoPlayer(MockComponent);
+
+it(`withMainVideoPlayer component render correctly`, () => {
   const tree = renderer
     .create(
-        <MovieCard
-          {...props}
-        />, {
-          createNodeMock: () => {
+        (<MockComponentWrapped
+          movie={movie}
+        />
+        ), {
+          createNodeMock() {
             return {};
           }
         }).toJSON();

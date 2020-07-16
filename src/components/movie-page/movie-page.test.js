@@ -26,6 +26,7 @@ it(`Movie Page is render correctly`, () => {
     .create(
         <MoviePage
           movie={movie}
+          onPlayButtonClick={()=>{}}
         />
     ).toJSON();
 

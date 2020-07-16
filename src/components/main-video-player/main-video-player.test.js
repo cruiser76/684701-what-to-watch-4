@@ -1,9 +1,10 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import MovieCard from './movie-card.jsx';
+import MainVideoPlayer from './main-video-player.jsx';
 
-const movie = {
+const movie =
+{
   img: {
     src: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
     posterSrc: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
@@ -14,32 +15,33 @@ const movie = {
     genre: `Drama`,
     year: `2000`,
     score: `9`,
-    level: `Good`,
-    filmLink: ``
+    level: `Good`
   },
   link: `movie-page.html`,
   key: `fantastic-beasts-the-crimes-of-grindelwald`,
 };
 
 const props = {
-  setActiveElement: () => {},
-  onCardClick: () => {},
-  isPlaying: false,
   movie,
-  children: <div></div>,
-  switchPlayerPlayEvent: () => {}
+  switchPlayerPlayEvent: () => {},
+  duration: 10,
+  progress: 0,
+  isPlaying: false,
+  onFullScreenButtonClick: () => {},
+  onExitButtonClick: () => {},
+  children: <div />
 };
 
-it(`movie card was render correctly`, () => {
+it(`MainVideoPlayer sould render`, () => {
   const tree = renderer
-    .create(
-        <MovieCard
-          {...props}
-        />, {
-          createNodeMock: () => {
-            return {};
-          }
-        }).toJSON();
+    .create((
+      <MainVideoPlayer
+        {...props}
+      />), {
+      createNodeMock: () => {
+        return {};
+      }
+    }).toJSON();
 
   expect(tree).toMatchSnapshot();
 });

@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 import MovieList from './../movie-list/movie-list.jsx';
 import GenresList from './../genres-list/genres-list.jsx';
 import ShowMore from './../show-more/show-more.jsx';
-import withHoverCard from './../../hocs/with-hover-card.jsx';
+import withActiveElement from './../../hocs/with-active-element/with-active-element.jsx';
 
-const MovieListWrapped = withHoverCard(MovieList);
+const MovieListWrapped = withActiveElement(MovieList);
 
 const Main = (props) => {
-  const {promo, movies, numberMoviesInList, onCardClick, genresList, onGenreClick, onMoreBtnClick, activeGenre} = props;
+  const {promo, movies, numberMoviesInList, onCardClick, genresList, onGenreClick, onMoreBtnClick, activeGenre, onPlayButtonClick} = props;
 
   return (
     <Fragment>
@@ -39,18 +39,20 @@ const Main = (props) => {
         <div className="movie-card__wrap">
           <div className="movie-card__info">
             <div className="movie-card__poster">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+              <img src={`img/${promo.key}-poster.jpg`} alt={`${promo.brief.title} poster`} width="218" height="327" />
             </div>
 
             <div className="movie-card__desc">
-              <h2 className="movie-card__title">{promo.movieTitle}</h2>
+              <h2 className="movie-card__title">{promo.brief.title}</h2>
               <p className="movie-card__meta">
-                <span className="movie-card__genre">{promo.genre}</span>
-                <span className="movie-card__year">{promo.releaseDate}</span>
+                <span className="movie-card__genre">{promo.brief.genre}</span>
+                <span className="movie-card__year">{promo.brief.year}</span>
               </p>
 
               <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button">
+                <button className="btn btn--play movie-card__button" type="button"
+                  onClick={() => onPlayButtonClick(promo)}
+                >
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
@@ -117,7 +119,8 @@ Main.propTypes = {
   onGenreClick: PropTypes.func.isRequired,
   onMoreBtnClick: PropTypes.func.isRequired,
   numberMoviesInList: PropTypes.number.isRequired,
-  activeGenre: PropTypes.string.isRequired
+  activeGenre: PropTypes.string.isRequired,
+  onPlayButtonClick: PropTypes.func.isRequired,
 };
 
 export default Main;

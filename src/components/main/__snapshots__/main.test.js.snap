@@ -69,9 +69,9 @@ Array [
           className="movie-card__poster"
         >
           <img
-            alt="The Grand Budapest Hotel poster"
+            alt="Fantastic Beasts: The Crimes of Grindelwald poster"
             height="327"
-            src="img/the-grand-budapest-hotel-poster.jpg"
+            src="img/fantastic-beasts-the-crimes-of-grindelwald-poster.jpg"
             width="218"
           />
         </div>
@@ -94,7 +94,7 @@ Array [
             <span
               className="movie-card__year"
             >
-              2014
+              2000
             </span>
           </p>
           <div
@@ -102,6 +102,7 @@ Array [
           >
             <button
               className="btn btn--play movie-card__button"
+              onClick={[Function]}
               type="button"
             >
               <svg
@@ -178,8 +179,7 @@ Array [
             className="small-movie-card__image"
           >
             <video
-              poster="img/img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
-              src=""
+              className="player__video"
             />
           </div>
           <h3
