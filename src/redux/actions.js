@@ -55,5 +55,12 @@ export const Operation = {
       .then((response) => {
         dispatch(loadMovies(createFilmList(response.data)));
       });
+  },
+
+  loadPromo: () => (dispatch, getState, api) => {
+    return api.get(`/films`)
+      .then((response) => {
+        dispatch(loadMovies(createFilmList(response.data)));
+      });
   }
 };
