@@ -8,6 +8,7 @@ import Main from './../main/main.jsx';
 import MoviePage from './../movie-page/movie-page.jsx';
 import MainVideoPlayer from './../main-video-player/main-video-player.jsx';
 import withVideoPlayer from './../../hocs/with-video-player/with-video-player.jsx';
+import {getGenresList} from './../../utils.js';
 
 const MainVideoPlayerWrapped = withVideoPlayer(MainVideoPlayer);
 
@@ -79,7 +80,7 @@ const mapStateToProps = (state) => {
     movies: state.activeGenre === `All genres` ? state.movies : state.movies.filter((movie) => movie.brief.genre === state.activeGenre),
     promo: state.promo,
     currentMovie: state.currentMovie,
-    genresList: state.genresList,
+    genresList: getGenresList(state.movies),
     activeGenre: state.activeGenre,
     numberMoviesInList: state.numberMoviesInList,
     playingMovie: state.playingMovie

@@ -1,22 +1,15 @@
-import Films, {Promo} from './../mocks/films.js';
+import {Promo} from '../adapters/films.js';
 import ActionType from './action-type.js';
 import {extend} from './../utils.js';
 import {NUMBER_FILMS_IN_LIST} from './../const.js';
 
-const getGenresList = () => {
-  const allGenres = Films.map((el) => el.brief.genre);
-  const uniqueGenres = [...new Set(allGenres)].sort();
-  const resultGenresList = [`All genres`, ...uniqueGenres].slice(0, 10);
-  return resultGenresList;
-};
-
 const initialState = {
-  movies: Films,
+  movies: [],
   promo: Promo,
   currentMovie: null,
-  genresList: getGenresList(),
+  genresList: [],
   numberMoviesInList: NUMBER_FILMS_IN_LIST,
-  activeGenre: getGenresList()[0],
+  activeGenre: `All genres`,
   playingMovie: null
 };
 
@@ -32,6 +25,8 @@ export default function reducer(state = initialState, action) {
       return extend(state, {activeGenre: action.activeGenre});
     case ActionType.SET_PLAY_MOVIE:
       return extend(state, {playingMovie: action.playingMovie});
+    case ActionType.LOAD_MOVIES:
+      return extend(state, {movies: action.payload});
     default:
       return state;
   }

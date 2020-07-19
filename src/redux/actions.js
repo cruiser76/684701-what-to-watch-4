@@ -1,5 +1,6 @@
 import ActionType from './action-type.js';
 import {NUMBER_FILMS_IN_LIST} from './../const.js';
+import createFilmList from './../adapters/films.js';
 
 export function openMoviePage(movie) {
   return {
@@ -40,3 +41,19 @@ export function setPlayingMovie(movie) {
     playingMovie: movie
   };
 }
+
+export const loadMovies = (movies) => {
+  return {
+    type: ActionType.LOAD_MOVIES,
+    payload: movies
+  };
+};
+
+export const Operation = {
+  loadMovies: () => (dispatch, getState, api) => {
+    return api.get(`/films`)
+      .then((response) => {
+        dispatch(loadMovies(createFilmList(response.data)));
+      });
+  }
+};

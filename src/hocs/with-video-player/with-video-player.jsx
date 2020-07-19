@@ -30,8 +30,13 @@ const withVideoPlayer = (Component) => {
       const {brief, img} = this.props.movie;
       const video = this.videoRef.current;
 
-      video.src = brief.filmLink;
-      video.poster = `img/${img.posterSrc}`;
+      if (this.props.muted) {
+        video.src = brief.previewLink;
+      } else {
+        video.src = brief.filmLink;
+      }
+
+      video.poster = img.src;
       video.muted = this.props.muted;
 
       video.onplay = () => this.setState({isPlaying: true});
