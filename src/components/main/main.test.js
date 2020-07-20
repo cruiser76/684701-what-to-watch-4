@@ -34,6 +34,8 @@ const props = {
   onMoreBtnClick: () => {},
   onGenreClick: () => {},
   onPlayButtonClick: () => {},
+  isLoadingMovies: false,
+  isLoadingPromo: false
 };
 
 it(`Main should render Main`, () => {

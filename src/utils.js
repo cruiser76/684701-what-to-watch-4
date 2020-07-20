@@ -16,9 +16,19 @@ export const getTimeFromSec = (timeInSec) => {
   return `${formatTimeString(hours)}:${formatTimeString(minutes)}:${formatTimeString(sec)}`;
 };
 
-export const getGenresList = (Films) => {
-  const allGenres = Films.map((el) => el.brief.genre);
-  const uniqueGenres = [...new Set(allGenres)].sort();
-  const resultGenresList = [`All genres`, ...uniqueGenres].slice(0, 10);
-  return resultGenresList;
+export const getLevel = (score) => {
+  let level = ``;
+  if (score < 3) {
+    level = `Bad`;
+  } else if (score >= 3 && score < 5) {
+    level = `Normal`;
+  } else if (score >= 5 && score < 8) {
+    level = `Good`;
+  } else if (score >= 8 && score < 10) {
+    level = `Very Good`;
+  } else if (score === 10) {
+    level = `Awesome`;
+  }
+
+  return level;
 };

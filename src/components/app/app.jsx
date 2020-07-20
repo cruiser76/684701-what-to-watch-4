@@ -3,15 +3,17 @@ import PropTypes from 'prop-types';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import {connect} from 'react-redux';
 
-import {openMoviePage, changeNumberMoviesInList, resetNumberMoviesInList, setActiveGenre, setPlayingMovie} from './../../redux/actions.js';
+import {ActionCreator} from '../../reducer/condition/condition.js';
+import {getPromo} from './../../reducer/data/selector.js';
+import {getFilteredMovie, getActiveGenre} from './../../reducer/condition/selector.js';
 import Main from './../main/main.jsx';
 import MoviePage from './../movie-page/movie-page.jsx';
 import MainVideoPlayer from './../main-video-player/main-video-player.jsx';
 import withVideoPlayer from './../../hocs/with-video-player/with-video-player.jsx';
-import {getGenresList} from './../../utils.js';
+import {getGenresList} from './../../reducer/condition/selector.js';
+
 
 const MainVideoPlayerWrapped = withVideoPlayer(MainVideoPlayer);
-
 
 class App extends PureComponent {
   constructor(props) {
@@ -62,7 +64,7 @@ class App extends PureComponent {
           </Route>
           <Route exact path="/dev-player">
             <MainVideoPlayerWrapped
-              movie={this.props.movies[0]}
+              movie={{}}
               onExitButtonClick={() =>{}}
               isActive={true}
               rePlay={false}
@@ -75,46 +77,48 @@ class App extends PureComponent {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    movies: state.activeGenre === `All genres` ? state.movies : state.movies.filter((movie) => movie.brief.genre === state.activeGenre),
-    promo: state.promo,
-    currentMovie: state.currentMovie,
-    genresList: getGenresList(state.movies),
-    activeGenre: state.activeGenre,
-    numberMoviesInList: state.numberMoviesInList,
-    playingMovie: state.playingMovie
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onCardClick: (movie) => {
-      dispatch(openMoviePage(movie));
-    },
-    onGenreClick: (genre) => {
-      dispatch(resetNumberMoviesInList());
-      dispatch(setActiveGenre(genre));
-    },
-    onMoreBtnClick: (evt) => {
-      evt.preventDefault();
-      dispatch(changeNumberMoviesInList());
-    },
-    onPlayButtonClick: (movie) => {
-      dispatch(setPlayingMovie(movie));
-    },
-    onExitButtonClick: () => {
-      dispatch(setPlayingMovie(null));
-    }
-  };
-};
-
 App.propTypes = {
   movies: PropTypes.array.isRequired,
   currentMovie: PropTypes.object,
   playingMovie: PropTypes.object,
   onPlayButtonClick: PropTypes.func.isRequired,
   onExitButtonClick: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => {
+  return {
+    isLoadingMovies: state.DATA.isLoadingMovies,
+    isLoadingPromo: state.DATA.isLoadingPromo,
+    movies: getFilteredMovie(state),
+    promo: getPromo(state),
+    currentMovie: state.CONDITION.currentMovie,
+    genresList: getGenresList(state),
+    activeGenre: getActiveGenre(state),
+    numberMoviesInList: state.CONDITION.numberMoviesInList,
+    playingMovie: state.CONDITION.playingMovie
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onCardClick: (movie) => {
+      dispatch(ActionCreator.openMoviePage(movie));
+    },
+    onGenreClick: (genre) => {
+      dispatch(ActionCreator.resetNumberMoviesInList());
+      dispatch(ActionCreator.setActiveGenre(genre));
+    },
+    onMoreBtnClick: (evt) => {
+      evt.preventDefault();
+      dispatch(ActionCreator.changeNumberMoviesInList());
+    },
+    onPlayButtonClick: (movie) => {
+      dispatch(ActionCreator.setPlayingMovie(movie));
+    },
+    onExitButtonClick: () => {
+      dispatch(ActionCreator.setPlayingMovie(null));
+    }
+  };
 };
 
 export {App};

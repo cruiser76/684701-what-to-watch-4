@@ -15,7 +15,8 @@ const movie =
     genre: `Drama`,
     year: `2000`,
     score: `9`,
-    level: `Good`
+    level: `Good`,
+    starring: [``]
   },
   link: `movie-page.html`,
   key: `fantastic-beasts-the-crimes-of-grindelwald`,
