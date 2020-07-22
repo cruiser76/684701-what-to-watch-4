@@ -12,9 +12,9 @@ import SignIn from './../sign-in/sign-in.jsx';
 import {ActionCreator} from '../../reducer/condition/condition.js';
 import {Operation as UserOperation, AuthorizationStatus} from './../../reducer/user/user.js';
 
-import {getPromo, getIsLoadingMovies, getIsLoadingPromo} from './../../reducer/data/selector.js';
-import {getFilteredMovies, getActiveGenre, getCurrentMovie, getNumberMoviesInList, getPlayingMovie, getGenresList} from './../../reducer/condition/selector.js';
-import {getAuthorizationStatus} from '../../reducer/user/selectors.js';
+import {getPromo, getIsLoadingMovies, getIsLoadingPromo} from './../../reducer/data/selectors.js';
+import {getFilteredMovies, getActiveGenre, getCurrentMovie, getNumberMoviesInList, getPlayingMovie, getGenresList, getIsSignIn} from './../../reducer/condition/selectors.js';
+import {getAuthorizationStatus} from './../../reducer/user/selectors.js';
 
 
 const MainVideoPlayerWrapped = withVideoPlayer(MainVideoPlayer);
@@ -71,6 +71,7 @@ class App extends PureComponent {
             <MoviePage
               movie={{}}
               onPlayButtonClick={() => {}}
+              authorizationStatus={`NO_AUTH`}
             />
           </Route>
           <Route exact path="/dev-player">
@@ -116,7 +117,7 @@ const mapStateToProps = (state) => {
     numberMoviesInList: getNumberMoviesInList(state),
     playingMovie: getPlayingMovie(state),
     authorizationStatus: getAuthorizationStatus(state),
-    isSignIn: state.CONDITION.isSignIn
+    isSignIn: getIsSignIn(state)
   };
 };
 

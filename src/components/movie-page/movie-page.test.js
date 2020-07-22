@@ -28,6 +28,7 @@ it(`Movie Page is render correctly`, () => {
         <MoviePage
           movie={movie}
           onPlayButtonClick={()=>{}}
+          authorizationStatus={`NO_AUTH`}
         />
     ).toJSON();
 

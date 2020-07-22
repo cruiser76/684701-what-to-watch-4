@@ -36,6 +36,9 @@ const props = {
   playingMovie: movies[0],
   onPlayButtonClick: () => {},
   onExitButtonClick: () => {},
+  login: () => {},
+  authorizationStatus: `NO_AUTH`,
+  isSignIn: false
 };
 
 it(`App should render App`, () => {

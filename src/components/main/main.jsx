@@ -1,12 +1,14 @@
 import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
 
+import Header from '../header/header.jsx';
+import Footer from '../footer/footer.jsx';
 import MovieList from './../movie-list/movie-list.jsx';
 import GenresList from './../genres-list/genres-list.jsx';
 import ShowMore from './../show-more/show-more.jsx';
 import withActiveElement from './../../hocs/with-active-element/with-active-element.jsx';
 import {Loader} from './../loader/loader.jsx';
-import {AuthorizationStatus} from './../../reducer/user/user.js';
+
 
 const MovieListWrapped = withActiveElement(MovieList);
 
@@ -23,24 +25,10 @@ const Main = (props) => {
 
             <h1 className="visually-hidden">WTW</h1>
 
-            <header className="page-header movie-card__head">
-              <div className="logo">
-                <a className="logo__link">
-                  <span className="logo__letter logo__letter--1">W</span>
-                  <span className="logo__letter logo__letter--2">T</span>
-                  <span className="logo__letter logo__letter--3">W</span>
-                </a>
-              </div>
-
-              <div className="user-block">
-                {authorizationStatus === AuthorizationStatus.AUTH
-                  ? <div className="user-block__avatar">
-                    <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-                  </div>
-                  : <a href="sign-in.html" className="user-block__link">Sign in</a>
-                }
-              </div>
-            </header>
+            <Header
+              authorizationStatus={authorizationStatus}
+              href={`#`}
+            />
 
             <div className="movie-card__wrap">
               <div className="movie-card__info">
@@ -80,7 +68,6 @@ const Main = (props) => {
             </div >
           </Fragment>
         }
-
       </section >
 
       <div className="page-content">
@@ -104,22 +91,10 @@ const Main = (props) => {
             onMoreBtnClick={onMoreBtnClick}
             isMoreBtnShow={numberMoviesInList < movies.length}
           />
-
         </section>
 
-        <footer className="page-footer">
-          <div className="logo">
-            <a className="logo__link logo__link--light">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
+        <Footer />
 
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
       </div>
     </Fragment>
   );

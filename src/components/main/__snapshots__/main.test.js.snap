@@ -26,6 +26,7 @@ Array [
       >
         <a
           className="logo__link"
+          href="#"
         >
           <span
             className="logo__letter logo__letter--1"
@@ -116,6 +117,7 @@ Array [
             </button>
             <button
               className="btn btn--list movie-card__button"
+              onClick={[Function]}
               type="button"
             >
               <svg

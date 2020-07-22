@@ -36,7 +36,9 @@ const props = {
   onGenreClick: () => {},
   onPlayButtonClick: () => {},
   isLoadingMovies: false,
-  isLoadingPromo: false
+  isLoadingPromo: false,
+  onMyListClick: () => {},
+  authorizationStatus: `NO_AUTH`
 };
 
 Enzyme.configure({

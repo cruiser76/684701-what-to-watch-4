@@ -14,6 +14,10 @@ export const getPlayingMovie = (state) => {
   return state[NameSpace.CONDITION].playingMovie;
 };
 
+export const getIsSignIn = (state) => {
+  return state[NameSpace.CONDITION].isSignIn;
+};
+
 export const getMovies = (state) => {
   return state[NameSpace.DATA].movies.map((film) => adaptFilm(film));
 };
