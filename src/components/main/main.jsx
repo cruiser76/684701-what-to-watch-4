@@ -6,11 +6,12 @@ import GenresList from './../genres-list/genres-list.jsx';
 import ShowMore from './../show-more/show-more.jsx';
 import withActiveElement from './../../hocs/with-active-element/with-active-element.jsx';
 import {Loader} from './../loader/loader.jsx';
+import {AuthorizationStatus} from './../../reducer/user/user.js';
 
 const MovieListWrapped = withActiveElement(MovieList);
 
 const Main = (props) => {
-  const {promo, movies, numberMoviesInList, onCardClick, genresList, onGenreClick, onMoreBtnClick, activeGenre, onPlayButtonClick, isLoadingPromo, isLoadingMovies} = props;
+  const {promo, movies, numberMoviesInList, onCardClick, genresList, onGenreClick, onMoreBtnClick, activeGenre, onPlayButtonClick, isLoadingPromo, isLoadingMovies, authorizationStatus, onMyListClick} = props;
   return (
     <Fragment>
       <section className="movie-card">
@@ -32,9 +33,12 @@ const Main = (props) => {
               </div>
 
               <div className="user-block">
-                <div className="user-block__avatar">
-                  <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-                </div>
+                {authorizationStatus === AuthorizationStatus.AUTH
+                  ? <div className="user-block__avatar">
+                    <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
+                  </div>
+                  : <a href="sign-in.html" className="user-block__link">Sign in</a>
+                }
               </div>
             </header>
 
@@ -60,7 +64,11 @@ const Main = (props) => {
                       </svg>
                       <span>Play</span>
                     </button>
-                    <button className="btn btn--list movie-card__button" type="button">
+                    <button
+                      className="btn btn--list movie-card__button"
+                      type="button"
+                      onClick={onMyListClick}
+                    >
                       <svg viewBox="0 0 19 20" width="19" height="20">
                         <use xlinkHref="#add"></use>
                       </svg>
@@ -129,6 +137,8 @@ Main.propTypes = {
   onPlayButtonClick: PropTypes.func.isRequired,
   isLoadingPromo: PropTypes.bool.isRequired,
   isLoadingMovies: PropTypes.bool.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
+  onMyListClick: PropTypes.func.isRequired,
 };
 
 export default Main;

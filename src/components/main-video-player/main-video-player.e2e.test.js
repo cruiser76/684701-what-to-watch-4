@@ -26,7 +26,8 @@ const props = {
   duration: 10,
   progress: 0,
   isPlaying: false,
-  children: <div />
+  children: <div />,
+  onMyListClick: () => {},
 };
 
 configure({adapter: new Adapter()});

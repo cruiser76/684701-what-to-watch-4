@@ -3,14 +3,18 @@ import PropTypes from 'prop-types';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import {connect} from 'react-redux';
 
-import {ActionCreator} from '../../reducer/condition/condition.js';
-import {getPromo, getIsLoadingMovies, getIsLoadingPromo} from './../../reducer/data/selector.js';
-import {getFilteredMovies, getActiveGenre, getCurrentMovie, getNumberMoviesInList, getPlayingMovie} from './../../reducer/condition/selector.js';
 import Main from './../main/main.jsx';
 import MoviePage from './../movie-page/movie-page.jsx';
 import MainVideoPlayer from './../main-video-player/main-video-player.jsx';
 import withVideoPlayer from './../../hocs/with-video-player/with-video-player.jsx';
-import {getGenresList} from './../../reducer/condition/selector.js';
+import SignIn from './../sign-in/sign-in.jsx';
+
+import {ActionCreator} from '../../reducer/condition/condition.js';
+import {Operation as UserOperation, AuthorizationStatus} from './../../reducer/user/user.js';
+
+import {getPromo, getIsLoadingMovies, getIsLoadingPromo} from './../../reducer/data/selector.js';
+import {getFilteredMovies, getActiveGenre, getCurrentMovie, getNumberMoviesInList, getPlayingMovie, getGenresList} from './../../reducer/condition/selector.js';
+import {getAuthorizationStatus} from '../../reducer/user/selectors.js';
 
 
 const MainVideoPlayerWrapped = withVideoPlayer(MainVideoPlayer);
@@ -21,15 +25,16 @@ class App extends PureComponent {
   }
 
   _renderVideoScreen() {
-    const {currentMovie, playingMovie, onPlayButtonClick, onExitButtonClick} = this.props;
-    if (currentMovie && !playingMovie) {
+    const {currentMovie, playingMovie, onPlayButtonClick, onExitButtonClick, authorizationStatus, isSignIn, login} = this.props;
+    if (currentMovie && !playingMovie && !isSignIn) {
       return (
         <MoviePage
           movie={currentMovie}
           onPlayButtonClick={onPlayButtonClick}
+          authorizationStatus={authorizationStatus}
         />
       );
-    } else if (playingMovie) {
+    } else if (playingMovie && !isSignIn) {
       return (
         <MainVideoPlayerWrapped
           movie={playingMovie}
@@ -37,6 +42,12 @@ class App extends PureComponent {
           isActive={true}
           rePlay={false}
           muted={false}
+        />
+      );
+    } else if (isSignIn && (authorizationStatus === AuthorizationStatus.NO_AUTH)) {
+      return (
+        <SignIn
+          onSubmit={login}
         />
       );
     } else {
@@ -65,10 +76,15 @@ class App extends PureComponent {
           <Route exact path="/dev-player">
             <MainVideoPlayerWrapped
               movie={{}}
-              onExitButtonClick={() =>{}}
+              onExitButtonClick={() => {}}
               isActive={true}
               rePlay={false}
               muted={false}
+            />
+          </Route>
+          <Route exact path="/dev-sign">
+            <SignIn
+              onSubmit={()=> {}}
             />
           </Route>
         </Switch>
@@ -83,6 +99,9 @@ App.propTypes = {
   playingMovie: PropTypes.object,
   onPlayButtonClick: PropTypes.func.isRequired,
   onExitButtonClick: PropTypes.func.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
+  isSignIn: PropTypes.bool.isRequired,
+  login: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => {
@@ -96,6 +115,8 @@ const mapStateToProps = (state) => {
     activeGenre: getActiveGenre(state),
     numberMoviesInList: getNumberMoviesInList(state),
     playingMovie: getPlayingMovie(state),
+    authorizationStatus: getAuthorizationStatus(state),
+    isSignIn: state.CONDITION.isSignIn
   };
 };
 
@@ -117,6 +138,16 @@ const mapDispatchToProps = (dispatch) => {
     },
     onExitButtonClick: () => {
       dispatch(ActionCreator.setPlayingMovie(null));
+    },
+    login: (authData) => {
+      dispatch(UserOperation.login(authData));
+      dispatch(ActionCreator.setSignIn(false));
+    },
+    onMyListClick: () => {
+      dispatch(ActionCreator.setSignIn(true));
+    },
+    onAddReviewClick: () => {
+      dispatch(ActionCreator.setSignIn(true));
     }
   };
 };
