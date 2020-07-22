@@ -1,8 +1,9 @@
 import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
+import {AuthorizationStatus} from './../../reducer/user/user.js';
 
 const MoviePage = (props) => {
-  const {movie, onPlayButtonClick} = props;
+  const {movie, onPlayButtonClick, authorizationStatus} = props;
   const {brief, img} = movie;
   const {posterSrc, bgSrc} = img;
   const {title, genre, year, score, level, scoresCount} = brief;
@@ -28,9 +29,12 @@ const MoviePage = (props) => {
             </div>
 
             <div className="user-block">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-              </div>
+              {authorizationStatus === AuthorizationStatus.AUTH
+                ? <div className="user-block__avatar">
+                  <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
+                </div>
+                : <a href="sign-in.html" className="user-block__link">Sign in</a>
+              }
             </div>
           </header>
 

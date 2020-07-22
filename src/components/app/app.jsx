@@ -3,14 +3,19 @@ import PropTypes from 'prop-types';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import {connect} from 'react-redux';
 
-import {ActionCreator} from '../../reducer/condition/condition.js';
-import {getPromo} from './../../reducer/data/selector.js';
-import {getFilteredMovie, getActiveGenre} from './../../reducer/condition/selector.js';
 import Main from './../main/main.jsx';
 import MoviePage from './../movie-page/movie-page.jsx';
 import MainVideoPlayer from './../main-video-player/main-video-player.jsx';
 import withVideoPlayer from './../../hocs/with-video-player/with-video-player.jsx';
-import {getGenresList} from './../../reducer/condition/selector.js';
+
+import {ActionCreator} from '../../reducer/condition/condition.js';
+import {Operation as UserOperation} from './../../reducer/user/user.js';
+import {getPromo} from './../../reducer/data/selectors.js';
+import {getGenresList, getFilteredMovie, getActiveGenre} from './../../reducer/condition/selectors.js';
+import {getAuthorizationStatus} from '../../reducer/user/selectors.js';
+
+
+import SignIn from './../sign-in/sign-in.jsx';
 
 
 const MainVideoPlayerWrapped = withVideoPlayer(MainVideoPlayer);
@@ -21,15 +26,16 @@ class App extends PureComponent {
   }
 
   _renderVideoScreen() {
-    const {currentMovie, playingMovie, onPlayButtonClick, onExitButtonClick} = this.props;
-    if (currentMovie && !playingMovie) {
+    const {currentMovie, playingMovie, onPlayButtonClick, onExitButtonClick, authorizationStatus, isSignIn} = this.props;
+    if (currentMovie && !playingMovie && !isSignIn) {
       return (
         <MoviePage
           movie={currentMovie}
           onPlayButtonClick={onPlayButtonClick}
+          authorizationStatus={authorizationStatus}
         />
       );
-    } else if (playingMovie) {
+    } else if (playingMovie && !isSignIn) {
       return (
         <MainVideoPlayerWrapped
           movie={playingMovie}
@@ -37,6 +43,12 @@ class App extends PureComponent {
           isActive={true}
           rePlay={false}
           muted={false}
+        />
+      );
+    } else if (isSignIn) {
+      return (
+        <SignIn
+
         />
       );
     } else {
@@ -65,10 +77,14 @@ class App extends PureComponent {
           <Route exact path="/dev-player">
             <MainVideoPlayerWrapped
               movie={{}}
-              onExitButtonClick={() =>{}}
+              onExitButtonClick={() => {}}
               isActive={true}
               rePlay={false}
               muted={false}
+            />
+          </Route>
+          <Route exact path="/dev-sign">
+            <SignIn
             />
           </Route>
         </Switch>
@@ -95,7 +111,9 @@ const mapStateToProps = (state) => {
     genresList: getGenresList(state),
     activeGenre: getActiveGenre(state),
     numberMoviesInList: state.CONDITION.numberMoviesInList,
-    playingMovie: state.CONDITION.playingMovie
+    playingMovie: state.CONDITION.playingMovie,
+    authorizationStatus: getAuthorizationStatus(state),
+    isSignIn: state.CONDITION.isSignIn
   };
 };
 
@@ -117,6 +135,15 @@ const mapDispatchToProps = (dispatch) => {
     },
     onExitButtonClick: () => {
       dispatch(ActionCreator.setPlayingMovie(null));
+    },
+    login: (authData) => {
+      dispatch(UserOperation.login(authData));
+    },
+    onMyListClick: () => {
+      dispatch(ActionCreator.setSignIn);
+    },
+    onAddReviewClick: () => {
+      dispatch(ActionCreator.setSignIn);
     }
   };
 };
