@@ -8,6 +8,7 @@ import MoviePage from './../movie-page/movie-page.jsx';
 import MainVideoPlayer from './../main-video-player/main-video-player.jsx';
 import withVideoPlayer from './../../hocs/with-video-player/with-video-player.jsx';
 import SignIn from './../sign-in/sign-in.jsx';
+import Review from './../review/rewiew.jsx';
 
 import {ActionCreator} from '../../reducer/condition/condition.js';
 import {Operation as UserOperation, AuthorizationStatus} from './../../reducer/user/user.js';
@@ -15,7 +16,6 @@ import {Operation as UserOperation, AuthorizationStatus} from './../../reducer/u
 import {getPromo, getIsLoadingMovies, getIsLoadingPromo} from './../../reducer/data/selectors.js';
 import {getFilteredMovies, getActiveGenre, getCurrentMovie, getNumberMoviesInList, getPlayingMovie, getGenresList, getIsSignIn} from './../../reducer/condition/selectors.js';
 import {getAuthorizationStatus} from './../../reducer/user/selectors.js';
-
 
 const MainVideoPlayerWrapped = withVideoPlayer(MainVideoPlayer);
 
@@ -85,6 +85,11 @@ class App extends PureComponent {
           </Route>
           <Route exact path="/dev-sign">
             <SignIn
+              onSubmit={()=> {}}
+            />
+          </Route>
+          <Route exact path="/dev-review">
+            <Review
               onSubmit={()=> {}}
             />
           </Route>
