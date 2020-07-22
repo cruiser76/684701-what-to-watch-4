@@ -4,8 +4,8 @@ import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import {connect} from 'react-redux';
 
 import {ActionCreator} from '../../reducer/condition/condition.js';
-import {getPromo} from './../../reducer/data/selector.js';
-import {getFilteredMovie, getActiveGenre} from './../../reducer/condition/selector.js';
+import {getPromo, getIsLoadingMovies, getIsLoadingPromo} from './../../reducer/data/selector.js';
+import {getFilteredMovies, getActiveGenre, getCurrentMovie, getNumberMoviesInList, getPlayingMovie} from './../../reducer/condition/selector.js';
 import Main from './../main/main.jsx';
 import MoviePage from './../movie-page/movie-page.jsx';
 import MainVideoPlayer from './../main-video-player/main-video-player.jsx';
@@ -87,15 +87,15 @@ App.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
-    isLoadingMovies: state.DATA.isLoadingMovies,
-    isLoadingPromo: state.DATA.isLoadingPromo,
-    movies: getFilteredMovie(state),
+    isLoadingMovies: getIsLoadingMovies(state),
+    isLoadingPromo: getIsLoadingPromo(state),
+    movies: getFilteredMovies(state),
     promo: getPromo(state),
-    currentMovie: state.CONDITION.currentMovie,
+    currentMovie: getCurrentMovie(state),
     genresList: getGenresList(state),
     activeGenre: getActiveGenre(state),
-    numberMoviesInList: state.CONDITION.numberMoviesInList,
-    playingMovie: state.CONDITION.playingMovie
+    numberMoviesInList: getNumberMoviesInList(state),
+    playingMovie: getPlayingMovie(state),
   };
 };
 

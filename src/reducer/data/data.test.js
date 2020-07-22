@@ -32,7 +32,7 @@ it(`Reducer without add parameters return initial state`, () => {
 });
 
 
-it(`Reducer should update questions by load questions`, () => {
+it(`Reducer should update movies by load movies`, () => {
   expect(reducer({
     movies: [],
   }, {

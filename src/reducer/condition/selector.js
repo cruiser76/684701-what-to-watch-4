@@ -2,6 +2,18 @@ import NameSpace from './../name-space.js';
 import {createSelector} from 'reselect';
 import adaptFilm from './../../adapters/film.js';
 
+export const getCurrentMovie = (state) => {
+  return state[NameSpace.CONDITION].currentMovie;
+};
+
+export const getNumberMoviesInList = (state) => {
+  return state[NameSpace.CONDITION].numberMoviesInList;
+};
+
+export const getPlayingMovie = (state) => {
+  return state[NameSpace.CONDITION].playingMovie;
+};
+
 export const getMovies = (state) => {
   return state[NameSpace.DATA].movies.map((film) => adaptFilm(film));
 };
@@ -20,7 +32,7 @@ export const getActiveGenre = (state) => {
   return state[NameSpace.CONDITION].activeGenre;
 };
 
-export const getFilteredMovie = createSelector(
+export const getFilteredMovies = createSelector(
     getMovies,
     getActiveGenre,
     (movies, activeGenre) => {
