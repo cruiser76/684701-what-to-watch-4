@@ -8,7 +8,7 @@ import MoviePage from './../movie-page/movie-page.jsx';
 import MainVideoPlayer from './../main-video-player/main-video-player.jsx';
 import withVideoPlayer from './../../hocs/with-video-player/with-video-player.jsx';
 import SignIn from './../sign-in/sign-in.jsx';
-import Review from './../review/rewiew.jsx';
+import Review from '../review/review.jsx';
 
 import {ActionCreator} from '../../reducer/condition/condition.js';
 import {Operation as UserOperation, AuthorizationStatus} from './../../reducer/user/user.js';
