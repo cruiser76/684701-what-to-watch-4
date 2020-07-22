@@ -141,7 +141,9 @@ const MoviePage = (props) => {
           </div>
         </section>
 
-        <Footer />
+        <Footer
+          href={`#`}
+        />
       </div>
     </Fragment >
   );

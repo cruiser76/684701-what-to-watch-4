@@ -7,6 +7,7 @@ it(`Footer should render Footer`, () => {
   const tree = renderer
     .create(
         <Footer
+          href={`#`}
         />).toJSON();
 
   expect(tree).toMatchSnapshot();

@@ -15,6 +15,7 @@ const withVideoPlayer = (Component) => {
       this.videoRef = createRef();
       this.handlePlayerPlayEvent = this.handlePlayerPlayEvent.bind(this);
       this.handleFullScreenButtonClick = this.handleFullScreenButtonClick.bind(this);
+      this.setSrc = this.setSrc.bind(this);
     }
 
     handlePlayerPlayEvent(isPlaying) {
@@ -26,12 +27,20 @@ const withVideoPlayer = (Component) => {
       video.requestFullscreen();
     }
 
+    setSrc(video) {
+      const {brief} = this.props.movie;
+      video.src = brief.previewLink;
+    }
+
     componentDidMount() {
-      const {brief, img} = this.props.movie;
+      const {movie} = this.props;
+      const {brief, img} = movie;
       const video = this.videoRef.current;
 
       if (this.props.muted) {
-        video.src = brief.previewLink;
+        setTimeout(() => {
+          this.setSrc(video);
+        }, 300 * movie.key);
       } else {
         video.src = brief.filmLink;
       }

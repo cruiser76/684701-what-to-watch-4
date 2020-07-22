@@ -1,5 +1,6 @@
 import React, {PureComponent, createRef} from 'react';
 import PropTypes from 'prop-types';
+import {CURRENT_YEAR as year} from './../../const';
 
 class SignIn extends PureComponent {
   constructor(props) {
@@ -74,7 +75,7 @@ class SignIn extends PureComponent {
           </div>
 
           <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
+            <p>`© ${year} What to watch Ltd.`</p>
           </div>
         </footer>
       </div>

@@ -93,7 +93,9 @@ const Main = (props) => {
           />
         </section>
 
-        <Footer />
+        <Footer
+          href={`#`}
+        />
 
       </div>
     </Fragment>
