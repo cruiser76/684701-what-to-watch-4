@@ -35,6 +35,8 @@ const props = {
   onMoreBtnClick: () => {},
   onGenreClick: () => {},
   onPlayButtonClick: () => {},
+  isLoadingMovies: false,
+  isLoadingPromo: false
 };
 
 Enzyme.configure({

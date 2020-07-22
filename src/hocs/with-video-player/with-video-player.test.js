@@ -42,6 +42,9 @@ it(`withMainVideoPlayer component render correctly`, () => {
     .create(
         (<MockComponentWrapped
           movie={movie}
+          rePlay={false}
+          muted={true}
+          isActive={false}
         />
         ), {
           createNodeMock() {

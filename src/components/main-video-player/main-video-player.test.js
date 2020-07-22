@@ -29,7 +29,8 @@ const props = {
   isPlaying: false,
   onFullScreenButtonClick: () => {},
   onExitButtonClick: () => {},
-  children: <div />
+  children: <div />,
+  isLoadingMovies: false
 };
 
 it(`MainVideoPlayer sould render`, () => {

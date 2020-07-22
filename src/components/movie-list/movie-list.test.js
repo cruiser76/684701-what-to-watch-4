@@ -28,7 +28,8 @@ const props = {
   numberMoviesInList: 8,
   onCardClick: () => {},
   setActiveElement: () => {},
-  cardId: ``
+  cardId: ``,
+  isLoadingMovies: false
 };
 
 it(`Movie-list is render correctly`, () => {

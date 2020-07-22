@@ -48,6 +48,9 @@ it(`Checks that HOC's callback switch (play)`, () => {
   const PlayerWrapped = withVideoPlayer(Player);
   const wrapper = mount(<PlayerWrapped
     movie={movie}
+    rePlay={false}
+    muted={true}
+    isActive={false}
   />);
 
   const playEvent = jest.spyOn(window.HTMLMediaElement.prototype, `play`).mockImplementation(() => {});
