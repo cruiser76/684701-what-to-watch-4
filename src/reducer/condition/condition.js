@@ -62,6 +62,7 @@ const ActionCreator = {
   },
 
   setSignIn: () => {
+
     return {
       type: ActionType.IS_SIGNIN
     };
@@ -69,6 +70,7 @@ const ActionCreator = {
 };
 
 const reducer = (state = initialState, action) => {
+  console.log(action);
   switch (action.type) {
     case ActionType.OPEN_MOVIE_PAGE:
       return extend(state, {currentMovie: action.payload});
@@ -81,7 +83,6 @@ const reducer = (state = initialState, action) => {
     case ActionType.SET_PLAY_MOVIE:
       return extend(state, {playingMovie: action.payload});
     case ActionType.IS_SIGNIN:
-      console.log(`signin`);
       return extend(state, {isSignIn: true});
     default:
       return state;

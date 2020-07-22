@@ -140,10 +140,11 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(UserOperation.login(authData));
     },
     onMyListClick: () => {
-      dispatch(ActionCreator.setSignIn);
+      dispatch(ActionCreator.setSignIn());
     },
     onAddReviewClick: () => {
-      dispatch(ActionCreator.setSignIn);
+
+      dispatch(ActionCreator.setSignIn());
     }
   };
 };
