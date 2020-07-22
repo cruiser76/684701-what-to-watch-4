@@ -29,6 +29,7 @@ const props = {
   isPlaying: false,
   onFullScreenButtonClick: () => {},
   onExitButtonClick: () => {},
+  onMyListClick: () => {},
   children: <div />,
   isLoadingMovies: false
 };

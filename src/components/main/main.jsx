@@ -12,7 +12,6 @@ const MovieListWrapped = withActiveElement(MovieList);
 
 const Main = (props) => {
   const {promo, movies, numberMoviesInList, onCardClick, genresList, onGenreClick, onMoreBtnClick, activeGenre, onPlayButtonClick, isLoadingPromo, isLoadingMovies, authorizationStatus, onMyListClick} = props;
-  console.log(props);
   return (
     <Fragment>
       <section className="movie-card">
@@ -138,6 +137,8 @@ Main.propTypes = {
   onPlayButtonClick: PropTypes.func.isRequired,
   isLoadingPromo: PropTypes.bool.isRequired,
   isLoadingMovies: PropTypes.bool.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
+  onMyListClick: PropTypes.func.isRequired,
 };
 
 export default Main;

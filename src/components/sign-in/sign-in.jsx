@@ -1,4 +1,5 @@
 import React, {PureComponent, createRef} from 'react';
+import PropTypes from 'prop-types';
 
 class SignIn extends PureComponent {
   constructor(props) {
@@ -16,7 +17,7 @@ class SignIn extends PureComponent {
     evt.preventDefault();
 
     onSubmit({
-      login: this.loginRef.current.value,
+      login: this.mailRef.current.value,
       password: this.passwordRef.current.value,
     });
   }
@@ -82,7 +83,7 @@ class SignIn extends PureComponent {
 }
 
 SignIn.propTypes = {
-
+  onSubmit: PropTypes.func.isRequired
 };
 
 export default SignIn;

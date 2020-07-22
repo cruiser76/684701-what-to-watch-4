@@ -9,11 +9,10 @@ import MainVideoPlayer from './../main-video-player/main-video-player.jsx';
 import withVideoPlayer from './../../hocs/with-video-player/with-video-player.jsx';
 
 import {ActionCreator} from '../../reducer/condition/condition.js';
-import {Operation as UserOperation} from './../../reducer/user/user.js';
+import {Operation as UserOperation, AuthorizationStatus} from './../../reducer/user/user.js';
 import {getPromo} from './../../reducer/data/selectors.js';
 import {getGenresList, getFilteredMovie, getActiveGenre} from './../../reducer/condition/selectors.js';
 import {getAuthorizationStatus} from '../../reducer/user/selectors.js';
-
 
 import SignIn from './../sign-in/sign-in.jsx';
 
@@ -26,7 +25,7 @@ class App extends PureComponent {
   }
 
   _renderVideoScreen() {
-    const {currentMovie, playingMovie, onPlayButtonClick, onExitButtonClick, authorizationStatus, isSignIn} = this.props;
+    const {currentMovie, playingMovie, onPlayButtonClick, onExitButtonClick, authorizationStatus, isSignIn, login} = this.props;
     if (currentMovie && !playingMovie && !isSignIn) {
       return (
         <MoviePage
@@ -45,10 +44,10 @@ class App extends PureComponent {
           muted={false}
         />
       );
-    } else if (isSignIn) {
+    } else if (isSignIn && (authorizationStatus === AuthorizationStatus.NO_AUTH)) {
       return (
         <SignIn
-
+          onSubmit={login}
         />
       );
     } else {
@@ -85,6 +84,7 @@ class App extends PureComponent {
           </Route>
           <Route exact path="/dev-sign">
             <SignIn
+              onSubmit={()=> {}}
             />
           </Route>
         </Switch>
@@ -99,6 +99,9 @@ App.propTypes = {
   playingMovie: PropTypes.object,
   onPlayButtonClick: PropTypes.func.isRequired,
   onExitButtonClick: PropTypes.func.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
+  isSignIn: PropTypes.bool.isRequired,
+  login: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => {
@@ -138,13 +141,13 @@ const mapDispatchToProps = (dispatch) => {
     },
     login: (authData) => {
       dispatch(UserOperation.login(authData));
+      dispatch(ActionCreator.setSignIn(false));
     },
     onMyListClick: () => {
-      dispatch(ActionCreator.setSignIn());
+      dispatch(ActionCreator.setSignIn(true));
     },
     onAddReviewClick: () => {
-
-      dispatch(ActionCreator.setSignIn());
+      dispatch(ActionCreator.setSignIn(true));
     }
   };
 };

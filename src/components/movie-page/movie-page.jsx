@@ -173,7 +173,8 @@ const MoviePage = (props) => {
 
 MoviePage.propTypes = {
   onPlayButtonClick: PropTypes.func.isRequired,
-  movie: PropTypes.object.isRequired
+  movie: PropTypes.object.isRequired,
+  authorizationStatus: PropTypes.string.isRequired
 };
 
 export default MoviePage;
