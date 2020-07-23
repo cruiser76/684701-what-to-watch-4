@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {CURRENT_YEAR as year} from './../../const.js';
+import {getYear as year} from './../../utils.js';
 
 const Footer = (props) => {
   const {href} = props;

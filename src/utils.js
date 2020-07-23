@@ -32,3 +32,5 @@ export const getLevel = (score) => {
 
   return level;
 };
+
+export const getYear = new Date().getFullYear();
