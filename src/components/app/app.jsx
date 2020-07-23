@@ -60,7 +60,7 @@ class App extends PureComponent {
   }
 
   render() {
-
+    const {postReview} = this.props;
     return (
       <BrowserRouter>
         <Switch>
@@ -90,7 +90,8 @@ class App extends PureComponent {
           </Route>
           <Route exact path="/dev-review">
             <Review
-              onSubmit={()=> {}}
+              onSubmit={postReview}
+              movie={this.props.isLoadingMovies ? {} : this.props.movies[0]}
             />
           </Route>
         </Switch>
@@ -154,7 +155,11 @@ const mapDispatchToProps = (dispatch) => {
     },
     onAddReviewClick: () => {
       dispatch(ActionCreator.setSignIn(true));
+    },
+    postReview: (commentData) => {
+      console.log(commentData);
     }
+
   };
 };
 

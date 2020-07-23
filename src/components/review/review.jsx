@@ -1,4 +1,4 @@
-import React, {createRef, Fragment, PureComponent} from 'react';
+import React, {Fragment, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
 class Review extends PureComponent {
@@ -6,35 +6,23 @@ class Review extends PureComponent {
     super(props);
 
     this.state = {
-      numberStar: 3,
-      text: ``
+      rating: 3,
+      comment: ``,
     };
-
-    this.formRef = createRef();
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-
   handleSubmit(evt) {
-    evt.preventDefault();
-    const textArea = this.formRef.current.querySelector(`#review-text`);
-    const formData = new FormData(this.formRef.current);
-    const textareaLength = textArea.value.length;
-    const rating = formData.get(`rating`);
-    console.log(
-      `Данные формы`,
-      rating,
-      textareaLength
-    );
-    if (textareaLength === 0) {
 
-      // textArea.setCustomValidity("Отзыв не может быть пустым");
-    } else {
-      // textArea.setCustomValidity('');
-    }
+    evt.preventDefault();
+    this.props.onSubmit(this.state);
   }
 
   render() {
+    // || (this.state.comment.length < 50) || (this.state.comment.length > 400)
+    const {movie} = this.props;
+    const {brief, key} = movie;
+    const disabled = (!this.state.rating);
     return (
       <section className="movie-card movie-card--full" >
         <div className="movie-card__header">
@@ -79,7 +67,6 @@ class Review extends PureComponent {
         <div className="add-review">
           <form action="#"
             className="add-review__form"
-            ref={this.formRef}
             onSubmit={this.handleSubmit}
           >
             <div className="rating">
@@ -94,13 +81,12 @@ class Review extends PureComponent {
                       type="radio"
                       name="rating"
                       value={`${i + 1}`}
+                      checked={(i + 1) === this.state.rating}
                       onChange={(evt) => {
-                        const value = evt.target.checked;
+                        const value = +evt.target.value;
                         this.setState({
-                          numberStar: value
+                          rating: value
                         });
-                        console.log(this.state.numberStar);
-
                       }}
                     />
                     <label className="rating__label" htmlFor={`star-${i + 1}`}>{`Rating ${i + 1}`}</label>
@@ -112,20 +98,24 @@ class Review extends PureComponent {
             </div>
 
             <div className="add-review__text">
-              <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text" minLength='50' maxLength='400'></textarea>
+              <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text" minLength='50' maxLength='400'
+                value={this.state.comment}
+                onChange={(evt) => {
+                  this.setState({comment: evt.target.value});
+                }}
+              ></textarea>
               <div className="add-review__submit">
-                <button className="add-review__btn" type="submit">Post</button>
+                <button style={disabled ? {opacity: 0.5, cursor: `auto`} : {}} className="add-review__btn" type="submit" disabled={disabled}>Post</button>
               </div>
 
             </div>
           </form>
         </div>
-
       </section>
     );
   }
 
-};
+}
 
 Review.propTypes = {
 
