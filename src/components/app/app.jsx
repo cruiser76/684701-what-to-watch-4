@@ -8,13 +8,17 @@ import MoviePage from './../movie-page/movie-page.jsx';
 import MainVideoPlayer from './../main-video-player/main-video-player.jsx';
 import withVideoPlayer from './../../hocs/with-video-player/with-video-player.jsx';
 import SignIn from './../sign-in/sign-in.jsx';
+import Review from '../review/review.jsx';
+import {Loader} from '../loader/loader.jsx';
 
 import {ActionCreator} from '../../reducer/condition/condition.js';
 import {Operation as UserOperation, AuthorizationStatus} from './../../reducer/user/user.js';
+import {Operation as ReviewOperation} from './../../reducer/review/review.js';
 
 import {getPromo, getIsLoadingMovies, getIsLoadingPromo} from './../../reducer/data/selectors.js';
 import {getFilteredMovies, getActiveGenre, getCurrentMovie, getNumberMoviesInList, getPlayingMovie, getGenresList, getIsSignIn} from './../../reducer/condition/selectors.js';
 import {getAuthorizationStatus} from './../../reducer/user/selectors.js';
+import {getIsSavingReview} from './../../reducer/review/selectors.js';
 
 
 const MainVideoPlayerWrapped = withVideoPlayer(MainVideoPlayer);
@@ -60,7 +64,7 @@ class App extends PureComponent {
   }
 
   render() {
-
+    const {postReview} = this.props;
     return (
       <BrowserRouter>
         <Switch>
@@ -85,8 +89,17 @@ class App extends PureComponent {
           </Route>
           <Route exact path="/dev-sign">
             <SignIn
-              onSubmit={()=> {}}
+              onSubmit={() => {}}
             />
+          </Route>
+          <Route exact path="/dev-review">
+            {this.props.isLoadingMovies
+              ? <Loader />
+              : <Review
+                onSubmit={postReview}
+                movie={this.props.movies[0]}
+                isSavingReview={this.props.isSavingReview}
+              />}
           </Route>
         </Switch>
       </BrowserRouter>
@@ -117,7 +130,8 @@ const mapStateToProps = (state) => {
     numberMoviesInList: getNumberMoviesInList(state),
     playingMovie: getPlayingMovie(state),
     authorizationStatus: getAuthorizationStatus(state),
-    isSignIn: getIsSignIn(state)
+    isSignIn: getIsSignIn(state),
+    isSavingReview: getIsSavingReview(state),
   };
 };
 
@@ -149,7 +163,12 @@ const mapDispatchToProps = (dispatch) => {
     },
     onAddReviewClick: () => {
       dispatch(ActionCreator.setSignIn(true));
+    },
+    postReview: (commentData, movieId) => {
+      console.log(commentData, movieId);
+      dispatch(ReviewOperation.postReview(commentData, movieId));
     }
+
   };
 };
 
