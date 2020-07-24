@@ -7,6 +7,7 @@ const ActionType = {
   RESET_NUMBER_MOVIES_IN_LIST: `RESET_NUMBER_MOVIES_IN_LIST`,
   SET_ACTIVE_GENRE: `SET_ACTIVE_GENRE`,
   SET_PLAY_MOVIE: `SET_PLAY_MOVIE`,
+  IS_SIGNIN: `IS_SIGNIN`
 };
 
 const initialState = {
@@ -14,7 +15,8 @@ const initialState = {
   genresList: [],
   numberMoviesInList: NUMBER_FILMS_IN_LIST,
   activeGenre: `All genres`,
-  playingMovie: null
+  playingMovie: null,
+  isSignIn: false
 };
 
 const ActionCreator = {
@@ -58,6 +60,13 @@ const ActionCreator = {
       payload: movie
     };
   },
+
+  setSignIn: (isAuth) => {
+    return {
+      type: ActionType.IS_SIGNIN,
+      payload: isAuth
+    };
+  }
 };
 
 const reducer = (state = initialState, action) => {
@@ -72,6 +81,8 @@ const reducer = (state = initialState, action) => {
       return extend(state, {activeGenre: action.payload});
     case ActionType.SET_PLAY_MOVIE:
       return extend(state, {playingMovie: action.payload});
+    case ActionType.IS_SIGNIN:
+      return extend(state, {isSignIn: action.payload});
     default:
       return state;
   }

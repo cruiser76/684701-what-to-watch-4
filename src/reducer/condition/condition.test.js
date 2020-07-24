@@ -26,7 +26,8 @@ it(`Reducer without additional parameters should return initial state`, () => {
     genresList: [],
     numberMoviesInList: 8,
     activeGenre: `All genres`,
-    playingMovie: null
+    playingMovie: null,
+    isSignIn: false,
   });
 });
 
