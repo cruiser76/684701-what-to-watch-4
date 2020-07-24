@@ -1,50 +1,49 @@
 import {extend} from './../../utils';
 
 const SERVER_ROUTE = {
-  login: `/comments`
+  review: `/comments`
 };
 
 const ActionType = {
   POST_REVIEW: `POST_REVIEW`,
 };
 
+const initialState = {
+  isSavingReview: false
+};
+
 const ActionCreator = {
-  requireAuthorization: (status) => {
+  postReview: (status) => {
     return {
-      type: ActionType.REQUIRED_AUTHORIZATION,
-      payload: status,
+      type: ActionType.POST_REVIEW,
+      payload: status
     };
   },
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case ActionType.REQUIRED_AUTHORIZATION:
+    case ActionType.POST_REVIEW:
       return extend(state, {
-        authorizationStatus: action.payload,
+        isSavingReview: action.payload,
       });
   }
   return state;
 };
 
 const Operation = {
-  checkAuth: () => (dispatch, getState, api) => {
-    return api.get(SERVER_ROUTE.login)
-      .then(() => {
-        dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
-      })
-      .catch((err) => {
-        throw err;
-      });
-  },
-
-  login: (authData) => (dispatch, getState, api) => {
-    return api.post(SERVER_ROUTE.login, {
-      email: authData.login,
-      password: authData.password,
+  postReview: (commentData, movieId) => (dispatch, getState, api) => {
+    dispatch(ActionCreator.postReview(true));
+    return api.post(`${SERVER_ROUTE.review}/${movieId}`, {
+      rating: commentData.rating,
+      comment: commentData.comment,
     })
       .then(() => {
-        dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
+        dispatch(ActionCreator.postReview(false));
+      })
+      .catch((err) => {
+        dispatch(ActionCreator.postReview(false));
+        throw err;
       });
   },
 };
@@ -52,7 +51,6 @@ const Operation = {
 export {
   ActionCreator,
   ActionType,
-  AuthorizationStatus,
   Operation,
   reducer,
 };

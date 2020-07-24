@@ -6,28 +6,27 @@ class Review extends PureComponent {
     super(props);
 
     this.state = {
-      rating: 3,
+      rating: 0,
       comment: ``,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleSubmit(evt) {
-
     evt.preventDefault();
-    this.props.onSubmit(this.state);
+    this.props.onSubmit(this.state, this.props.movie.key);
   }
 
   render() {
     // || (this.state.comment.length < 50) || (this.state.comment.length > 400)
     const {movie} = this.props;
-    const {brief, key} = movie;
-    const disabled = (!this.state.rating);
+    const {brief, key, img} = movie;
+    const disabled = (!this.state.rating || this.props.isSavingReview);
     return (
       <section className="movie-card movie-card--full" >
         <div className="movie-card__header">
           <div className="movie-card__bg">
-            <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+            <img src={img.src} alt="The Grand Budapest Hotel" />
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
