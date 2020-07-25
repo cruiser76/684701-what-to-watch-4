@@ -5,7 +5,7 @@ class Review extends PureComponent {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleTextAreachange = this.handleTextAreachange.bind(this);
+    this.handleTextAreaChange = this.handleTextAreaChange.bind(this);
     this.handleRadioBtnClick = this.handleRadioBtnClick.bind(this);
   }
 
@@ -15,7 +15,7 @@ class Review extends PureComponent {
     onSubmit({rating, comment}, movie.key);
   }
 
-  handleTextAreachange(evt) {
+  handleTextAreaChange(evt) {
     this.props.setComment(evt.target.value);
   }
 
@@ -99,7 +99,7 @@ class Review extends PureComponent {
             <div className="add-review__text">
               <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text" minLength='50' maxLength='400'
                 value={this.props.comment}
-                onChange={this.handleTextAreachange}
+                onChange={this.handleTextAreaChange}
               ></textarea>
               <div className="add-review__submit">
                 <button style={disabled ? {opacity: 0.5, cursor: `auto`} : {}} className="add-review__btn" type="submit" disabled={disabled}>Post</button>

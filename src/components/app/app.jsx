@@ -66,7 +66,7 @@ class App extends PureComponent {
   }
 
   render() {
-    const {postReview} = this.props;
+    const {postReview, login} = this.props;
     return (
       <BrowserRouter>
         <Switch>
@@ -91,7 +91,7 @@ class App extends PureComponent {
           </Route>
           <Route exact path="/dev-sign">
             <SignIn
-              onSubmit={() => {}}
+              onSubmit={login}
             />
           </Route>
           <Route exact path="/dev-review">
