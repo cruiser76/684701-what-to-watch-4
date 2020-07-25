@@ -1,6 +1,7 @@
 import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
 
+import {AuthorizationStatus} from './../../reducer/user/user.js';
 import Header from '../header/header.jsx';
 import Footer from '../footer/footer.jsx';
 
@@ -51,7 +52,7 @@ const MoviePage = (props) => {
                   </svg>
                   <span>My list</span>
                 </button>
-                <a href="add-review.html" className="btn movie-card__button">Add review</a>
+                <a href="add-review.html" className={`btn movie-card__button${authorizationStatus === AuthorizationStatus.AUTH ? `` : ` visually-hidden`}`}>Add review</a>
               </div>
             </div>
           </div>

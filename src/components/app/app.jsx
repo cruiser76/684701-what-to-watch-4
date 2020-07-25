@@ -10,6 +10,7 @@ import withVideoPlayer from './../../hocs/with-video-player/with-video-player.js
 import SignIn from './../sign-in/sign-in.jsx';
 import Review from '../review/review.jsx';
 import {Loader} from '../loader/loader.jsx';
+import withReviewData from './../../hocs/with-review-data/with-review-data.jsx';
 
 import {ActionCreator} from '../../reducer/condition/condition.js';
 import {Operation as UserOperation, AuthorizationStatus} from './../../reducer/user/user.js';
@@ -22,6 +23,7 @@ import {getIsSavingReview} from './../../reducer/review/selectors.js';
 
 
 const MainVideoPlayerWrapped = withVideoPlayer(MainVideoPlayer);
+const ReviewWrapped = withReviewData(Review);
 
 class App extends PureComponent {
   constructor(props) {
@@ -95,7 +97,7 @@ class App extends PureComponent {
           <Route exact path="/dev-review">
             {this.props.isLoadingMovies
               ? <Loader />
-              : <Review
+              : <ReviewWrapped
                 onSubmit={postReview}
                 movie={this.props.movies[0]}
                 isSavingReview={this.props.isSavingReview}
@@ -115,7 +117,10 @@ App.propTypes = {
   onExitButtonClick: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
   isSignIn: PropTypes.bool.isRequired,
-  login: PropTypes.func.isRequired
+  login: PropTypes.func.isRequired,
+  postReview: PropTypes.func.isRequired,
+  isLoadingMovies: PropTypes.bool.isRequired,
+  isSavingReview: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => {
@@ -165,7 +170,6 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(ActionCreator.setSignIn(true));
     },
     postReview: (commentData, movieId) => {
-      console.log(commentData, movieId);
       dispatch(ReviewOperation.postReview(commentData, movieId));
     }
 

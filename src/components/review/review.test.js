@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import MainVideoPlayer from './main-video-player.jsx';
+import Review from './review.jsx';
 
 const movie =
 {
@@ -22,22 +22,19 @@ const movie =
 };
 
 const props = {
+  rating: 5,
+  comment: `Test`,
   movie,
-  switchPlayerPlayEvent: () => {},
-  duration: 10,
-  progress: 0,
-  isPlaying: false,
-  onFullScreenButtonClick: () => {},
-  onExitButtonClick: () => {},
-  onMyListClick: () => {},
-  children: <div />,
-  isLoadingMovies: false
+  onSubmit: () => {},
+  setComment: () => {},
+  isSavingReview: false,
+  onRadioBtnClick: () => {},
 };
 
-it(`MainVideoPlayer should render`, () => {
+it(`Review should render`, () => {
   const tree = renderer
     .create((
-      <MainVideoPlayer
+      <Review
         {...props}
       />), {
       createNodeMock: () => {
