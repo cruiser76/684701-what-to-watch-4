@@ -38,7 +38,10 @@ const props = {
   onExitButtonClick: () => {},
   login: () => {},
   authorizationStatus: `NO_AUTH`,
-  isSignIn: false
+  isSignIn: false,
+  postReview: () => {},
+  isLoadingMovies: false,
+  isSavingReview: false
 };
 
 it(`App should render App`, () => {

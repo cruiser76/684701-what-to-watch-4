@@ -123,7 +123,7 @@ Array [
               </span>
             </button>
             <a
-              className="btn movie-card__button"
+              className="btn movie-card__button visually-hidden"
               href="add-review.html"
             >
               Add review
