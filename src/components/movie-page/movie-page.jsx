@@ -1,5 +1,6 @@
 import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
+import {Link} from 'react-router-dom';
 
 import {AuthorizationStatus} from './../../reducer/user/user.js';
 import Header from '../header/header.jsx';
@@ -7,7 +8,7 @@ import Footer from '../footer/footer.jsx';
 
 const MoviePage = (props) => {
   const {movie, onPlayButtonClick, authorizationStatus} = props;
-  const {brief, img} = movie;
+  const {brief, img, key} = movie;
   const {posterSrc, bgSrc} = img;
   const {title, genre, year, score, level, scoresCount} = brief;
   const starring = brief.starring.join(`, `);
@@ -36,7 +37,7 @@ const MoviePage = (props) => {
               </p>
 
               <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button"
+                <Link to={`../player/${key}`} className="btn btn--play movie-card__button" type="button"
                   onClick={() => {
                     onPlayButtonClick(movie);
                   }}
@@ -45,7 +46,7 @@ const MoviePage = (props) => {
                     <use xlinkHref="#play-s"></use>
                   </svg>
                   <span>Play</span>
-                </button>
+                </Link>
                 <button className="btn btn--list movie-card__button" type="button">
                   <svg viewBox="0 0 19 20" width="19" height="20">
                     <use xlinkHref="#add"></use>

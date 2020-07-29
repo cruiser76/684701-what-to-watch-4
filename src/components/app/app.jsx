@@ -1,7 +1,8 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import {Route, Switch, Router} from 'react-router-dom';
 import {connect} from 'react-redux';
+import history from './../../history.js';
 
 import Main from './../main/main.jsx';
 import MoviePage from './../movie-page/movie-page.jsx';
@@ -20,7 +21,7 @@ import {getPromo, getIsLoadingMovies, getIsLoadingPromo} from './../../reducer/d
 import {getFilteredMovies, getActiveGenre, getCurrentMovie, getNumberMoviesInList, getPlayingMovie, getGenresList, getIsSignIn} from './../../reducer/condition/selectors.js';
 import {getAuthorizationStatus} from './../../reducer/user/selectors.js';
 import {getIsSavingReview} from './../../reducer/review/selectors.js';
-
+import {AppRoute} from './../../const.js';
 
 const MainVideoPlayerWrapped = withVideoPlayer(MainVideoPlayer);
 const ReviewWrapped = withReviewData(Review);
@@ -30,81 +31,65 @@ class App extends PureComponent {
     super(props);
   }
 
-  _renderVideoScreen() {
-    const {currentMovie, playingMovie, onPlayButtonClick, onExitButtonClick, authorizationStatus, isSignIn, login} = this.props;
-    if (currentMovie && !playingMovie && !isSignIn) {
-      return (
-        <MoviePage
-          movie={currentMovie}
-          onPlayButtonClick={onPlayButtonClick}
-          authorizationStatus={authorizationStatus}
-        />
-      );
-    } else if (playingMovie && !isSignIn) {
-      return (
-        <MainVideoPlayerWrapped
-          movie={playingMovie}
-          onExitButtonClick={onExitButtonClick}
-          isActive={true}
-          rePlay={false}
-          muted={false}
-        />
-      );
-    } else if (isSignIn && (authorizationStatus === AuthorizationStatus.NO_AUTH)) {
-      return (
-        <SignIn
-          onSubmit={login}
-        />
-      );
-    } else {
-      return (
-        <Main
-          {...this.props}
-        />
-      );
-    }
-  }
-
   render() {
-    const {postReview, login} = this.props;
+    const {postReview, login, authorizationStatus, onExitButtonClick, playingMovie, currentMovie, onPlayButtonClick} = this.props;
+
     return (
-      <BrowserRouter>
+      <Router history={history}>
         <Switch>
-          <Route exact path="/">
-            {this._renderVideoScreen()}
-          </Route>
-          <Route exact path="/dev-component">
-            <MoviePage
-              movie={{}}
-              onPlayButtonClick={() => {}}
-              authorizationStatus={`NO_AUTH`}
-            />
-          </Route>
-          <Route exact path="/dev-player">
-            <MainVideoPlayerWrapped
-              movie={{}}
-              onExitButtonClick={() => {}}
-              isActive={true}
-              rePlay={false}
-              muted={false}
-            />
-          </Route>
-          <Route exact path="/dev-sign">
-            <SignIn
-              onSubmit={login}
-            />
-          </Route>
-          <Route exact path="/dev-review">
-            {this.props.isLoadingMovies
-              ? <Loader />
-              : <ReviewWrapped
-                onSubmit={postReview}
-                movie={this.props.movies[0]}
-                isSavingReview={this.props.isSavingReview}
-              />}
-          </Route>
+          <Route
+            exact
+            path={AppRoute.MAIN}
+            render={() => {
+              return (
+                <Main
+                  {...this.props}
+                />
+              );
+            }}
+          />
+          <Route
+            exact
+            path={AppRoute.LOGIN}
+            render={() => {
+              return (
+                <SignIn
+                  onSubmit={login}
+                />
+              );
+            }}
+          />
+          <Route
+            exact
+            path={AppRoute.PLAYER}
+            render={() => {
+              return (
+                <MainVideoPlayerWrapped
+                  onSubmit={login}
+                  movie={playingMovie}
+                  onExitButtonClick={onExitButtonClick}
+                  isActive={true}
+                  rePlay={false}
+                  muted={false}
+                />
+              );
+            }}
+          />
+          <Route
+            exact
+            path={AppRoute.FILMS}
+            render={() => {
+              return (
+                <MoviePage
+                  movie={currentMovie}
+                  onPlayButtonClick={onPlayButtonClick}
+                  authorizationStatus={authorizationStatus}
+                />
+              );
+            }}
+          />
         </Switch>
-      </BrowserRouter>
+      </Router>
     );
   }
 }
@@ -171,6 +156,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     postReview: (commentData, movieId) => {
       dispatch(ReviewOperation.postReview(commentData, movieId));
+    },
+    onMyListClick: () => {
+      console.log(`click`);
     }
 
   };

@@ -2,6 +2,7 @@ import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
 import {PLAYER_DELAY as delay} from './../../const.js';
+import {Link} from 'react-router-dom';
 
 class MovieCard extends PureComponent {
   constructor(props) {
@@ -31,13 +32,9 @@ class MovieCard extends PureComponent {
 
   render() {
     const {movie, onCardClick, children} = this.props;
-    const {brief, link} = movie;
+    const {brief, key} = movie;
     return (
       <article className="small-movie-card catalog__movies-card"
-        onClick={(evt) => {
-          evt.preventDefault();
-          onCardClick(movie);
-        }}
         onMouseEnter={this._handleCardMouseEnter}
         onMouseLeave={this._handleCardMouseLeave}
       >
@@ -45,9 +42,13 @@ class MovieCard extends PureComponent {
           {children}
         </div>
         <h3 className="small-movie-card__title">
-          <a className="small-movie-card__link"
-            href={link}
-          >{brief.title}</a>
+          <Link
+            className="small-movie-card__link"
+            to={`films/${key}`}
+            onClick={() => {
+              onCardClick(movie);
+            }}
+          >{brief.title}</Link>
         </h3>
       </article>
     );
