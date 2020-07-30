@@ -1,8 +1,8 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
+import {Link} from 'react-router-dom';
 
 import {PLAYER_DELAY as delay} from './../../const.js';
-import {Link} from 'react-router-dom';
 
 class MovieCard extends PureComponent {
   constructor(props) {
@@ -31,24 +31,25 @@ class MovieCard extends PureComponent {
   }
 
   render() {
-    const {movie, onCardClick, children} = this.props;
+    const {movie, children} = this.props;
     const {brief, key} = movie;
     return (
       <article className="small-movie-card catalog__movies-card"
         onMouseEnter={this._handleCardMouseEnter}
         onMouseLeave={this._handleCardMouseLeave}
       >
-        <div className="small-movie-card__image">
-          {children}
-        </div>
+        <Link to={`films/${key}`} >
+          <div className="small-movie-card__image">
+            {children}
+          </div>
+        </Link>
         <h3 className="small-movie-card__title">
           <Link
-            className="small-movie-card__link"
             to={`films/${key}`}
-            onClick={() => {
-              onCardClick(movie);
-            }}
-          >{brief.title}</Link>
+            className="small-movie-card__link"
+          >
+            {brief.title}
+          </Link>
         </h3>
       </article>
     );
@@ -58,7 +59,6 @@ class MovieCard extends PureComponent {
 MovieCard.propTypes = {
   movie: PropTypes.object.isRequired,
   setActiveElement: PropTypes.func.isRequired,
-  onCardClick: PropTypes.func.isRequired,
   switchPlayerPlayEvent: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
 };

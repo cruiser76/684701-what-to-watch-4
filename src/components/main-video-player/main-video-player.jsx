@@ -1,10 +1,11 @@
 import React, {PureComponent, Fragment} from 'react';
 import PropTypes from 'prop-types';
 import {getTimeFromSec} from './../../utils';
+import history from './../../history.js';
 
 class MainVideoPlayer extends PureComponent {
   render() {
-    const {movie, children, switchPlayerPlayEvent, duration, progress, onFullScreenButtonClick, onExitButtonClick, isPlaying} = this.props;
+    const {movie, children, switchPlayerPlayEvent, duration, progress, onFullScreenButtonClick, isPlaying} = this.props;
     const {brief} = movie;
     const progressValue = (progress * 100 / (duration === 0 ? 1 : duration));
     const timer = getTimeFromSec(duration - progress);
@@ -14,7 +15,7 @@ class MainVideoPlayer extends PureComponent {
         <button
           type="button"
           className="player__exit"
-          onClick={onExitButtonClick}
+          onClick={history.goBack}
         >Exit</button>
         {children}
         <div className="player__controls">
@@ -72,7 +73,6 @@ MainVideoPlayer.propTypes = {
   progress: PropTypes.number.isRequired,
   isPlaying: PropTypes.bool.isRequired,
   onFullScreenButtonClick: PropTypes.func.isRequired,
-  onExitButtonClick: PropTypes.func.isRequired,
 };
 
 export default MainVideoPlayer;

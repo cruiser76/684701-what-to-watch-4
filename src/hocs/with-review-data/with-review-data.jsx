@@ -14,6 +14,7 @@ const withReviewData = (Component) => {
       this.handleRadioBtnClick = this.handleRadioBtnClick.bind(this);
       this.handleTextAreaChange = this.handleTextAreaChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
+      this.movie = this.props.movies.find((currrentMovie) => currrentMovie.key === +props.match.params.id);
     }
 
     handleRadioBtnClick(value) {
@@ -40,6 +41,7 @@ const withReviewData = (Component) => {
       return (
         <Component
           {...this.props}
+          movie={this.movie}
           onRadioBtnClick={this.handleRadioBtnClick}
           setComment={this.handleTextAreaChange}
           onSubmit={this.handleSubmit}
@@ -51,7 +53,9 @@ const withReviewData = (Component) => {
   }
 
   WithReviewData.propTypes = {
-    onSubmit: PropTypes.func.isRequired
+    onSubmit: PropTypes.func.isRequired,
+    match: PropTypes.object.isRequired,
+    movies: PropTypes.array.isRequired
   };
 
   return WithReviewData;

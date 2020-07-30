@@ -32,6 +32,13 @@ export const getGenresList = createSelector(
     }
 );
 
+export const getCurrentMovieByID = (state, id) => {
+  return adaptFilm(state[NameSpace.DATA].movies.find((currentMovie) => {
+    return currentMovie.id === +id;
+  })
+  );
+};
+
 export const getActiveGenre = (state) => {
   return state[NameSpace.CONDITION].activeGenre;
 };

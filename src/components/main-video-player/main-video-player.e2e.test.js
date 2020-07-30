@@ -34,22 +34,16 @@ configure({adapter: new Adapter()});
 
 
 it(`clicking on buttons in main player calls calbacks`, () => {
-  const onExitButtonClick = jest.fn();
   const switchPlayerPlayEvent = jest.fn();
   const onFullScreenButtonClick = jest.fn();
 
   const screen = shallow(
       <MainVideoPlayer
         {...props}
-        onExitButtonClick={onExitButtonClick}
         switchPlayerPlayEvent={switchPlayerPlayEvent}
         onFullScreenButtonClick={onFullScreenButtonClick}
       />
   );
-
-  const exitBtn = screen.find(`.player__exit`);
-  exitBtn.simulate(`click`);
-  expect(onExitButtonClick).toHaveBeenCalledTimes(1);
 
   const fullScreenBtn = screen.find(`.player__full-screen`);
   fullScreenBtn.simulate(`click`);

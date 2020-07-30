@@ -41,7 +41,9 @@ const props = {
   isSignIn: false,
   postReview: () => {},
   isLoadingMovies: false,
-  isSavingReview: false
+  isLoadingPromo: false,
+  isSavingReview: false,
+  onMyListClick: () => {}
 };
 
 it(`App should render App`, () => {

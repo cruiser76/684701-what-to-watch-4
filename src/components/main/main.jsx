@@ -21,7 +21,7 @@ const Main = (props) => {
         {isLoadingPromo ? <Loader /> :
           <Fragment>
             <div className="movie-card__bg">
-              <img src={promo.img.src} alt={promo.brief.title} />
+              <img src={promo.img.bgSrc} alt={promo.brief.title} />
             </div>
 
             <h1 className="visually-hidden">WTW</h1>
@@ -56,10 +56,10 @@ const Main = (props) => {
                     <button
                       className="btn btn--list movie-card__button"
                       type="button"
-                      onClick={onMyListClick}
+                      onClick={() => onMyListClick(promo.key, promo.isFavorite ? 0 : 1)}
                     >
                       <svg viewBox="0 0 19 20" width="19" height="20">
-                        <use xlinkHref="#add"></use>
+                        <use xlinkHref={promo.isFavorite ? `#in-list` : `#add`}></use>
                       </svg>
                       <span>My list</span>
                     </button>

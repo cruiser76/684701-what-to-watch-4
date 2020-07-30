@@ -16,6 +16,7 @@ const withVideoPlayer = (Component) => {
       this.handlePlayerPlayEvent = this.handlePlayerPlayEvent.bind(this);
       this.handleFullScreenButtonClick = this.handleFullScreenButtonClick.bind(this);
       this.setSrc = this.setSrc.bind(this);
+      this.movie = props.match ? this.props.movies.find((currrentMovie) => currrentMovie.key === +props.match.params.id) : this.props.movie;
     }
 
     handlePlayerPlayEvent(isPlaying) {
@@ -33,14 +34,14 @@ const withVideoPlayer = (Component) => {
     }
 
     componentDidMount() {
-      const {movie} = this.props;
-      const {brief, img} = movie;
+      // const {movie} = this.props;
+      const {brief, img, key} = this.movie;
       const video = this.videoRef.current;
 
       if (this.props.muted) {
         setTimeout(() => {
           this.setSrc(video);
-        }, 300 * movie.key);
+        }, 300 * key);
       } else {
         video.src = brief.filmLink;
       }
@@ -94,6 +95,7 @@ const withVideoPlayer = (Component) => {
       return (
         <Component
           {...this.props}
+          movie={this.movie}
           progress={this.state.progress}
           isPlaying={this.state.isPlaying}
           switchPlayerPlayEvent={this.handlePlayerPlayEvent}
@@ -111,9 +113,11 @@ const withVideoPlayer = (Component) => {
 
   WithVideoPlayer.propTypes = {
     movie: PropTypes.object.isRequired,
+    movies: PropTypes.array,
     rePlay: PropTypes.bool.isRequired,
     muted: PropTypes.bool.isRequired,
     isActive: PropTypes.bool.isRequired,
+    match: PropTypes.object,
   };
 
   return WithVideoPlayer;

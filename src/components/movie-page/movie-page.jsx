@@ -7,12 +7,12 @@ import Header from '../header/header.jsx';
 import Footer from '../footer/footer.jsx';
 
 const MoviePage = (props) => {
-  const {movie, onPlayButtonClick, authorizationStatus} = props;
-  const {brief, img, key} = movie;
+  const {authorizationStatus, movies, onMyListClick} = props;
+  const movie = movies.find((currrentMovie) => currrentMovie.key === +props.match.params.id);
+  const {brief, img, key, isFavorite} = movie;
   const {posterSrc, bgSrc} = img;
   const {title, genre, year, score, level, scoresCount} = brief;
   const starring = brief.starring.join(`, `);
-
   return (
     <Fragment>
       <section className="movie-card movie-card--full">
@@ -25,7 +25,6 @@ const MoviePage = (props) => {
 
           <Header
             authorizationStatus={authorizationStatus}
-            href={`main.html`}
           />
 
           <div className="movie-card__wrap">
@@ -37,23 +36,31 @@ const MoviePage = (props) => {
               </p>
 
               <div className="movie-card__buttons">
-                <Link to={`../player/${key}`} className="btn btn--play movie-card__button" type="button"
-                  onClick={() => {
-                    onPlayButtonClick(movie);
-                  }}
+                <Link
+                  to={`../player/${key}`}
+                  className="btn btn--play movie-card__button"
+                  type="button"
                 >
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
                   <span>Play</span>
                 </Link>
-                <button className="btn btn--list movie-card__button" type="button">
+                <button
+                  onClick={() => onMyListClick(key, isFavorite ? 0 : 1)}
+                  className="btn btn--list movie-card__button" type="button">
                   <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
+                    <use xlinkHref={isFavorite ? `#in-list` : `#add`}></use>
                   </svg>
                   <span>My list</span>
                 </button>
-                <a href="add-review.html" className={`btn movie-card__button${authorizationStatus === AuthorizationStatus.AUTH ? `` : ` visually-hidden`}`}>Add review</a>
+                <Link
+                  href="add-review.html"
+                  className={`btn movie-card__button${authorizationStatus === AuthorizationStatus.AUTH ? `` : ` visually-hidden`}`}
+                  to={`${key}/review`}
+                >
+                  Add review
+                </Link>
               </div>
             </div>
           </div>
@@ -107,7 +114,7 @@ const MoviePage = (props) => {
           <div className="catalog__movies-list">
             <article className="small-movie-card catalog__movies-card">
               <div className="small-movie-card__image">
-                <img src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg" alt="Fantastic Beasts: The Crimes of Grindelwald" width="280" height="175" />
+                <img src="/img/fantastic-beasts-the-crimes-of-grindelwald.jpg" alt="Fantastic Beasts: The Crimes of Grindelwald" width="280" height="175" />
               </div>
               <h3 className="small-movie-card__title">
                 <a className="small-movie-card__link" href="movie-page.html">Fantastic Beasts: The Crimes of Grindelwald</a>
@@ -116,7 +123,7 @@ const MoviePage = (props) => {
 
             <article className="small-movie-card catalog__movies-card">
               <div className="small-movie-card__image">
-                <img src="img/bohemian-rhapsody.jpg" alt="Bohemian Rhapsody" width="280" height="175" />
+                <img src="/img/bohemian-rhapsody.jpg" alt="Bohemian Rhapsody" width="280" height="175" />
               </div>
               <h3 className="small-movie-card__title">
                 <a className="small-movie-card__link" href="movie-page.html">Bohemian Rhapsody</a>
@@ -125,7 +132,7 @@ const MoviePage = (props) => {
 
             <article className="small-movie-card catalog__movies-card">
               <div className="small-movie-card__image">
-                <img src="img/macbeth.jpg" alt="Macbeth" width="280" height="175" />
+                <img src="/img/macbeth.jpg" alt="Macbeth" width="280" height="175" />
               </div>
               <h3 className="small-movie-card__title">
                 <a className="small-movie-card__link" href="movie-page.html">Macbeth</a>
@@ -134,7 +141,7 @@ const MoviePage = (props) => {
 
             <article className="small-movie-card catalog__movies-card">
               <div className="small-movie-card__image">
-                <img src="img/aviator.jpg" alt="Aviator" width="280" height="175" />
+                <img src="/img/aviator.jpg" alt="Aviator" width="280" height="175" />
               </div>
               <h3 className="small-movie-card__title">
                 <a className="small-movie-card__link" href="movie-page.html">Aviator</a>
@@ -153,8 +160,10 @@ const MoviePage = (props) => {
 
 MoviePage.propTypes = {
   onPlayButtonClick: PropTypes.func.isRequired,
-  movie: PropTypes.object.isRequired,
-  authorizationStatus: PropTypes.string.isRequired
+  authorizationStatus: PropTypes.string.isRequired,
+  movies: PropTypes.array.isRequired,
+  onMyListClick: PropTypes.func.isRequired,
+  match: PropTypes.object.isRequired
 };
 
 export default MoviePage;

@@ -14,7 +14,8 @@ import {Loader} from '../loader/loader.jsx';
 import withReviewData from './../../hocs/with-review-data/with-review-data.jsx';
 
 import {ActionCreator} from '../../reducer/condition/condition.js';
-import {Operation as UserOperation, AuthorizationStatus} from './../../reducer/user/user.js';
+import {Operation} from './../../reducer/data/data.js';
+import {Operation as UserOperation} from './../../reducer/user/user.js';
 import {Operation as ReviewOperation} from './../../reducer/review/review.js';
 
 import {getPromo, getIsLoadingMovies, getIsLoadingPromo} from './../../reducer/data/selectors.js';
@@ -32,7 +33,7 @@ class App extends PureComponent {
   }
 
   render() {
-    const {postReview, login, authorizationStatus, onExitButtonClick, playingMovie, currentMovie, onPlayButtonClick} = this.props;
+    const {postReview, login, authorizationStatus, onExitButtonClick, isSavingReview, onPlayButtonClick, isLoadingMovies, movies, onMyListClick} = this.props;
 
     return (
       <Router history={history}>
@@ -62,30 +63,47 @@ class App extends PureComponent {
           <Route
             exact
             path={AppRoute.PLAYER}
-            render={() => {
-              return (
+            render={(props) => {
+              return !isLoadingMovies ? (
                 <MainVideoPlayerWrapped
+                  {...props}
                   onSubmit={login}
-                  movie={playingMovie}
+                  movies={movies}
                   onExitButtonClick={onExitButtonClick}
-                  isActive={true}
+                  isActive={false}
                   rePlay={false}
                   muted={false}
                 />
-              );
+              ) : <Loader />;
             }}
           />
           <Route
             exact
             path={AppRoute.FILMS}
-            render={() => {
-              return (
+            render={(props) => {
+              return !isLoadingMovies ? (
                 <MoviePage
-                  movie={currentMovie}
-                  onPlayButtonClick={onPlayButtonClick}
+                  {...props}
+                  movies={movies}
                   authorizationStatus={authorizationStatus}
+                  onPlayButtonClick={onPlayButtonClick}
+                  onMyListClick={onMyListClick}
                 />
-              );
+              ) : <Loader />;
+            }}
+          />
+          <Route
+            exact
+            path={AppRoute.REVIEW}
+            render={(props) => {
+              return !isLoadingMovies ? (
+                <ReviewWrapped
+                  {...props}
+                  movies={movies}
+                  onSubmit={postReview}
+                  isSavingReview={isSavingReview}
+                />
+              ) : <Loader />;
             }}
           />
         </Switch>
@@ -106,6 +124,7 @@ App.propTypes = {
   postReview: PropTypes.func.isRequired,
   isLoadingMovies: PropTypes.bool.isRequired,
   isSavingReview: PropTypes.bool.isRequired,
+  onMyListClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {
@@ -148,17 +167,14 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(UserOperation.login(authData));
       dispatch(ActionCreator.setSignIn(false));
     },
-    onMyListClick: () => {
-      dispatch(ActionCreator.setSignIn(true));
-    },
     onAddReviewClick: () => {
       dispatch(ActionCreator.setSignIn(true));
     },
     postReview: (commentData, movieId) => {
       dispatch(ReviewOperation.postReview(commentData, movieId));
     },
-    onMyListClick: () => {
-      console.log(`click`);
+    onMyListClick: (id, status) => {
+      dispatch(Operation.setFavorite(id, status));
     }
 
   };

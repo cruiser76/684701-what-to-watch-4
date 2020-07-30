@@ -29,7 +29,8 @@ Array [
         >
           <a
             className="logo__link"
-            href="main.html"
+            href="/"
+            onClick={[Function]}
           >
             <span
               className="logo__letter logo__letter--1"
@@ -53,7 +54,8 @@ Array [
         >
           <a
             className="user-block__link"
-            href="sign-in.html"
+            href="/login"
+            onClick={[Function]}
           >
             Sign in
           </a>
@@ -87,8 +89,9 @@ Array [
           <div
             className="movie-card__buttons"
           >
-            <button
+            <a
               className="btn btn--play movie-card__button"
+              href="/player/1"
               onClick={[Function]}
               type="button"
             >
@@ -104,9 +107,10 @@ Array [
               <span>
                 Play
               </span>
-            </button>
+            </a>
             <button
               className="btn btn--list movie-card__button"
+              onClick={[Function]}
               type="button"
             >
               <svg
@@ -124,7 +128,8 @@ Array [
             </button>
             <a
               className="btn movie-card__button visually-hidden"
-              href="add-review.html"
+              href="/1/review"
+              onClick={[Function]}
             >
               Add review
             </a>
@@ -259,7 +264,7 @@ Array [
             <img
               alt="Fantastic Beasts: The Crimes of Grindelwald"
               height="175"
-              src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
+              src="/img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
               width="280"
             />
           </div>
@@ -283,7 +288,7 @@ Array [
             <img
               alt="Bohemian Rhapsody"
               height="175"
-              src="img/bohemian-rhapsody.jpg"
+              src="/img/bohemian-rhapsody.jpg"
               width="280"
             />
           </div>
@@ -307,7 +312,7 @@ Array [
             <img
               alt="Macbeth"
               height="175"
-              src="img/macbeth.jpg"
+              src="/img/macbeth.jpg"
               width="280"
             />
           </div>
@@ -331,7 +336,7 @@ Array [
             <img
               alt="Aviator"
               height="175"
-              src="img/aviator.jpg"
+              src="/img/aviator.jpg"
               width="280"
             />
           </div>

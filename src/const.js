@@ -5,5 +5,12 @@ export const AppRoute = {
   MAIN: `/`,
   LOGIN: `/login`,
   PLAYER: `/player/:id`,
-  FILMS: `/films/:id`
+  FILMS: `/films/:id`,
+  REVIEW: `/films/:id/review`
+};
+
+export const Url = {
+  GET_MOVIES: `/films`,
+  GET_PROMO: `/films/promo`,
+  POST_IS_FAVORITE: `/favorite`
 };
