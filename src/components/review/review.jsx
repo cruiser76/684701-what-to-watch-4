@@ -31,7 +31,7 @@ class Review extends PureComponent {
       <section className="movie-card movie-card--full" >
         <div className="movie-card__header">
           <div className="movie-card__bg">
-            <img src={img.src} alt={brief.title} />
+            <img src={img.bgSrc} alt={brief.title} />
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -58,7 +58,7 @@ class Review extends PureComponent {
 
             <div className="user-block">
               <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
+                <img src="/img/avatar.jpg" alt="User avatar" width="63" height="63" />
               </div>
             </div>
           </header>

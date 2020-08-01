@@ -1,5 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
+import {Router} from 'react-router-dom';
+import history from './../../history.js';
 
 import MovieCard from './movie-card.jsx';
 
@@ -33,9 +35,12 @@ const props = {
 it(`movie card was render correctly`, () => {
   const tree = renderer
     .create(
-        <MovieCard
-          {...props}
-        />, {
+        <Router history={history}>
+          <MovieCard
+            {...props}
+          />
+        </Router>
+        , {
           createNodeMock: () => {
             return {};
           }

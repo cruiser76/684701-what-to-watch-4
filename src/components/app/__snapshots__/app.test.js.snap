@@ -1,95 +1,252 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`App should render App 1`] = `
-<div
-  className="player"
->
-  <button
-    className="player__exit"
-    onClick={[Function]}
-    type="button"
-  >
-    Exit
-  </button>
-  <video
-    className="player__video"
-  />
-  <div
-    className="player__controls"
+Array [
+  <section
+    className="movie-card"
   >
     <div
-      className="player__controls-row"
+      className="movie-card__bg"
+    >
+      <img
+        alt="Fantastic Beasts: The Crimes of Grindelwald"
+        src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
+      />
+    </div>
+    <h1
+      className="visually-hidden"
+    >
+      WTW
+    </h1>
+    <header
+      className="page-header movie-card__head"
     >
       <div
-        className="player__time"
+        className="logo"
       >
-        <progress
-          className="player__progress"
-          max="100"
-          value={0}
-        />
-        <div
-          className="player__toggler"
-          style={
-            Object {
-              "left": "0%",
-            }
-          }
+        <a
+          className="logo__link"
+          href="/"
+          onClick={[Function]}
         >
-          Toggler
+          <span
+            className="logo__letter logo__letter--1"
+          >
+            W
+          </span>
+          <span
+            className="logo__letter logo__letter--2"
+          >
+            T
+          </span>
+          <span
+            className="logo__letter logo__letter--3"
+          >
+            W
+          </span>
+        </a>
+      </div>
+      <div
+        className="user-block"
+      >
+        <a
+          className="user-block__link"
+          href="/login"
+          onClick={[Function]}
+        >
+          Sign in
+        </a>
+      </div>
+    </header>
+    <div
+      className="movie-card__wrap"
+    >
+      <div
+        className="movie-card__info"
+      >
+        <div
+          className="movie-card__poster"
+        >
+          <img
+            alt="Fantastic Beasts: The Crimes of Grindelwald poster"
+            height="327"
+            src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
+            width="218"
+          />
+        </div>
+        <div
+          className="movie-card__desc"
+        >
+          <h2
+            className="movie-card__title"
+          >
+            Fantastic Beasts: The Crimes of Grindelwald
+          </h2>
+          <p
+            className="movie-card__meta"
+          >
+            <span
+              className="movie-card__genre"
+            >
+              Drama
+            </span>
+            <span
+              className="movie-card__year"
+            >
+              2000
+            </span>
+          </p>
+          <div
+            className="movie-card__buttons"
+          >
+            <a
+              className="btn btn--play movie-card__button"
+              href="/player/fantastic-beasts-the-crimes-of-grindelwald"
+              onClick={[Function]}
+              type="button"
+            >
+              <svg
+                height="19"
+                viewBox="0 0 19 19"
+                width="19"
+              >
+                <use
+                  xlinkHref="#play-s"
+                />
+              </svg>
+              <span>
+                Play
+              </span>
+            </a>
+            <button
+              className="btn btn--list movie-card__button"
+              onClick={[Function]}
+              type="button"
+            >
+              <svg
+                height="20"
+                viewBox="0 0 19 20"
+                width="19"
+              >
+                <use
+                  xlinkHref="#add"
+                />
+              </svg>
+              <span>
+                My list
+              </span>
+            </button>
+          </div>
         </div>
       </div>
-      <div
-        className="player__time-value"
-      >
-        00:00:00
-      </div>
     </div>
-    <div
-      className="player__controls-row"
+  </section>,
+  <div
+    className="page-content"
+  >
+    <section
+      className="catalog"
     >
-      <button
-        className="player__play"
-        onClick={[Function]}
-        type="button"
+      <h2
+        className="catalog__title visually-hidden"
       >
-        <svg
-          height="21"
-          viewBox="0 0 14 21"
-          width="14"
+        Catalog
+      </h2>
+      <ul
+        className="catalog__genres-list"
+      >
+        <li
+          className="catalog__genres-item catalog__genres-item--active"
+          onClick={[Function]}
         >
-          <use
-            xlinkHref="#pause"
-          />
-        </svg>
-        <span>
-          Pause
-        </span>
-      </button>
+          <a
+            className="catalog__genres-link"
+            href="#"
+          >
+            All genres
+          </a>
+        </li>
+      </ul>
       <div
-        className="player__name"
+        className="catalog__movies-list"
       >
-        Fantastic Beasts: The Crimes of Grindelwald
-      </div>
-      <button
-        className="player__full-screen"
-        onClick={[Function]}
-        type="button"
-      >
-        <svg
-          height="27"
-          viewBox="0 0 27 27"
-          width="27"
+        <article
+          className="small-movie-card catalog__movies-card"
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
         >
-          <use
-            xlinkHref="#full-screen"
-          />
-        </svg>
-        <span>
-          Full screen
-        </span>
-      </button>
-    </div>
-  </div>
-</div>
+          <a
+            href="/films/fantastic-beasts-the-crimes-of-grindelwald"
+            onClick={[Function]}
+          >
+            <div
+              className="small-movie-card__image"
+            >
+              <video
+                className="player__video"
+              />
+            </div>
+          </a>
+          <h3
+            className="small-movie-card__title"
+          >
+            <a
+              className="small-movie-card__link"
+              href="/films/fantastic-beasts-the-crimes-of-grindelwald"
+              onClick={[Function]}
+            >
+              Fantastic Beasts: The Crimes of Grindelwald
+            </a>
+          </h3>
+        </article>
+      </div>
+      <div
+        className="catalog__more visually-hidden"
+      >
+        <button
+          className="catalog__button"
+          onClick={[Function]}
+          type="button"
+        >
+          Show more
+        </button>
+      </div>
+    </section>
+    <footer
+      className="page-footer"
+    >
+      <div
+        className="logo"
+      >
+        <a
+          className="logo__link logo__link--light"
+          href="#"
+        >
+          <span
+            className="logo__letter logo__letter--1"
+          >
+            W
+          </span>
+          <span
+            className="logo__letter logo__letter--2"
+          >
+            T
+          </span>
+          <span
+            className="logo__letter logo__letter--3"
+          >
+            W
+          </span>
+        </a>
+      </div>
+      <div
+        className="copyright"
+      >
+        <p>
+          © 2020 What to watch Ltd.
+        </p>
+      </div>
+    </footer>
+  </div>,
+]
 `;

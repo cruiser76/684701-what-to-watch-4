@@ -1,5 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
+import {Router} from 'react-router-dom';
+import history from './../../history.js';
 
 import Main from './main.jsx';
 
@@ -43,9 +45,11 @@ const props = {
 it(`Main should render Main`, () => {
   const tree = renderer
     .create(
-        <Main
-          {...props}
-        />, {
+        <Router history={history}>
+          <Main
+            {...props}
+          />
+        </Router>, {
           createNodeMock: () => {
             return {};
           }

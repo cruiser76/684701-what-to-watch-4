@@ -1,5 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
+import {Router} from 'react-router-dom';
+import history from './../../history.js';
 
 import MovieList from './movie-list.jsx';
 
@@ -35,9 +37,11 @@ const props = {
 it(`Movie-list is render correctly`, () => {
   const tree = renderer
     .create(
-        <MovieList
-          {...props}
-        />, {
+        <Router history={history}>
+          <MovieList
+            {...props}
+          />
+        </Router>, {
           createNodeMock: () => {
             return {};
           }

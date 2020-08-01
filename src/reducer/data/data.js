@@ -1,10 +1,13 @@
 import {extend} from './../../utils.js';
+import {Url} from './../../const.js';
 
 const ActionType = {
   LOAD_MOVIES: `LOAD_MOVIES`,
   LOAD_PROMO: `LOAD_PROMO`,
   ISLOADING_MOVIES: `ISLOADING_MOVIES`,
   ISLOADING_PROMO: `ISLOADING_PROMO`,
+  UPDATE_MOVIES: `UPDATE_MOVIES`,
+  UPDATE_PROMO: `UPDATE_PROMO`
 };
 
 const initialState = {
@@ -41,12 +44,34 @@ const ActionCreator = {
       type: ActionType.ISLOADING_PROMO,
       payload: status
     };
-  }
+  },
+
+  updateMovies: (movie, movies) => {
+    const index = movies.findIndex((currentMovie) => {
+      return currentMovie.id === movie.id;
+    });
+    movies.splice(index, 1, movie);
+    return {
+      type: ActionType.UPDATE_MOVIES,
+      payload: movies
+    };
+  },
+
+  updatePromo: (promo, oldPromo) => {
+    const currentPromo = promo.id === oldPromo.id
+      ? promo
+      : oldPromo;
+    return {
+      type: ActionType.UPDATE_PROMO,
+      payload: currentPromo
+    };
+  },
+
 };
 
 const Operation = {
   loadMovies: () => (dispatch, getState, api) => {
-    return api.get(`/films`)
+    return api.get(Url.GET_MOVIES)
       .then((response) => {
         dispatch(ActionCreator.loadMovies(response.data));
         dispatch(ActionCreator.isLoadingMovies(false));
@@ -54,10 +79,21 @@ const Operation = {
   },
 
   loadPromo: () => (dispatch, getState, api) => {
-    return api.get(`/films/promo`)
+    return api.get(Url.GET_PROMO)
       .then((response) => {
         dispatch(ActionCreator.loadPromo(response.data));
         dispatch(ActionCreator.isLoadingPromo(false));
+      });
+  },
+
+  setFavorite: (filmId, status) => (dispatch, getState, api) => {
+    return api.post(`${Url.POST_IS_FAVORITE}\/${filmId}\/${status}`)
+      .then((response) => {
+        dispatch(ActionCreator.updateMovies(response.data, getState().DATA.movies));
+        dispatch(ActionCreator.updatePromo(response.data, getState().DATA.promo));
+      })
+      .catch((err) => {
+        throw err;
       });
   }
 };
@@ -72,6 +108,10 @@ const reducer = (state = initialState, action) => {
       return extend(state, {isLoadingMovies: action.payload});
     case ActionType.ISLOADING_PROMO:
       return extend(state, {isLoadingPromo: action.payload});
+    case ActionType.UPDATE_MOVIES:
+      return extend(state, {movies: action.payload});
+    case ActionType.UPDATE_PROMO:
+      return extend(state, {promo: action.payload});
     default:
       return state;
   }

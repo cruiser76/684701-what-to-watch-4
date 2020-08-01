@@ -1,5 +1,6 @@
 import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
+import {Link} from 'react-router-dom';
 
 import Header from '../header/header.jsx';
 import Footer from '../footer/footer.jsx';
@@ -20,7 +21,7 @@ const Main = (props) => {
         {isLoadingPromo ? <Loader /> :
           <Fragment>
             <div className="movie-card__bg">
-              <img src={promo.img.src} alt={promo.brief.title} />
+              <img src={promo.img.bgSrc} alt={promo.brief.title} />
             </div>
 
             <h1 className="visually-hidden">WTW</h1>
@@ -44,21 +45,21 @@ const Main = (props) => {
                   </p>
 
                   <div className="movie-card__buttons">
-                    <button className="btn btn--play movie-card__button" type="button"
+                    <Link to={`../player/${promo.key}`} className="btn btn--play movie-card__button" type="button"
                       onClick={() => onPlayButtonClick(promo)}
                     >
                       <svg viewBox="0 0 19 19" width="19" height="19">
                         <use xlinkHref="#play-s"></use>
                       </svg>
                       <span>Play</span>
-                    </button>
+                    </Link>
                     <button
                       className="btn btn--list movie-card__button"
                       type="button"
-                      onClick={onMyListClick}
+                      onClick={() => onMyListClick(promo.key, promo.isFavorite ? 0 : 1)}
                     >
                       <svg viewBox="0 0 19 20" width="19" height="20">
-                        <use xlinkHref="#add"></use>
+                        <use xlinkHref={promo.isFavorite ? `#in-list` : `#add`}></use>
                       </svg>
                       <span>My list</span>
                     </button>

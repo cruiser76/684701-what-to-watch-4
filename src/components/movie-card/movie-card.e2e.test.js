@@ -4,10 +4,6 @@ import Adapter from 'enzyme-adapter-react-16';
 
 import MovieCard from './movie-card.jsx';
 
-const mockEvent = {
-  preventDefault() {}
-};
-
 const film = {
   img: {
     src: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
@@ -32,12 +28,10 @@ configure({
 
 it(`interaction with movie card calls callbacks once`, () => {
   const setActiveElement = jest.fn();
-  const onCardClick = jest.fn();
 
   const movieCardScreen = shallow(
       <MovieCard
         movie={film}
-        onCardClick={onCardClick}
         setActiveElement={setActiveElement}
         isPlaying={false}
         switchPlayerPlayEvent={()=>{}}
@@ -45,9 +39,6 @@ it(`interaction with movie card calls callbacks once`, () => {
          children={<div />}
       </MovieCard>
   );
-
-  movieCardScreen.simulate(`click`, mockEvent);
-  expect(onCardClick).toHaveBeenCalledTimes(1);
 
   movieCardScreen.simulate(`mouseEnter`);
   setTimeout(() => {

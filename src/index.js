@@ -24,9 +24,6 @@ const store = createStore(
     )
 );
 
-store.dispatch(Operation.loadMovies());
-store.dispatch(Operation.loadPromo());
-store.dispatch(UserOperation.checkAuth());
 
 const init = () => {
 
@@ -37,5 +34,8 @@ const init = () => {
       document.querySelector(`#root`)
   );
 };
+store.dispatch(UserOperation.checkAuth());
+store.dispatch(Operation.loadPromo());
+store.dispatch(Operation.loadMovies()).then(init());
 
-init();
+

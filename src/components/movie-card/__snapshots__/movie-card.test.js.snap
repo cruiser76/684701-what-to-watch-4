@@ -3,21 +3,26 @@
 exports[`movie card was render correctly 1`] = `
 <article
   className="small-movie-card catalog__movies-card"
-  onClick={[Function]}
   onMouseEnter={[Function]}
   onMouseLeave={[Function]}
 >
-  <div
-    className="small-movie-card__image"
+  <a
+    href="/films/fantastic-beasts-the-crimes-of-grindelwald"
+    onClick={[Function]}
   >
-    <div />
-  </div>
+    <div
+      className="small-movie-card__image"
+    >
+      <div />
+    </div>
+  </a>
   <h3
     className="small-movie-card__title"
   >
     <a
       className="small-movie-card__link"
-      href="movie-page.html"
+      href="/films/fantastic-beasts-the-crimes-of-grindelwald"
+      onClick={[Function]}
     >
       Fantastic Beasts: The Crimes of Grindelwald
     </a>

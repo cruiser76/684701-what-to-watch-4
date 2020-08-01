@@ -83,7 +83,7 @@ exports[`Review should render 1`] = `
           <img
             alt="User avatar"
             height="63"
-            src="img/avatar.jpg"
+            src="/img/avatar.jpg"
             width="63"
           />
         </div>

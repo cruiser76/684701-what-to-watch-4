@@ -26,7 +26,8 @@ Array [
       >
         <a
           className="logo__link"
-          href="#"
+          href="/"
+          onClick={[Function]}
         >
           <span
             className="logo__letter logo__letter--1"
@@ -50,7 +51,8 @@ Array [
       >
         <a
           className="user-block__link"
-          href="sign-in.html"
+          href="/login"
+          onClick={[Function]}
         >
           Sign in
         </a>
@@ -97,8 +99,9 @@ Array [
           <div
             className="movie-card__buttons"
           >
-            <button
+            <a
               className="btn btn--play movie-card__button"
+              href="/player/fantastic-beasts-the-crimes-of-grindelwald"
               onClick={[Function]}
               type="button"
             >
@@ -114,7 +117,7 @@ Array [
               <span>
                 Play
               </span>
-            </button>
+            </a>
             <button
               className="btn btn--list movie-card__button"
               onClick={[Function]}
@@ -169,23 +172,28 @@ Array [
       >
         <article
           className="small-movie-card catalog__movies-card"
-          onClick={[Function]}
           onMouseEnter={[Function]}
           onMouseLeave={[Function]}
         >
-          <div
-            className="small-movie-card__image"
+          <a
+            href="/films/fantastic-beasts-the-crimes-of-grindelwald"
+            onClick={[Function]}
           >
-            <video
-              className="player__video"
-            />
-          </div>
+            <div
+              className="small-movie-card__image"
+            >
+              <video
+                className="player__video"
+              />
+            </div>
+          </a>
           <h3
             className="small-movie-card__title"
           >
             <a
               className="small-movie-card__link"
-              href="movie-page.html"
+              href="/films/fantastic-beasts-the-crimes-of-grindelwald"
+              onClick={[Function]}
             >
               Fantastic Beasts: The Crimes of Grindelwald
             </a>
