@@ -12,8 +12,8 @@ Array [
         className="movie-card__bg"
       >
         <img
-          alt="Fantastic Beasts: The Crimes of Grindelwald"
-          src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
+          alt="The Grand Budapest Hotel"
+          src="img/the-grand-budapest-hotel-bg.jpg"
         />
       </div>
       <h1
@@ -70,7 +70,7 @@ Array [
           <h2
             className="movie-card__title"
           >
-            Fantastic Beasts: The Crimes of Grindelwald
+            The Grand Budapest Hotel
           </h2>
           <p
             className="movie-card__meta"
@@ -78,12 +78,12 @@ Array [
             <span
               className="movie-card__genre"
             >
-              Drama
+              Comedy
             </span>
             <span
               className="movie-card__year"
             >
-              2000
+              2014
             </span>
           </p>
           <div
@@ -147,9 +147,9 @@ Array [
           className="movie-card__poster movie-card__poster--big"
         >
           <img
-            alt="Fantastic Beasts: The Crimes of Grindelwald-poster"
+            alt="The Grand Budapest Hotel-poster"
             height="327"
-            src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
+            src="img/the-grand-budapest-hotel-poster.jpg"
             width="218"
           />
         </div>
@@ -200,7 +200,7 @@ Array [
             <div
               className="movie-rating__score"
             >
-              9
+              8.9
             </div>
             <p
               className="movie-rating__meta"
@@ -208,11 +208,12 @@ Array [
               <span
                 className="movie-rating__level"
               >
-                Good
+                Very Good
               </span>
               <span
                 className="movie-rating__count"
               >
+                240
                  ratings
               </span>
             </p>
@@ -220,12 +221,15 @@ Array [
           <div
             className="movie-card__text"
           >
-            <p />
+            <p>
+              In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave's friend and protege.
+            </p>
             <p
               className="movie-card__director"
             >
               <strong>
                 Director: 
+                Wes Andreson
               </strong>
             </p>
             <p
@@ -233,7 +237,7 @@ Array [
             >
               <strong>
                 Starring: 
-                
+                Bill Murray, Edward Norton, Jude Law, Willem Dafoe, Saoirse Ronan
               </strong>
             </p>
           </div>

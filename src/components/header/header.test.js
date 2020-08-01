@@ -10,7 +10,6 @@ it(`Header should render Header`, () => {
         <Router history={history}>
           <Header
             authorizationStatus={`NO_AUTH`}
-            href={`main.html`}
           >
           </Header>
         </Router>

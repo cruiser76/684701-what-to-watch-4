@@ -58,7 +58,7 @@ const ActionCreator = {
   },
 
   updatePromo: (promo, oldPromo) => {
-    const currentPromo = promo.key === oldPromo.key
+    const currentPromo = promo.id === oldPromo.id
       ? promo
       : oldPromo;
     return {

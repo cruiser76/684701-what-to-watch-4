@@ -14,7 +14,14 @@ const withReviewData = (Component) => {
       this.handleRadioBtnClick = this.handleRadioBtnClick.bind(this);
       this.handleTextAreaChange = this.handleTextAreaChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
-      this.movie = this.props.movies.find((currrentMovie) => currrentMovie.key === +props.match.params.id);
+      this.movie = this._findMovie();
+    }
+
+    _findMovie() {
+      let currentMovie = null;
+      const id = +this.props.match.params.id;
+      currentMovie = this.props.movies.find((currrentMovie) => currrentMovie.key === id);
+      return currentMovie;
     }
 
     handleRadioBtnClick(value) {

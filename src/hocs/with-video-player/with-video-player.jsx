@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 const withVideoPlayer = (Component) => {
   class WithVideoPlayer extends PureComponent {
     constructor(props) {
+
       super(props);
 
       this.state = {
@@ -16,7 +17,19 @@ const withVideoPlayer = (Component) => {
       this.handlePlayerPlayEvent = this.handlePlayerPlayEvent.bind(this);
       this.handleFullScreenButtonClick = this.handleFullScreenButtonClick.bind(this);
       this.setSrc = this.setSrc.bind(this);
-      this.movie = props.match ? this.props.movies.find((currrentMovie) => currrentMovie.key === +props.match.params.id) : this.props.movie;
+
+      this.movie = this._findMovie();
+    }
+
+    _findMovie() {
+      let currentMovie = null;
+      if (this.props.match) {
+        const id = +this.props.match.params.id;
+        currentMovie = this.props.movies.find((currrentMovie) => currrentMovie.key === id);
+      } else {
+        currentMovie = this.props.movie;
+      }
+      return currentMovie;
     }
 
     handlePlayerPlayEvent(isPlaying) {
@@ -34,14 +47,11 @@ const withVideoPlayer = (Component) => {
     }
 
     componentDidMount() {
-      // const {movie} = this.props;
-      const {brief, img, key} = this.movie;
+      const {brief, img} = this.movie;
       const video = this.videoRef.current;
 
       if (this.props.muted) {
-        setTimeout(() => {
-          this.setSrc(video);
-        }, 300 * key);
+        this.setSrc(video);
       } else {
         video.src = brief.filmLink;
       }
@@ -112,7 +122,7 @@ const withVideoPlayer = (Component) => {
   }
 
   WithVideoPlayer.propTypes = {
-    movie: PropTypes.object.isRequired,
+    movie: PropTypes.object,
     movies: PropTypes.array,
     rePlay: PropTypes.bool.isRequired,
     muted: PropTypes.bool.isRequired,
