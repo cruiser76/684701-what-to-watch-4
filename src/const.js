@@ -6,11 +6,13 @@ export const AppRoute = {
   LOGIN: `/login`,
   PLAYER: `/player/:id`,
   FILMS: `/films/:id`,
-  REVIEW: `/films/:id/review`
+  REVIEW: `/films/:id/review`,
+  MY_LIST: `/mylist`
 };
 
 export const Url = {
   GET_MOVIES: `/films`,
   GET_PROMO: `/films/promo`,
-  POST_IS_FAVORITE: `/favorite`
+  POST_FAVORITE: `/favorite`,
+  GET_FAVORITE: `/favorite`
 };

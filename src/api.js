@@ -20,7 +20,7 @@ export const createAPI = (onUnauthorized) => {
 
     if (response.status === Error.UNAUTHORIZED) {
       onUnauthorized();
-      if (response.config.url.includes(Url.POST_IS_FAVORITE)) {
+      if (response.config.url.includes(Url.POST_FAVORITE)) {
         history.push(AppRoute.LOGIN);
       }
       // Бросаем ошибку, потому что нам важно прервать цепочку промисов после запроса авторизации.

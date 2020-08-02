@@ -35,7 +35,6 @@ const MoviePage = (props) => {
             <h1 className="visually-hidden">WTW</h1>
 
             <Header
-              authorizationStatus={authorizationStatus}
             />
 
             <div className="movie-card__wrap">

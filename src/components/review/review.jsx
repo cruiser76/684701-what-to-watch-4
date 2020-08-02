@@ -1,5 +1,6 @@
 import React, {Fragment, PureComponent} from 'react';
 import PropTypes from 'prop-types';
+import {Link} from 'react-router-dom';
 
 class Review extends PureComponent {
   constructor(props) {
@@ -25,7 +26,7 @@ class Review extends PureComponent {
 
   render() {
     const {movie} = this.props;
-    const {brief, img} = movie;
+    const {brief, img, key} = movie;
     const disabled = (!this.props.rating || this.props.isSavingReview || (this.props.comment.length < 50) || (this.props.comment.length > 400));
     return (
       <section className="movie-card movie-card--full" >
@@ -48,7 +49,12 @@ class Review extends PureComponent {
             <nav className="breadcrumbs">
               <ul className="breadcrumbs__list">
                 <li className="breadcrumbs__item">
-                  <a href="movie-page.html" className="breadcrumbs__link">{brief.title}</a>
+                  <Link
+                    to={`/films/${key}`}
+                    href="movie-page.html"
+                    className="breadcrumbs__link"
+                  >{brief.title}
+                  </Link>
                 </li>
                 <li className="breadcrumbs__item">
                   <a className="breadcrumbs__link">Add review</a>

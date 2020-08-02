@@ -2,22 +2,23 @@ import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import {Route, Switch, Router} from 'react-router-dom';
 import {connect} from 'react-redux';
-import history from './../../history.js';
+import history from '../../history.js';
 
-import Main from './../main/main.jsx';
-import MoviePage from './../movie-page/movie-page.jsx';
-import SignIn from './../sign-in/sign-in.jsx';
+import Main from '../main/main.jsx';
+import MoviePage from '../movie-page/movie-page.jsx';
+import SignIn from '../sign-in/sign-in.jsx';
 import ReviewPage from '../review-page/review-page.jsx';
 import VideoPlayerPage from '../video-player-page/video-player-page.jsx';
+import MyList from '../my-list/my-list.jsx';
 
 import {ActionCreator} from '../../reducer/condition/condition.js';
-import {Operation} from './../../reducer/data/data.js';
-import {Operation as UserOperation} from './../../reducer/user/user.js';
+import {Operation} from '../../reducer/data/data.js';
+import {Operation as UserOperation} from '../../reducer/user/user.js';
 
-import {getPromo, getIsLoadingMovies, getIsLoadingPromo} from './../../reducer/data/selectors.js';
-import {getFilteredMovies, getActiveGenre, getNumberMoviesInList, getGenresList} from './../../reducer/condition/selectors.js';
-import {getAuthorizationStatus} from './../../reducer/user/selectors.js';
-import {AppRoute} from './../../const.js';
+import {getPromo, getIsLoadingMovies, getIsLoadingPromo} from '../../reducer/data/selectors.js';
+import {getFilteredMovies, getActiveGenre, getNumberMoviesInList, getGenresList} from '../../reducer/condition/selectors.js';
+import {getAuthorizationStatus} from '../../reducer/user/selectors.js';
+import {AppRoute} from '../../const.js';
 
 class App extends PureComponent {
   constructor(props) {
@@ -66,6 +67,11 @@ class App extends PureComponent {
             exact
             path={AppRoute.REVIEW}
             component={ReviewPage}
+          />
+          <Route
+            exact
+            path={AppRoute.MY_LIST}
+            component={MyList}
           />
         </Switch>
       </Router>
@@ -119,7 +125,7 @@ const mapDispatchToProps = (dispatch) => {
     },
     onMyListClick: (id, status) => {
       dispatch(Operation.setFavorite(id, status));
-    }
+    },
   };
 };
 
