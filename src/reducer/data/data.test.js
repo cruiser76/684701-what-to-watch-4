@@ -28,6 +28,8 @@ it(`Reducer without add parameters return initial state`, () => {
     promo: {},
     isLoadingMovies: true,
     isLoadingPromo: true,
+    favoriteMovies: [],
+    isLoadingFavorite: true,
   });
 });
 

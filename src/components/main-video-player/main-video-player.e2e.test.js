@@ -54,10 +54,4 @@ it(`clicking on buttons in main player calls calbacks`, () => {
   const playBtn = screen.find(`.player__play`);
   playBtn.simulate(`click`);
   expect(switchPlayerPlayEvent).toHaveBeenCalledTimes(1);
-
-  const exitBtn = screen.find(`.player__exit`);
-  exitBtn.simulate(`click`);
-  const exitEvent = jest.spyOn(history, `goBack`).mockImplementation(() => {});
-  expect(exitEvent).toHaveBeenCalledTimes(1);
-
 });

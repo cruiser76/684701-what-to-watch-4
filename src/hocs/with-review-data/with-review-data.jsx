@@ -69,5 +69,3 @@ const withReviewData = (Component) => {
 };
 
 export default withReviewData;
-
-

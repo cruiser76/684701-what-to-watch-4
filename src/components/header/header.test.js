@@ -3,9 +3,9 @@ import renderer from 'react-test-renderer';
 import {Router} from 'react-router-dom';
 import history from '../../history.js';
 import configureStore from 'redux-mock-store';
+import {Provider} from 'react-redux';
 
 import Header from './header.jsx';
-import {Provider} from 'react-redux';
 
 const mockStore = configureStore([]);
 

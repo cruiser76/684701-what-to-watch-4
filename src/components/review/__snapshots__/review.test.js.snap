@@ -3,6 +3,11 @@
 exports[`Review should render 1`] = `
 <section
   className="movie-card movie-card--full"
+  style={
+    Object {
+      "backgroundColor": undefined,
+    }
+  }
 >
   <div
     className="movie-card__header"
@@ -28,7 +33,8 @@ exports[`Review should render 1`] = `
       >
         <a
           className="logo__link"
-          href="main.html"
+          href="/"
+          onClick={[Function]}
         >
           <span
             className="logo__letter logo__letter--1"
@@ -84,7 +90,7 @@ exports[`Review should render 1`] = `
           <img
             alt="User avatar"
             height="63"
-            src="/img/avatar.jpg"
+            src="https://4.react.pages.academy/img/1.png"
             width="63"
           />
         </div>
@@ -94,7 +100,7 @@ exports[`Review should render 1`] = `
       className="movie-card__poster movie-card__poster--small"
     >
       <img
-        alt="The Grand Budapest Hotel poster"
+        alt="Fantastic Beasts: The Crimes of Grindelwald"
         height="327"
         src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
         width="218"

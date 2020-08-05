@@ -23,6 +23,13 @@ const movie = {
   key: 1,
 };
 
+const userInfo = {
+  'id': 1,
+  'email': `Oliver.conner@gmail.com`,
+  'name': `Oliver.conner`,
+  'avatar_url': `/img/1.png`
+};
+
 const props = {
   rating: 5,
   comment: `Test Test Test Test Test Test Test Test Test Test Test Test Test`,
@@ -31,6 +38,7 @@ const props = {
   onSubmit: () => {},
   setComment: () => {},
   onRadioBtnClick: () => {},
+  userInfo
 };
 
 configure({adapter: new Adapter()});
