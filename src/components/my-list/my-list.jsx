@@ -1,23 +1,23 @@
-import React, {Fragment} from 'react';
+import React, {Fragment, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 
 import MovieList from '../movie-list/movie-list.jsx';
 import withActiveElement from '../../hocs/with-active-element/with-active-element.jsx';
-import {Loader} from '../loader/loader.jsx';
 
 import {ActionCreator} from '../../reducer/condition/condition.js';
 import {Operation} from '../../reducer/data/data.js';
 import {getIsLoadingFavorite, getFavoriteMovies} from '../../reducer/data/selectors.js';
 import {getUserInfo} from '../../reducer/user/selectors.js';
 
+import {Url} from '../../const.js';
+
 const MovieListWrapped = withActiveElement(MovieList);
 
-const SERVER_URL = `https://4.react.pages.academy`;
-const MyList = (props) => {
-  if (!props.isLoadingFavorite) {
-    const {movies, onCardClick, isLoadingFavorite, userInfo} = props;
+class MyList extends PureComponent {
+  render() {
+    const {movies, onCardClick, isLoadingFavorite, userInfo} = this.props;
     return (
       <Fragment>
         <div className="user-page">
@@ -34,7 +34,7 @@ const MyList = (props) => {
 
             <div className="user-block">
               <div className="user-block__avatar">
-                <img src={`${SERVER_URL}${userInfo.avatar_url}`} alt="User avatar" width="63" height="63" />
+                <img src={`${Url.HOST}${userInfo.avatar_url}`} alt="User avatar" width="63" height="63" />
               </div>
             </div>
           </header>
@@ -67,14 +67,14 @@ const MyList = (props) => {
         </div>
       </Fragment>
     );
-  } else {
-    props.loadFavorite();
-    return <Loader />;
   }
-};
+}
 
 MyList.propTypes = {
   movies: PropTypes.array.isRequired,
+  onCardClick: PropTypes.func.isRequired,
+  isLoadingFavorite: PropTypes.bool.isRequired,
+  userInfo: PropTypes.object.isRequired
 };
 
 const mapStateToProps = (state) => {

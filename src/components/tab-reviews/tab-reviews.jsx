@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {Months} from '../../const.js';
+import {MONTHS} from '../../const.js';
 
 const TabReviews = (props) => {
   if (props.reviews.length > 0) {
@@ -19,7 +19,7 @@ const TabReviews = (props) => {
 
                   <footer className="review__details">
                     <cite className="review__author">{review.user.name}</cite>
-                    <time className="review__date" dateTime={review.date}>{`${Months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`}</time>
+                    <time className="review__date" dateTime={review.date}>{`${MONTHS[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`}</time>
                   </footer>
                 </blockquote>
 
@@ -39,7 +39,7 @@ const TabReviews = (props) => {
 
                   <footer className="review__details">
                     <cite className="review__author">{review.user.name}</cite>
-                    <time className="review__date" dateTime={review.date}>{`${Months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`}</time>
+                    <time className="review__date" dateTime={review.date}>{`${MONTHS[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`}</time>
                   </footer>
                 </blockquote>
 

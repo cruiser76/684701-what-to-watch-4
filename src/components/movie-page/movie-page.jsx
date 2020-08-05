@@ -4,11 +4,11 @@ import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 
 import {ActionCreator} from '../../reducer/condition/condition.js';
-import {AuthorizationStatus} from './../../reducer/user/user.js';
-import {Operation} from './../../reducer/data/data.js';
-import {getIsLoadingMovies} from './../../reducer/data/selectors.js';
-import {getFilteredMovies} from './../../reducer/condition/selectors.js';
-import {getAuthorizationStatus, getUserInfo} from './../../reducer/user/selectors.js';
+import {AuthorizationStatus} from '../../reducer/user/user.js';
+import {Operation} from '../../reducer/data/data.js';
+import {getIsLoadingMovies} from '../../reducer/data/selectors.js';
+import {getFilteredMovies} from '../../reducer/condition/selectors.js';
+import {getAuthorizationStatus, getUserInfo} from '../../reducer/user/selectors.js';
 
 import Header from '../header/header.jsx';
 import Footer from '../footer/footer.jsx';
@@ -16,6 +16,8 @@ import {Loader} from '../loader/loader.jsx';
 import Tabs from '../tabs/tabs.jsx';
 import MovieList from '../movie-list/movie-list.jsx';
 import withActiveElement from '../../hocs/with-active-element/with-active-element.jsx';
+
+import {NUMBER_SAME_MOVIES} from '../../const.js';
 
 const TabsWrapped = withActiveElement(Tabs);
 const MovieListWrapped = withActiveElement(MovieList);
@@ -107,7 +109,7 @@ const MoviePage = (props) => {
               isLoadingMovies={isLoadingMovies}
               movies={sameMovies}
               onCardClick={onCardClick}
-              numberMoviesInList={4}
+              numberMoviesInList={NUMBER_SAME_MOVIES}
             />
 
           </section>

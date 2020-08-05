@@ -1,7 +1,7 @@
 import React, {Fragment, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
-const SERVER_URL = `https://4.react.pages.academy`;
+import {Url} from '../../const.js';
 
 class Review extends PureComponent {
   constructor(props) {
@@ -65,7 +65,7 @@ class Review extends PureComponent {
 
             <div className="user-block">
               <div className="user-block__avatar">
-                <img src={`${SERVER_URL}${userInfo.avatar_url}`} alt="User avatar" width="63" height="63" />
+                <img src={`${Url.HOST}${userInfo.avatar_url}`} alt="User avatar" width="63" height="63" />
               </div>
             </div>
           </header>
