@@ -2,12 +2,13 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import {Router} from 'react-router-dom';
 import configureStore from 'redux-mock-store';
-import history from './../../history.js';
+
+import history from '../../history.js';
 
 import MoviePage from './movie-page.jsx';
 import {Provider} from 'react-redux';
 
-const mockStore = configureStore([]);
+const mockStore = configureStore();
 
 const movies =
   [{
@@ -70,9 +71,14 @@ it(`Movie Page is render correctly`, () => {
               match={match}
               onPlayButtonClick={() => {}}
               onMyListClick={() => {}}
+              loadReviews={()=>{}}
             />
           </Provider>
-        </Router>
+        </Router>, {
+          createNodeMock: () => {
+            return {};
+          }
+        }
     ).toJSON();
 
   expect(tree).toMatchSnapshot();

@@ -16,6 +16,7 @@ import {ActionCreator} from '../../reducer/condition/condition.js';
 import {Operation} from '../../reducer/data/data.js';
 import {Operation as UserOperation} from '../../reducer/user/user.js';
 import {AuthorizationStatus} from '../../reducer/user/user';
+import {Operation as ReviewOperation} from '../../reducer/review/review.js';
 
 import {getPromo, getIsLoadingMovies, getIsLoadingPromo} from '../../reducer/data/selectors.js';
 import {getFilteredMovies, getActiveGenre, getNumberMoviesInList, getGenresList} from '../../reducer/condition/selectors.js';
@@ -51,7 +52,14 @@ class App extends PureComponent {
           <Route
             exact
             path={AppRoute.FILMS}
-            component={MoviePage}
+            render={(routeProps) => {
+              return (
+                <MoviePage
+                  {...routeProps}
+                  {...this.props}
+                />
+              );
+            }}
           />
           <PrivateRoute
             exact
@@ -135,6 +143,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     onMyListClick: (id, status) => {
       dispatch(Operation.setFavorite(id, status));
+    },
+    loadReviews: (movieId) => {
+      dispatch(ReviewOperation.loadReviews(movieId));
     },
   };
 };

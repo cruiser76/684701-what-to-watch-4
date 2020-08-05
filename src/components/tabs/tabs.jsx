@@ -25,7 +25,7 @@ const Tabs = (props) => {
     }
   };
 
-  const {activeElement, movie, setActiveElement, reviews, loadReviews} = props;
+  const {activeElement, movie, setActiveElement, reviews} = props;
   return (
     <div className="movie-card__desc">
       <nav className="movie-nav movie-card__nav">
@@ -40,9 +40,6 @@ const Tabs = (props) => {
                   onClick={(evt) => {
                     evt.preventDefault();
                     setActiveElement(tab);
-                    if (tab === TAB[2]) {
-                      loadReviews(movie.key);
-                    }
                   }}
                 >{tab}
                 </a>

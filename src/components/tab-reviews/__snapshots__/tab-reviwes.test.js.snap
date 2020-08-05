@@ -43,8 +43,6 @@ exports[`Tab should render correctly 1`] = `
   </div>
   <div
     className="movie-card__reviews-col"
-  >
-    
-  </div>
+  />
 </div>
 `;
