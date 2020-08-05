@@ -34,7 +34,6 @@ MovieList.propTypes = {
   onCardClick: PropTypes.func.isRequired,
   setActiveElement: PropTypes.func.isRequired,
   numberMoviesInList: PropTypes.number.isRequired,
-  activeElement: PropTypes.string,
   isLoadingMovies: PropTypes.bool.isRequired
 };
 

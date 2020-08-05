@@ -1,6 +1,7 @@
 import React from 'react';
 import {shallow, configure} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
+import history from '../../history.js';
 
 import MainVideoPlayer from './main-video-player.jsx';
 
@@ -18,7 +19,7 @@ const movie = {
     level: `Good`
   },
   link: `movie-page.html`,
-  key: `fantastic-beasts-the-crimes-of-grindelwald`,
+  key: `1`,
 };
 
 const props = {
@@ -40,6 +41,7 @@ it(`clicking on buttons in main player calls calbacks`, () => {
   const screen = shallow(
       <MainVideoPlayer
         {...props}
+        onClick={history.goBack}
         switchPlayerPlayEvent={switchPlayerPlayEvent}
         onFullScreenButtonClick={onFullScreenButtonClick}
       />
@@ -52,5 +54,10 @@ it(`clicking on buttons in main player calls calbacks`, () => {
   const playBtn = screen.find(`.player__play`);
   playBtn.simulate(`click`);
   expect(switchPlayerPlayEvent).toHaveBeenCalledTimes(1);
+
+  const exitBtn = screen.find(`.player__exit`);
+  exitBtn.simulate(`click`);
+  const exitEvent = jest.spyOn(history, `goBack`).mockImplementation(() => {});
+  expect(exitEvent).toHaveBeenCalledTimes(1);
 
 });

@@ -10,14 +10,16 @@ import SignIn from '../sign-in/sign-in.jsx';
 import ReviewPage from '../review-page/review-page.jsx';
 import VideoPlayerPage from '../video-player-page/video-player-page.jsx';
 import MyList from '../my-list/my-list.jsx';
+import PrivateRoute from '../private-route/private-route.jsx';
 
 import {ActionCreator} from '../../reducer/condition/condition.js';
 import {Operation} from '../../reducer/data/data.js';
 import {Operation as UserOperation} from '../../reducer/user/user.js';
+import {AuthorizationStatus} from '../../reducer/user/user';
 
 import {getPromo, getIsLoadingMovies, getIsLoadingPromo} from '../../reducer/data/selectors.js';
 import {getFilteredMovies, getActiveGenre, getNumberMoviesInList, getGenresList} from '../../reducer/condition/selectors.js';
-import {getAuthorizationStatus} from '../../reducer/user/selectors.js';
+import {getAuthorizationStatus, getUserInfo} from '../../reducer/user/selectors.js';
 import {AppRoute} from '../../const.js';
 
 class App extends PureComponent {
@@ -27,7 +29,6 @@ class App extends PureComponent {
 
   render() {
     const {login} = this.props;
-
     return (
       <Router history={history}>
         <Switch>
@@ -44,17 +45,6 @@ class App extends PureComponent {
           />
           <Route
             exact
-            path={AppRoute.LOGIN}
-            render={() => {
-              return (
-                <SignIn
-                  onSubmit={login}
-                />
-              );
-            }}
-          />
-          <Route
-            exact
             path={AppRoute.PLAYER}
             component={VideoPlayerPage}
           />
@@ -63,15 +53,34 @@ class App extends PureComponent {
             path={AppRoute.FILMS}
             component={MoviePage}
           />
-          <Route
+          <PrivateRoute
             exact
             path={AppRoute.REVIEW}
-            component={ReviewPage}
+            requiredAuthorizationStatus={AuthorizationStatus.AUTH}
+            redirectRoute={AppRoute.LOGIN}
+            render={(match) => {
+              return <ReviewPage match={match} />;
+            }}
           />
-          <Route
+          <PrivateRoute
             exact
             path={AppRoute.MY_LIST}
-            component={MyList}
+            requiredAuthorizationStatus={AuthorizationStatus.AUTH}
+            redirectRoute={AppRoute.LOGIN}
+            render={() => {
+              return <MyList />;
+            }}
+          />
+          <PrivateRoute
+            exact
+            path={AppRoute.LOGIN}
+            requiredAuthorizationStatus={AuthorizationStatus.NO_AUTH}
+            redirectRoute={AppRoute.MAIN}
+            render={() => {
+              return <SignIn
+                onSubmit={login}
+              />;
+            }}
           />
         </Switch>
       </Router>
@@ -100,6 +109,7 @@ const mapStateToProps = (state) => {
     activeGenre: getActiveGenre(state),
     numberMoviesInList: getNumberMoviesInList(state),
     authorizationStatus: getAuthorizationStatus(state),
+    userInfo: getUserInfo(state),
   };
 };
 

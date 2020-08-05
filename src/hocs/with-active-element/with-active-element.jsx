@@ -1,4 +1,5 @@
 import React, {PureComponent} from 'react';
+import PropTypes from 'prop-types';
 
 const withActiveElement = (Component) => {
   class WithActiveElement extends PureComponent {
@@ -6,7 +7,7 @@ const withActiveElement = (Component) => {
       super(props);
 
       this.state = {
-        activeElement: null
+        activeElement: this.props.activeElement,
       };
       this.setActiveElement = this.setActiveElement.bind(this);
     }
@@ -20,15 +21,19 @@ const withActiveElement = (Component) => {
     }
 
     render() {
-
       return (
         <Component
           {...this.props}
+          activeElement={this.state.activeElement}
           setActiveElement={this.setActiveElement}
         />
       );
     }
   }
+
+  WithActiveElement.propTypes = {
+    activeElement: PropTypes.string
+  };
 
   return WithActiveElement;
 };

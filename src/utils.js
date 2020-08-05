@@ -16,6 +16,13 @@ export const getTimeFromSec = (timeInSec) => {
   return `${formatTimeString(hours)}:${formatTimeString(minutes)}:${formatTimeString(sec)}`;
 };
 
+export const getTimeFromMin = (timeInMin) => {
+  let hours = Math.trunc(timeInMin / 60).toString();
+  let minutes = Math.trunc(timeInMin % 60).toString();
+
+  return `${hours}h ${formatTimeString(minutes)}m`;
+};
+
 export const getLevel = (score) => {
   let level = ``;
   if (score < 3) {

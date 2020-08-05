@@ -1,7 +1,7 @@
 import React, {PureComponent, Fragment} from 'react';
 import PropTypes from 'prop-types';
-import {getTimeFromSec} from './../../utils';
-import history from './../../history.js';
+import {getTimeFromSec} from '../../utils';
+import history from '../../history.js';
 
 class MainVideoPlayer extends PureComponent {
   render() {

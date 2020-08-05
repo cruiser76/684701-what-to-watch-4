@@ -8,7 +8,8 @@ import {connect} from 'react-redux';
 import {getAuthorizationStatus} from './../../reducer/user/selectors.js';
 
 const Header = (props) => {
-  const {authorizationStatus, loadFavorite} = props;
+  const {authorizationStatus, loadFavorite, userInfo} = props;
+  const SERVER_URL = `https://4.react.pages.academy`;
   return (
     <header className='page-header movie-card__head'>
       <div className="logo">
@@ -25,7 +26,7 @@ const Header = (props) => {
       <div className="user-block">
         {authorizationStatus === AuthorizationStatus.AUTH
           ? <div className="user-block__avatar">
-            <Link onClick={() => loadFavorite()} to='/mylist'><img src="/img/avatar.jpg" alt="User avatar" width="63" height="63" /></Link>
+            <Link onClick={() => loadFavorite()} to='/mylist'><img src={`${SERVER_URL}${userInfo.avatar_url}`} alt="User avatar" width="63" height="63" /></Link>
           </div>
           : <Link to='/login' className="user-block__link">Sign in</Link>
         }
@@ -36,6 +37,8 @@ const Header = (props) => {
 
 Header.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
+  loadFavorite: PropTypes.func.isRequired,
+  userInfo: PropTypes.object
 };
 
 const mapStateToProps = (state) => {
@@ -47,7 +50,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     loadFavorite: () => {
-      console.log(`favorite`);
       dispatch(Operation.loadFavorite());
     },
   };

@@ -1,5 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
+import {Router} from 'react-router-dom';
+import history from './../../history.js';
 
 import Review from './review.jsx';
 
@@ -18,7 +20,7 @@ const movie =
     level: `Good`
   },
   link: `movie-page.html`,
-  key: `fantastic-beasts-the-crimes-of-grindelwald`,
+  key: `1`,
 };
 
 const props = {
@@ -34,9 +36,12 @@ const props = {
 it(`Review should render`, () => {
   const tree = renderer
     .create((
-      <Review
-        {...props}
-      />), {
+      <Router history={history}>
+        <Review
+          {...props}
+        />
+      </Router>
+    ), {
       createNodeMock: () => {
         return {};
       }

@@ -10,12 +10,14 @@ import {Loader} from '../loader/loader.jsx';
 import {ActionCreator} from '../../reducer/condition/condition.js';
 import {Operation} from '../../reducer/data/data.js';
 import {getIsLoadingFavorite, getFavoriteMovies} from '../../reducer/data/selectors.js';
+import {getUserInfo} from '../../reducer/user/selectors.js';
 
 const MovieListWrapped = withActiveElement(MovieList);
 
+const SERVER_URL = `https://4.react.pages.academy`;
 const MyList = (props) => {
   if (!props.isLoadingFavorite) {
-    const {movies, onCardClick, isLoadingFavorite} = props;
+    const {movies, onCardClick, isLoadingFavorite, userInfo} = props;
     return (
       <Fragment>
         <div className="user-page">
@@ -32,7 +34,7 @@ const MyList = (props) => {
 
             <div className="user-block">
               <div className="user-block__avatar">
-                <img src="/img/avatar.jpg" alt="User avatar" width="63" height="63" />
+                <img src={`${SERVER_URL}${userInfo.avatar_url}`} alt="User avatar" width="63" height="63" />
               </div>
             </div>
           </header>
@@ -51,11 +53,11 @@ const MyList = (props) => {
 
           <footer className="page-footer">
             <div className="logo">
-              <a href="main.html" className="logo__link logo__link--light">
+              <Link to={`/`} className="logo__link logo__link--light">
                 <span className="logo__letter logo__letter--1">W</span>
                 <span className="logo__letter logo__letter--2">T</span>
                 <span className="logo__letter logo__letter--3">W</span>
-              </a>
+              </Link>
             </div>
 
             <div className="copyright">
@@ -79,6 +81,7 @@ const mapStateToProps = (state) => {
   return {
     isLoadingFavorite: getIsLoadingFavorite(state),
     movies: getFavoriteMovies(state),
+    userInfo: getUserInfo(state),
   };
 };
 

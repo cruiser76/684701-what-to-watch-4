@@ -2,9 +2,12 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import {Router} from 'react-router-dom';
 import history from './../../history.js';
+import configureStore from "redux-mock-store";
 
 import Main from './main.jsx';
+import {Provider} from 'react-redux';
 
+const mockStore = configureStore([]);
 const movies = [
   {
     img: {
@@ -42,14 +45,20 @@ const props = {
   authorizationStatus: `NO_AUTH`
 };
 
+const store = mockStore({
+  USER: {authorizationStatus: `NO_AUTH`}
+});
+
 it(`Main should render Main`, () => {
   const tree = renderer
     .create(
-        <Router history={history}>
-          <Main
-            {...props}
-          />
-        </Router>, {
+        <Provider store={store}>
+          <Router history={history}>
+            <Main
+              {...props}
+            />
+          </Router>
+        </Provider>, {
           createNodeMock: () => {
             return {};
           }

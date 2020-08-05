@@ -8,21 +8,29 @@ import {AuthorizationStatus} from './../../reducer/user/user.js';
 import {Operation} from './../../reducer/data/data.js';
 import {getIsLoadingMovies} from './../../reducer/data/selectors.js';
 import {getFilteredMovies} from './../../reducer/condition/selectors.js';
-import {getAuthorizationStatus} from './../../reducer/user/selectors.js';
+import {getAuthorizationStatus, getUserInfo} from './../../reducer/user/selectors.js';
 
 import Header from '../header/header.jsx';
 import Footer from '../footer/footer.jsx';
 import {Loader} from '../loader/loader.jsx';
+import Tabs from '../tabs/tabs.jsx';
+import MovieList from '../movie-list/movie-list.jsx';
+import withActiveElement from '../../hocs/with-active-element/with-active-element.jsx';
+
+const TabsWrapped = withActiveElement(Tabs);
+const MovieListWrapped = withActiveElement(MovieList);
 
 const MoviePage = (props) => {
   if (!props.isLoadingMovies) {
-    const {authorizationStatus, movies, onMyListClick} = props;
-    const id = +props.match.params.id;
+    const {authorizationStatus, movies, onMyListClick, onCardClick, isLoadingMovies, userInfo} = props;
+    const id = props.match.params.id;
     const movie = movies.find((currrentMovie) => currrentMovie.key === id);
+    const sameMovies = movies.filter((film) => {
+      return (film.brief.genre === movie.brief.genre && film.key !== movie.key);
+    });
     const {brief, img, key, isFavorite} = movie;
     const {posterSrc, bgSrc} = img;
-    const {title, genre, year, score, level, scoresCount} = brief;
-    const starring = brief.starring.join(`, `);
+    const {title, genre, year} = brief;
 
     return (
       <Fragment>
@@ -35,6 +43,7 @@ const MoviePage = (props) => {
             <h1 className="visually-hidden">WTW</h1>
 
             <Header
+              userInfo={userInfo}
             />
 
             <div className="movie-card__wrap">
@@ -81,37 +90,11 @@ const MoviePage = (props) => {
                 <img src={posterSrc} alt={`${title}-poster`} width="218" height="327" />
               </div>
 
-              <div className="movie-card__desc">
-                <nav className="movie-nav movie-card__nav">
-                  <ul className="movie-nav__list">
-                    <li className="movie-nav__item movie-nav__item--active">
-                      <a href="#" className="movie-nav__link">Overview</a>
-                    </li>
-                    <li className="movie-nav__item">
-                      <a href="#" className="movie-nav__link">Details</a>
-                    </li>
-                    <li className="movie-nav__item">
-                      <a href="#" className="movie-nav__link">Reviews</a>
-                    </li>
-                  </ul>
-                </nav>
+              <TabsWrapped
+                movie={movie}
+                activeElement={`Overview`}
+              />
 
-                <div className="movie-rating">
-                  <div className="movie-rating__score">{score}</div>
-                  <p className="movie-rating__meta">
-                    <span className="movie-rating__level">{level}</span>
-                    <span className="movie-rating__count">{scoresCount} ratings</span>
-                  </p>
-                </div>
-
-                <div className="movie-card__text">
-                  <p>{brief.description}</p>
-
-                  <p className="movie-card__director"><strong>Director: {brief.director}</strong></p>
-
-                  <p className="movie-card__starring"><strong>Starring: {starring}</strong></p>
-                </div>
-              </div>
             </div>
           </div>
         </section >
@@ -120,43 +103,13 @@ const MoviePage = (props) => {
           <section className="catalog catalog--like-this">
             <h2 className="catalog__title">More like this</h2>
 
-            <div className="catalog__movies-list">
-              <article className="small-movie-card catalog__movies-card">
-                <div className="small-movie-card__image">
-                  <img src="/img/fantastic-beasts-the-crimes-of-grindelwald.jpg" alt="Fantastic Beasts: The Crimes of Grindelwald" width="280" height="175" />
-                </div>
-                <h3 className="small-movie-card__title">
-                  <a className="small-movie-card__link" href="movie-page.html">Fantastic Beasts: The Crimes of Grindelwald</a>
-                </h3>
-              </article>
+            <MovieListWrapped
+              isLoadingMovies={isLoadingMovies}
+              movies={sameMovies}
+              onCardClick={onCardClick}
+              numberMoviesInList={4}
+            />
 
-              <article className="small-movie-card catalog__movies-card">
-                <div className="small-movie-card__image">
-                  <img src="/img/bohemian-rhapsody.jpg" alt="Bohemian Rhapsody" width="280" height="175" />
-                </div>
-                <h3 className="small-movie-card__title">
-                  <a className="small-movie-card__link" href="movie-page.html">Bohemian Rhapsody</a>
-                </h3>
-              </article>
-
-              <article className="small-movie-card catalog__movies-card">
-                <div className="small-movie-card__image">
-                  <img src="/img/macbeth.jpg" alt="Macbeth" width="280" height="175" />
-                </div>
-                <h3 className="small-movie-card__title">
-                  <a className="small-movie-card__link" href="movie-page.html">Macbeth</a>
-                </h3>
-              </article>
-
-              <article className="small-movie-card catalog__movies-card">
-                <div className="small-movie-card__image">
-                  <img src="/img/aviator.jpg" alt="Aviator" width="280" height="175" />
-                </div>
-                <h3 className="small-movie-card__title">
-                  <a className="small-movie-card__link" href="movie-page.html">Aviator</a>
-                </h3>
-              </article>
-            </div>
           </section>
 
           <Footer
@@ -183,6 +136,7 @@ const mapStateToProps = (state) => {
     isLoadingMovies: getIsLoadingMovies(state),
     movies: getFilteredMovies(state),
     authorizationStatus: getAuthorizationStatus(state),
+    userInfo: getUserInfo(state),
   };
 };
 
@@ -193,6 +147,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     onMyListClick: (id, status) => {
       dispatch(Operation.setFavorite(id, status));
+    },
+    onCardClick: (movie) => {
+      dispatch(ActionCreator.openMoviePage(movie));
     }
   };
 };

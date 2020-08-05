@@ -8,11 +8,9 @@ import reducer from './reducer/reducer.js';
 import {createAPI} from './api.js';
 import App from './components/app/app.jsx';
 import {Operation} from './reducer/data/data.js';
-import {Operation as UserOperation, ActionCreator, AuthorizationStatus} from './reducer/user/user.js';
+import {Operation as UserOperation} from './reducer/user/user.js';
 
-const onUnauthorized = () => {
-  store.dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH));
-};
+const onUnauthorized = () => {};
 
 const api = createAPI(onUnauthorized);
 
@@ -34,8 +32,8 @@ const init = () => {
       document.querySelector(`#root`)
   );
 };
-store.dispatch(UserOperation.checkAuth());
-store.dispatch(Operation.loadPromo());
-store.dispatch(Operation.loadMovies()).then(init());
 
+store.dispatch(Operation.loadPromo());
+store.dispatch(Operation.loadMovies()).then(init);
+store.dispatch(UserOperation.checkAuth());
 

@@ -1,7 +1,11 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
+import configureStore from "redux-mock-store";
 
 import {App} from './app.jsx';
+import {Provider} from 'react-redux';
+
+const mockStore = configureStore([]);
 
 const movies = [
   {
@@ -37,21 +41,28 @@ const props = {
   onPlayButtonClick: () => {},
   onExitButtonClick: () => {},
   login: () => {},
-  authorizationStatus: `NO_AUTH`,
   isSignIn: false,
   postReview: () => {},
   isLoadingMovies: false,
   isLoadingPromo: false,
   isSavingReview: false,
-  onMyListClick: () => {}
+  onMyListClick: () => {},
+  authorizationStatus: `NO_AUTH`
 };
+
+const store = mockStore({
+  USER: {authorizationStatus: `NO_AUTH`}
+});
 
 it(`App should render App`, () => {
   const tree = renderer
     .create(
-        <App
-          {...props}
-        />, {
+        <Provider store={store}>
+          <App
+            {...props}
+          />
+        </Provider>
+        , {
           createNodeMock: () => {
             return {};
           }

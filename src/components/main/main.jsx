@@ -14,7 +14,7 @@ import {Loader} from '../loader/loader.jsx';
 const MovieListWrapped = withActiveElement(MovieList);
 
 const Main = (props) => {
-  const {promo, movies, numberMoviesInList, onCardClick, genresList, onGenreClick, onMoreBtnClick, activeGenre, onPlayButtonClick, isLoadingPromo, isLoadingMovies, authorizationStatus, onMyListClick} = props;
+  const {promo, movies, numberMoviesInList, onCardClick, genresList, onGenreClick, onMoreBtnClick, activeGenre, onPlayButtonClick, isLoadingPromo, isLoadingMovies, authorizationStatus, onMyListClick, userInfo} = props;
   return (
     <Fragment>
       <section className="movie-card">
@@ -28,6 +28,7 @@ const Main = (props) => {
 
             <Header
               authorizationStatus={authorizationStatus}
+              userInfo={userInfo}
             />
 
             <div className="movie-card__wrap">
@@ -85,6 +86,7 @@ const Main = (props) => {
             movies={movies}
             onCardClick={onCardClick}
             numberMoviesInList={numberMoviesInList}
+            activeElement={null}
           />
 
           <ShowMore
@@ -116,6 +118,7 @@ Main.propTypes = {
   isLoadingMovies: PropTypes.bool.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
   onMyListClick: PropTypes.func.isRequired,
+  userInfo: PropTypes.object
 };
 
 export default Main;
