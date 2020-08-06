@@ -4,17 +4,17 @@ import {Link} from 'react-router-dom';
 
 import Header from '../header/header.jsx';
 import Footer from '../footer/footer.jsx';
-import MovieList from './../movie-list/movie-list.jsx';
-import GenresList from './../genres-list/genres-list.jsx';
-import ShowMore from './../show-more/show-more.jsx';
-import withActiveElement from './../../hocs/with-active-element/with-active-element.jsx';
-import {Loader} from './../loader/loader.jsx';
+import MovieList from '../movie-list/movie-list.jsx';
+import GenresList from '../genres-list/genres-list.jsx';
+import ShowMore from '../show-more/show-more.jsx';
+import withActiveElement from '../../hocs/with-active-element/with-active-element.jsx';
+import {Loader} from '../loader/loader.jsx';
 
 
 const MovieListWrapped = withActiveElement(MovieList);
 
 const Main = (props) => {
-  const {promo, movies, numberMoviesInList, onCardClick, genresList, onGenreClick, onMoreBtnClick, activeGenre, onPlayButtonClick, isLoadingPromo, isLoadingMovies, authorizationStatus, onMyListClick} = props;
+  const {promo, movies, numberMoviesInList, onCardClick, genresList, onGenreClick, onMoreBtnClick, activeGenre, onPlayButtonClick, isLoadingPromo, isLoadingMovies, authorizationStatus, onMyListClick, userInfo} = props;
   return (
     <Fragment>
       <section className="movie-card">
@@ -28,7 +28,7 @@ const Main = (props) => {
 
             <Header
               authorizationStatus={authorizationStatus}
-              href={`#`}
+              userInfo={userInfo}
             />
 
             <div className="movie-card__wrap">
@@ -86,6 +86,7 @@ const Main = (props) => {
             movies={movies}
             onCardClick={onCardClick}
             numberMoviesInList={numberMoviesInList}
+            activeElement={null}
           />
 
           <ShowMore
@@ -117,6 +118,7 @@ Main.propTypes = {
   isLoadingMovies: PropTypes.bool.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
   onMyListClick: PropTypes.func.isRequired,
+  userInfo: PropTypes.object
 };
 
 export default Main;

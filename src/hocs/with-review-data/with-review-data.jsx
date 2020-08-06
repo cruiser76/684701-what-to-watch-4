@@ -19,7 +19,7 @@ const withReviewData = (Component) => {
 
     _findMovie() {
       let currentMovie = null;
-      const id = +this.props.match.params.id;
+      const id = this.props.match.params.id;
       currentMovie = this.props.movies.find((currrentMovie) => currrentMovie.key === id);
       return currentMovie;
     }
@@ -69,5 +69,3 @@ const withReviewData = (Component) => {
 };
 
 export default withReviewData;
-
-

@@ -2,7 +2,7 @@ import film from './film.js';
 import {getLevel} from '../utils.js';
 
 const filmFromServer = {
-  'id': 1,
+  'id': `1`,
   'name': `The Grand Budapest Hotel`,
   'poster_image': `img/the-grand-budapest-hotel-poster.jpg`,
   'preview_image': `img/the-grand-budapest-hotel.jpg`,

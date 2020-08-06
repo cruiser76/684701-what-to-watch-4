@@ -1,5 +1,7 @@
 import React, {Fragment, PureComponent} from 'react';
 import PropTypes from 'prop-types';
+import {Link} from 'react-router-dom';
+import {Url} from '../../const.js';
 
 class Review extends PureComponent {
   constructor(props) {
@@ -24,11 +26,11 @@ class Review extends PureComponent {
   }
 
   render() {
-    const {movie} = this.props;
-    const {brief, img} = movie;
+    const {movie, userInfo} = this.props;
+    const {brief, img, key, backgroundColor} = movie;
     const disabled = (!this.props.rating || this.props.isSavingReview || (this.props.comment.length < 50) || (this.props.comment.length > 400));
     return (
-      <section className="movie-card movie-card--full" >
+      <section className="movie-card movie-card--full" style={{backgroundColor}}>
         <div className="movie-card__header">
           <div className="movie-card__bg">
             <img src={img.bgSrc} alt={brief.title} />
@@ -38,17 +40,22 @@ class Review extends PureComponent {
 
           <header className="page-header">
             <div className="logo">
-              <a href="main.html" className="logo__link">
+              <Link to={`/`} className="logo__link">
                 <span className="logo__letter logo__letter--1">W</span>
                 <span className="logo__letter logo__letter--2">T</span>
                 <span className="logo__letter logo__letter--3">W</span>
-              </a>
+              </Link>
             </div>
 
             <nav className="breadcrumbs">
               <ul className="breadcrumbs__list">
                 <li className="breadcrumbs__item">
-                  <a href="movie-page.html" className="breadcrumbs__link">{brief.title}</a>
+                  <Link
+                    to={`/films/${key}`}
+                    href="movie-page.html"
+                    className="breadcrumbs__link"
+                  >{brief.title}
+                  </Link>
                 </li>
                 <li className="breadcrumbs__item">
                   <a className="breadcrumbs__link">Add review</a>
@@ -58,13 +65,13 @@ class Review extends PureComponent {
 
             <div className="user-block">
               <div className="user-block__avatar">
-                <img src="/img/avatar.jpg" alt="User avatar" width="63" height="63" />
+                <img src={`${Url.HOST}${userInfo.avatar_url}`} alt="User avatar" width="63" height="63" />
               </div>
             </div>
           </header>
 
           <div className="movie-card__poster movie-card__poster--small">
-            <img src={img.posterSrc} alt="The Grand Budapest Hotel poster" width="218" height="327" />
+            <img src={img.posterSrc} alt={brief.title} width="218" height="327" />
           </div>
         </div>
 
@@ -121,6 +128,7 @@ Review.propTypes = {
   setComment: PropTypes.func.isRequired,
   isSavingReview: PropTypes.bool.isRequired,
   onRadioBtnClick: PropTypes.func.isRequired,
+  userInfo: PropTypes.object
 };
 
 export default Review;

@@ -38,14 +38,14 @@ class MovieCard extends PureComponent {
         onMouseEnter={this._handleCardMouseEnter}
         onMouseLeave={this._handleCardMouseLeave}
       >
-        <Link to={`films/${key}`} >
+        <Link to={`/films/${key}`} >
           <div className="small-movie-card__image">
             {children}
           </div>
         </Link>
         <h3 className="small-movie-card__title">
           <Link
-            to={`films/${key}`}
+            to={`/films/${key}`}
             className="small-movie-card__link"
           >
             {brief.title}

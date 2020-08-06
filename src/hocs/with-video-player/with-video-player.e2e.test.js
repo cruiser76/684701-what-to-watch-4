@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {configure, mount} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
+
 import withVideoPlayer from './with-video-player.jsx';
 
 configure({adapter: new Adapter()});

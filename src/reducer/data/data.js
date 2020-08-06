@@ -4,7 +4,9 @@ import {Url} from './../../const.js';
 const ActionType = {
   LOAD_MOVIES: `LOAD_MOVIES`,
   LOAD_PROMO: `LOAD_PROMO`,
+  LOAD_FAVORITE: `LOAD_FAVORITE`,
   ISLOADING_MOVIES: `ISLOADING_MOVIES`,
+  ISLOADING_FAVORITE: `ISLOADING_FAVORITE`,
   ISLOADING_PROMO: `ISLOADING_PROMO`,
   UPDATE_MOVIES: `UPDATE_MOVIES`,
   UPDATE_PROMO: `UPDATE_PROMO`
@@ -13,6 +15,8 @@ const ActionType = {
 const initialState = {
   movies: [],
   promo: {},
+  favoriteMovies: [],
+  isLoadingFavorite: true,
   isLoadingMovies: true,
   isLoadingPromo: true,
 };
@@ -22,6 +26,13 @@ const ActionCreator = {
     return {
       type: ActionType.LOAD_MOVIES,
       payload: movies
+    };
+  },
+
+  loadFavorite: (favoriteMovies) => {
+    return {
+      type: ActionType.LOAD_FAVORITE,
+      payload: favoriteMovies
     };
   },
 
@@ -46,6 +57,13 @@ const ActionCreator = {
     };
   },
 
+  isLoadingFavorite: (status) => {
+    return {
+      type: ActionType.ISLOADING_FAVORITE,
+      payload: status
+    };
+  },
+
   updateMovies: (movie, movies) => {
     const index = movies.findIndex((currentMovie) => {
       return currentMovie.id === movie.id;
@@ -66,7 +84,6 @@ const ActionCreator = {
       payload: currentPromo
     };
   },
-
 };
 
 const Operation = {
@@ -87,7 +104,7 @@ const Operation = {
   },
 
   setFavorite: (filmId, status) => (dispatch, getState, api) => {
-    return api.post(`${Url.POST_IS_FAVORITE}\/${filmId}\/${status}`)
+    return api.post(`${Url.POST_FAVORITE}/${filmId}/${status}`)
       .then((response) => {
         dispatch(ActionCreator.updateMovies(response.data, getState().DATA.movies));
         dispatch(ActionCreator.updatePromo(response.data, getState().DATA.promo));
@@ -95,7 +112,15 @@ const Operation = {
       .catch((err) => {
         throw err;
       });
-  }
+  },
+
+  loadFavorite: () => (dispatch, getState, api) => {
+    return api.get(Url.GET_FAVORITE)
+      .then((response) => {
+        dispatch(ActionCreator.loadFavorite(response.data));
+        dispatch(ActionCreator.isLoadingFavorite(false));
+      });
+  },
 };
 
 const reducer = (state = initialState, action) => {
@@ -112,6 +137,10 @@ const reducer = (state = initialState, action) => {
       return extend(state, {movies: action.payload});
     case ActionType.UPDATE_PROMO:
       return extend(state, {promo: action.payload});
+    case ActionType.LOAD_FAVORITE:
+      return extend(state, {favoriteMovies: action.payload});
+    case ActionType.ISLOADING_FAVORITE:
+      return extend(state, {isLoadingFavorite: action.payload});
     default:
       return state;
   }

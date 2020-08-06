@@ -24,7 +24,7 @@ const withVideoPlayer = (Component) => {
     _findMovie() {
       let currentMovie = null;
       if (this.props.match) {
-        const id = +this.props.match.params.id;
+        const id = this.props.match.params.id;
         currentMovie = this.props.movies.find((currrentMovie) => currrentMovie.key === id);
       } else {
         currentMovie = this.props.movie;

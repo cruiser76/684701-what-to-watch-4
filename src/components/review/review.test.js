@@ -1,5 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
+import {Router} from 'react-router-dom';
+import history from './../../history.js';
 
 import Review from './review.jsx';
 
@@ -18,7 +20,14 @@ const movie =
     level: `Good`
   },
   link: `movie-page.html`,
-  key: `fantastic-beasts-the-crimes-of-grindelwald`,
+  key: `1`,
+};
+
+const userInfo = {
+  'id': 1,
+  'email': `Oliver.conner@gmail.com`,
+  'name': `Oliver.conner`,
+  'avatar_url': `/img/1.png`
 };
 
 const props = {
@@ -29,14 +38,18 @@ const props = {
   setComment: () => {},
   isSavingReview: false,
   onRadioBtnClick: () => {},
+  userInfo
 };
 
 it(`Review should render`, () => {
   const tree = renderer
     .create((
-      <Review
-        {...props}
-      />), {
+      <Router history={history}>
+        <Review
+          {...props}
+        />
+      </Router>
+    ), {
       createNodeMock: () => {
         return {};
       }

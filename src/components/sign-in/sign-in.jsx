@@ -1,6 +1,8 @@
 import React, {PureComponent, createRef} from 'react';
 import PropTypes from 'prop-types';
 import Footer from './../footer/footer.jsx';
+import history from '../../history.js';
+import {Link} from 'react-router-dom';
 
 class SignIn extends PureComponent {
   constructor(props) {
@@ -8,19 +10,21 @@ class SignIn extends PureComponent {
 
     this.mailRef = createRef();
     this.passwordRef = createRef();
-
+    this.regexMail = /\S+@\S+\.\S+/;
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleSubmit(evt) {
     const {onSubmit} = this.props;
-
+    const mail = this.mailRef.current.value;
     evt.preventDefault();
-
-    onSubmit({
-      login: this.mailRef.current.value,
-      password: this.passwordRef.current.value,
-    });
+    if (this.regexMail.test(mail)) {
+      onSubmit({
+        login: this.mailRef.current.value,
+        password: mail,
+      });
+      history.push(`/`);
+    }
   }
 
   render() {
@@ -28,11 +32,11 @@ class SignIn extends PureComponent {
       <div className="user-page">
         <header className="page-header user-page__head">
           <div className="logo">
-            <a href="main.html" className="logo__link">
+            <Link to='/' className="logo__link">
               <span className="logo__letter logo__letter--1">W</span>
               <span className="logo__letter logo__letter--2">T</span>
               <span className="logo__letter logo__letter--3">W</span>
-            </a>
+            </Link>
           </div>
 
           <h1 className="page-title user-page__title">Sign in</h1>

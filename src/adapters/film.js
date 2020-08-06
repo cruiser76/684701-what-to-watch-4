@@ -22,7 +22,7 @@ export default function (filmsFromServer) {
     },
     runTime: filmsFromServer.run_time,
     link: `movie-page.html`,
-    key: filmsFromServer.id,
+    key: `${filmsFromServer.id}`,
     backgroundColor: filmsFromServer.background_color,
     isFavorite: filmsFromServer.is_favorite
   });

@@ -1,3 +1,5 @@
+import {MONTHS} from './const.js';
+
 const formatTimeString = function formatTimeString(str) {
   return str.length > 1 ? str : `0${str}`;
 };
@@ -14,6 +16,18 @@ export const getTimeFromSec = (timeInSec) => {
   let sec = (timeInSec % 60).toString();
 
   return `${formatTimeString(hours)}:${formatTimeString(minutes)}:${formatTimeString(sec)}`;
+};
+
+export const getTimeFromMin = (timeInMin) => {
+  let hours = Math.trunc(timeInMin / 60).toString();
+  let minutes = Math.trunc(timeInMin % 60).toString();
+
+  return `${hours}h ${formatTimeString(minutes)}m`;
+};
+
+export const formatDate = (unformatDate) => {
+  const date = new Date(unformatDate);
+  return `${MONTHS[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
 };
 
 export const getLevel = (score) => {

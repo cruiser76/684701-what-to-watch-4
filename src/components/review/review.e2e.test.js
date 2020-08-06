@@ -1,6 +1,8 @@
 import React from 'react';
 import {mount, configure} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
+import {Router} from 'react-router-dom';
+import history from './../../history.js';
 
 import Review from './review.jsx';
 
@@ -21,6 +23,13 @@ const movie = {
   key: 1,
 };
 
+const userInfo = {
+  'id': 1,
+  'email': `Oliver.conner@gmail.com`,
+  'name': `Oliver.conner`,
+  'avatar_url': `/img/1.png`
+};
+
 const props = {
   rating: 5,
   comment: `Test Test Test Test Test Test Test Test Test Test Test Test Test`,
@@ -29,6 +38,7 @@ const props = {
   onSubmit: () => {},
   setComment: () => {},
   onRadioBtnClick: () => {},
+  userInfo
 };
 
 configure({adapter: new Adapter()});
@@ -40,12 +50,15 @@ it(`clicking on buttons in Review calls calbacks`, () => {
   const onRadioBtnClick = jest.fn();
 
   const screen = mount(
-      <Review
-        {...props}
-        onSubmit={onSubmit}
-        setComment={setComment}
-        onRadioBtnClick={onRadioBtnClick}
-      />
+      <Router history={history}>
+        <Review
+          {...props}
+          onSubmit={onSubmit}
+          setComment={setComment}
+          onRadioBtnClick={onRadioBtnClick}
+        />
+      </Router>
+
   );
 
   const ratingBtn = screen.find(`.rating__input`).at(1);
