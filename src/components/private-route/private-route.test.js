@@ -22,6 +22,8 @@ describe(`Render correct PrivateRoute`, () => {
               path={`/`}
               exact={true}
               authorizationStatus={`AUTH`}
+              redirectRoute={`/`}
+              requiredAuthorizationStatus={`AUTH`}
             />
           </MemoryRouter>
         </Provider>)

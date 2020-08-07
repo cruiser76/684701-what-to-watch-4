@@ -9,8 +9,6 @@ import {Url} from '../../const.js';
 
 const Header = (props) => {
   const {authorizationStatus, userInfo} = props;
-  // eslint-disable-next-line
-  console.log(props);
 
   return (
     <header className='page-header movie-card__head'>
