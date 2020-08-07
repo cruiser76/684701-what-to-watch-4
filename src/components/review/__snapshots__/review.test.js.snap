@@ -217,8 +217,13 @@ exports[`Review should render 1`] = `
         >
           <button
             className="add-review__btn"
-            disabled={false}
-            style={Object {}}
+            disabled={true}
+            style={
+              Object {
+                "cursor": "auto",
+                "opacity": 0.5,
+              }
+            }
             type="submit"
           >
             Post
