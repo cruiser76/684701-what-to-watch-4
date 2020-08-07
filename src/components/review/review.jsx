@@ -1,5 +1,7 @@
 import React, {Fragment, PureComponent} from 'react';
 import PropTypes from 'prop-types';
+
+import history from '../../history.js';
 import {Link} from 'react-router-dom';
 import {Url} from '../../const.js';
 
@@ -15,6 +17,7 @@ class Review extends PureComponent {
     const {rating, comment, movie, onSubmit} = this.props;
     evt.preventDefault();
     onSubmit({rating, comment}, movie.key);
+    history.goBack();
   }
 
   handleTextAreaChange(evt) {

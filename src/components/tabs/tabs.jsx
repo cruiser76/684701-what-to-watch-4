@@ -5,20 +5,19 @@ import {connect} from 'react-redux';
 import TabOverview from '../tab-overview/tab-overview.jsx';
 import TabDetails from '../tab-details/tab-details.jsx';
 import TabReviews from '../tab-reviews/tab-reviews.jsx';
-import {TAB} from '../../const.js';
+import {TABS} from '../../const.js';
 
 import {getReviews, getIsLoadingReviews} from '../../reducer/review/selectors.js';
 import {Operation} from '../../reducer/review/review.js';
 
 const Tabs = (props) => {
-
   const getActiveTab = (tab, movie, reviews) => {
     switch (tab) {
-      case TAB[0]:
+      case TABS[0]:
         return <TabOverview movie={movie} />;
-      case TAB[1]:
+      case TABS[1]:
         return <TabDetails movie={movie} />;
-      case TAB[2]:
+      case TABS[2]:
         return <TabReviews reviews={reviews} />;
       default:
         return ``;
@@ -30,7 +29,7 @@ const Tabs = (props) => {
     <div className="movie-card__desc">
       <nav className="movie-nav movie-card__nav">
         <ul className="movie-nav__list">
-          {TAB.map((tab) => {
+          {TABS.map((tab) => {
             return (
               <li key={tab}
                 className={`movie-nav__item ${activeElement === tab && `movie-nav__item--active`}`}>

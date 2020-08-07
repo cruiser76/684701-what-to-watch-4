@@ -21,38 +21,11 @@ const withVideoPlayer = (Component) => {
       this.movie = this._findMovie();
     }
 
-    _findMovie() {
-      let currentMovie = null;
-      if (this.props.match) {
-        const id = this.props.match.params.id;
-        currentMovie = this.props.movies.find((currrentMovie) => currrentMovie.key === id);
-      } else {
-        currentMovie = this.props.movie;
-      }
-      return currentMovie;
-    }
-
-    handlePlayerPlayEvent(isPlaying) {
-      this.setState({isPlaying});
-    }
-
-    handleFullScreenButtonClick() {
-      const video = this.videoRef.current;
-      video.requestFullscreen();
-    }
-
-    setSrc(video) {
-      const {brief} = this.props.movie;
-      video.src = brief.previewLink;
-    }
-
     componentDidMount() {
       const {brief, img} = this.movie;
       const video = this.videoRef.current;
 
-      if (this.props.muted) {
-        this.setSrc(video);
-      } else {
+      if (!this.props.muted) {
         video.src = brief.filmLink;
       }
 
@@ -78,6 +51,10 @@ const withVideoPlayer = (Component) => {
     componentDidUpdate(prevProps, prevState) {
       const video = this.videoRef.current;
       if (prevState.isPlaying !== this.state.isPlaying) {
+        if (this.props.muted) {
+          this.setSrc(video);
+        }
+
         if (this.state.isPlaying) {
           video.play();
         } else if (this.props.rePlay) {
@@ -101,6 +78,22 @@ const withVideoPlayer = (Component) => {
       this.setState = () => {};
     }
 
+    handlePlayerPlayEvent(isPlaying) {
+      this.setState({isPlaying});
+    }
+
+    handleFullScreenButtonClick() {
+      const video = this.videoRef.current;
+      video.requestFullscreen();
+    }
+
+    setSrc(video) {
+      const {brief} = this.props.movie;
+      if (this.state.isPlaying) {
+        video.src = brief.previewLink;
+      }
+    }
+
     render() {
       return (
         <Component
@@ -118,6 +111,17 @@ const withVideoPlayer = (Component) => {
           />
         </Component>
       );
+    }
+
+    _findMovie() {
+      let currentMovie = null;
+      if (this.props.match) {
+        const id = this.props.match.params.id;
+        currentMovie = this.props.movies.find((currrentMovie) => currrentMovie.key === id);
+      } else {
+        currentMovie = this.props.movie;
+      }
+      return currentMovie;
     }
   }
 

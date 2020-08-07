@@ -32,7 +32,7 @@ export const createAPI = (onUnauthorized) => {
     const node = document.createElement(`div`);
     node.style.cssText = `z-index: 100; margin: 0 auto; text-align: center; background-color: red; position: absolute; left: 0; right: 0; fontSize: 30px;`;
     node.textContent = `При загрузке ${response.config.url} возникла ошибка ${err}`;
-    document.body.insertAdjacentElement(`afterbegin`, node);
+    document.querySelector(`#root`).insertAdjacentElement(`afterbegin`, node);
 
     throw err;
   };

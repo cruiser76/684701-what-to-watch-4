@@ -23,7 +23,7 @@ export const Url = {
   POST_REVIEW: `/comments`
 };
 
-export const TAB = [
+export const TABS = [
   `Overview`,
   `Details`,
   `Reviews`,
