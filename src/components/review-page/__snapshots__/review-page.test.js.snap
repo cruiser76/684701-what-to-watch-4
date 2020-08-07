@@ -1,11 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Review should render 1`] = `
+exports[`Review Page should render correctly 1`] = `
 <section
   className="movie-card movie-card--full"
   style={
     Object {
-      "backgroundColor": undefined,
+      "backgroundColor": "#ffffff",
     }
   }
 >
@@ -17,8 +17,8 @@ exports[`Review should render 1`] = `
       className="movie-card__bg"
     >
       <img
-        alt="Fantastic Beasts: The Crimes of Grindelwald"
-        src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
+        alt="The Grand Budapest Hotel"
+        src="img/the-grand-budapest-hotel-bg.jpg"
       />
     </div>
     <h1
@@ -68,7 +68,7 @@ exports[`Review should render 1`] = `
               href="/films/1"
               onClick={[Function]}
             >
-              Fantastic Beasts: The Crimes of Grindelwald
+              The Grand Budapest Hotel
             </a>
           </li>
           <li
@@ -91,7 +91,7 @@ exports[`Review should render 1`] = `
           <img
             alt="User avatar"
             height="63"
-            src="https://4.react.pages.academy/img/1.png"
+            src="https://4.react.pages.academy"
             width="63"
           />
         </div>
@@ -101,9 +101,9 @@ exports[`Review should render 1`] = `
       className="movie-card__poster movie-card__poster--small"
     >
       <img
-        alt="Fantastic Beasts: The Crimes of Grindelwald"
+        alt="The Grand Budapest Hotel"
         height="327"
-        src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
+        src="img/the-grand-budapest-hotel-poster.jpg"
         width="218"
       />
     </div>
@@ -183,7 +183,7 @@ exports[`Review should render 1`] = `
             Rating 4
           </label>
           <input
-            checked={true}
+            checked={false}
             className="rating__input"
             id="star-5"
             name="rating"
@@ -210,15 +210,20 @@ exports[`Review should render 1`] = `
           name="review-text"
           onChange={[Function]}
           placeholder="Review text"
-          value="Test"
+          value=""
         />
         <div
           className="add-review__submit"
         >
           <button
             className="add-review__btn"
-            disabled={false}
-            style={Object {}}
+            disabled={true}
+            style={
+              Object {
+                "cursor": "auto",
+                "opacity": 0.5,
+              }
+            }
             type="submit"
           >
             Post

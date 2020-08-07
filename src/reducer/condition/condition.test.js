@@ -61,3 +61,14 @@ it(`Reducer should change current movie`, () => {
     currentMovie: movies[0]
   });
 });
+
+it(`Reducer should change active genre`, () => {
+  expect(reducer({
+    activeGenre: `All genres`,
+  }, {
+    type: ActionType.SET_ACTIVE_GENRE,
+    payload: `Drama`,
+  })).toEqual({
+    activeGenre: `Drama`
+  });
+});

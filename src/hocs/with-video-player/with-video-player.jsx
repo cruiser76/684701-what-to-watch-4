@@ -55,9 +55,9 @@ const withVideoPlayer = (Component) => {
           this.setSrc(video);
         }
 
-        if (this.state.isPlaying) {
+        if (this.state.isPlaying && !this.props.muted) {
           video.play();
-        } else if (this.props.rePlay) {
+        } else if (!this.state.isPlaying && this.props.rePlay) {
           video.load();
         } else {
           video.pause();

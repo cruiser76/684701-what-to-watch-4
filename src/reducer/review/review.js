@@ -5,13 +5,15 @@ import {Url} from '../../const.js';
 const ActionType = {
   POST_REVIEW: `POST_REVIEW`,
   LOAD_REVIEWS: `LOAD_REVIEWS`,
-  IS_LOADING_REVIEWS: `IS_LOADING_REVIEWS`
+  IS_LOADING_REVIEWS: `IS_LOADING_REVIEWS`,
+  IS_ERROR_POST: `IS_ERROR_POST`
 };
 
 const initialState = {
   isSavingReview: false,
   currentReviews: [],
-  isLoadingReview: true
+  isLoadingReview: true,
+  isErrorPost: false
 };
 
 const ActionCreator = {
@@ -32,6 +34,12 @@ const ActionCreator = {
       type: ActionType.IS_LOADING_REVIEWS,
       payload: status
     };
+  },
+  setIsErrorPost: (status) => {
+    return {
+      type: ActionType.IS_ERROR_POST,
+      payload: status
+    };
   }
 };
 
@@ -43,6 +51,8 @@ const reducer = (state = initialState, action) => {
       return extend(state, {currentReviews: action.payload});
     case ActionType.IS_LOADING_REVIEWS:
       return extend(state, {isLoadingReviews: action.payload});
+    case ActionType.IS_ERROR_POST:
+      return extend(state, {isErrorPost: action.payload});
   }
   return state;
 };
@@ -55,9 +65,11 @@ const Operation = {
       comment: commentData.comment,
     })
       .then(() => {
+        dispatch(ActionCreator.setIsErrorPost(false));
         dispatch(ActionCreator.postReview(false));
       })
       .catch((err) => {
+        dispatch(ActionCreator.setIsErrorPost(true));
         dispatch(ActionCreator.postReview(false));
         throw err;
       });

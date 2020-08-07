@@ -1,46 +1,15 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
+import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
-import configureStore from "redux-mock-store";
 import {Router} from 'react-router-dom';
 import history from '../../history.js';
 
-import MyList from './my-list.jsx';
 
-
+import ReviewPage from './review-page.jsx';
 const mockStore = configureStore([]);
 
-const adaptMovies =
-[{
-  img: {
-    src: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
-    posterSrc: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
-    bgSrc: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`
-  },
-  brief: {
-    title: `Fantastic Beasts: The Crimes of Grindelwald`,
-    genre: `Drama`,
-    year: `2000`,
-    score: `9`,
-    level: `Good`,
-    filmLink: ``
-  },
-  link: `movie-page.html`,
-  key: `1`,
-}];
-
-const user = {
-  'id': 1,
-  'email': `Oliver.conner@gmail.com`,
-  'name': `Oliver.conner`,
-  'avatar_url': `/img/1.png`
-};
-
-const props = {
-  onCardClick: () => {},
-};
-
-const favoriteMovies =
+const movies =
   [{
     'id': `1`,
     'name': `The Grand Budapest Hotel`,
@@ -61,29 +30,48 @@ const favoriteMovies =
     'is_favorite': false
   }];
 
+const userInfo = {
+  // eslint-disable-next-line
+  avatar_url: ``
+};
+
 const store = mockStore({
   DATA: {
-    isLoadingFavorite: false,
-    favoriteMovies
+    isLoadingMovies: false,
+    movies
+  },
+  CONDITION: {
+    activeGenre: `All genres`
+  },
+  REVIEW: {
+    isSavingReview: false,
+    isErrorPost: false
   },
   USER: {
-    user
+    authorizationStatus: `NO_AUTH`,
+    user: userInfo
   }
 });
 
-it(`MyList should render correctly`, () => {
+const match = {
+  params: {
+    id: `1`
+  }
+};
+
+it(`Review Page should render correctly`, () => {
   const tree = renderer
     .create(
         <Provider store={store}>
           <Router history={history}>
-            <MyList
-              {...props}
-              movies={adaptMovies}
-              loadFavorite={()=> {}}
+            <ReviewPage
+              match={match}
+              userInfo={userInfo}
+              isErrorPost={false}
             />
           </Router>
-        </Provider>,
-        {
+
+        </Provider>, {
           createNodeMock: () => {
             return {};
           }

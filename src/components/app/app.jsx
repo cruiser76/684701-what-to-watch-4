@@ -1,4 +1,4 @@
-import React, {PureComponent} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {Route, Switch, Router} from 'react-router-dom';
 import {connect} from 'react-redux';
@@ -23,80 +23,77 @@ import {getFilteredMovies, getActiveGenre, getNumberMoviesInList, getGenresList}
 import {getAuthorizationStatus, getUserInfo} from '../../reducer/user/selectors.js';
 import {AppRoute} from '../../const.js';
 
-class App extends PureComponent {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    const {login} = this.props;
-    return (
-      <Router history={history}>
-        <Switch>
-          <Route
-            exact
-            path={AppRoute.MAIN}
-            render={() => {
-              return (
-                <Main
-                  {...this.props}
-                />
-              );
-            }}
-          />
-          <Route
-            exact
-            path={AppRoute.PLAYER}
-            component={VideoPlayerPage}
-          />
-          <Route
-            exact
-            path={AppRoute.FILMS}
-            render={(routeProps) => {
-              return (
-                <MoviePage
-                  {...routeProps}
-                  {...this.props}
-                />
-              );
-            }}
-          />
-          <PrivateRoute
-            exact
-            path={AppRoute.REVIEW}
-            requiredAuthorizationStatus={AuthorizationStatus.AUTH}
-            redirectRoute={AppRoute.LOGIN}
-            render={(match) => {
-              return <ReviewPage match={match} />;
-            }}
-          />
-          <PrivateRoute
-            exact
-            path={AppRoute.MY_LIST}
-            requiredAuthorizationStatus={AuthorizationStatus.AUTH}
-            redirectRoute={AppRoute.LOGIN}
-            render={() => {
-              return <MyList />;
-            }}
-          />
-          <PrivateRoute
-            exact
-            path={AppRoute.LOGIN}
-            requiredAuthorizationStatus={AuthorizationStatus.NO_AUTH}
-            redirectRoute={AppRoute.MAIN}
-            render={() => {
-              return <SignIn
-                onSubmit={login}
-              />;
-            }}
-          />
-        </Switch>
-      </Router>
-    );
-  }
-}
+const App = (props) => {
+  const {login, loadFavorite} = props;
+  return (
+    <Router history={history}>
+      <Switch>
+        <Route
+          exact
+          path={AppRoute.MAIN}
+          render={() => {
+            return (
+              <Main
+                {...props}
+              />
+            );
+          }}
+        />
+        <Route
+          exact
+          path={AppRoute.PLAYER}
+          component={VideoPlayerPage}
+        />
+        <Route
+          exact
+          path={AppRoute.FILMS}
+          render={(routeProps) => {
+            return (
+              <MoviePage
+                {...routeProps}
+                {...props}
+              />
+            );
+          }}
+        />
+        <PrivateRoute
+          exact
+          path={AppRoute.REVIEW}
+          requiredAuthorizationStatus={AuthorizationStatus.AUTH}
+          redirectRoute={AppRoute.LOGIN}
+          render={(match) => {
+            return <ReviewPage match={match} />;
+          }}
+        />
+        <PrivateRoute
+          exact
+          path={AppRoute.MY_LIST}
+          requiredAuthorizationStatus={AuthorizationStatus.AUTH}
+          redirectRoute={AppRoute.LOGIN}
+          render={() => {
+            return <MyList
+              loadFavorite={loadFavorite}
+            />;
+          }}
+        />
+        <PrivateRoute
+          exact
+          path={AppRoute.LOGIN}
+          requiredAuthorizationStatus={AuthorizationStatus.NO_AUTH}
+          redirectRoute={AppRoute.MAIN}
+          render={() => {
+            return <SignIn
+              onSubmit={login}
+            />;
+          }}
+        />
+      </Switch>
+    </Router>
+  );
+};
 
 App.propTypes = {
+  loadFavorite: PropTypes.func.isRequired,
   movies: PropTypes.array.isRequired,
   currentMovie: PropTypes.object,
   playingMovie: PropTypes.object,
@@ -146,6 +143,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     loadReviews: (movieId) => {
       dispatch(ReviewOperation.loadReviews(movieId));
+    },
+    loadFavorite: () => {
+      dispatch(Operation.loadFavorite());
     },
   };
 };

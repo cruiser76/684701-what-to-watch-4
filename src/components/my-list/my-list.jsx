@@ -7,7 +7,6 @@ import MovieList from '../movie-list/movie-list.jsx';
 import withActiveElement from '../../hocs/with-active-element/with-active-element.jsx';
 
 import {ActionCreator} from '../../reducer/condition/condition.js';
-import {Operation} from '../../reducer/data/data.js';
 import {getIsLoadingFavorite, getFavoriteMovies} from '../../reducer/data/selectors.js';
 import {getUserInfo} from '../../reducer/user/selectors.js';
 
@@ -16,6 +15,10 @@ import {Url} from '../../const.js';
 const MovieListWrapped = withActiveElement(MovieList);
 
 class MyList extends PureComponent {
+  componentDidMount() {
+    this.props.loadFavorite();
+  }
+
   render() {
     const {movies, onCardClick, isLoadingFavorite, userInfo} = this.props;
     return (
@@ -48,7 +51,6 @@ class MyList extends PureComponent {
               onCardClick={onCardClick}
               numberMoviesInList={movies.length}
             />
-
           </section>
 
           <footer className="page-footer">
@@ -74,7 +76,8 @@ MyList.propTypes = {
   movies: PropTypes.array.isRequired,
   onCardClick: PropTypes.func.isRequired,
   isLoadingFavorite: PropTypes.bool.isRequired,
-  userInfo: PropTypes.object.isRequired
+  userInfo: PropTypes.object.isRequired,
+  loadFavorite: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {
@@ -87,9 +90,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    loadFavorite: () => {
-      dispatch(Operation.loadFavorite());
-    },
     onCardClick: (movie) => {
       dispatch(ActionCreator.openMoviePage(movie));
     }

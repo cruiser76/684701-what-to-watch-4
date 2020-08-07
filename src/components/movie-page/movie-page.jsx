@@ -27,12 +27,6 @@ class MoviePage extends PureComponent {
     this._findMovie = this._findMovie.bind(this);
   }
 
-  _findMovie() {
-    const id = this.props.match.params.id;
-    const currentMovie = this.props.movies.find((currrentMovie) => currrentMovie.key === id);
-    return currentMovie;
-  }
-
   componentDidMount() {
     this.props.loadReviews(this._findMovie().key);
   }
@@ -144,6 +138,12 @@ class MoviePage extends PureComponent {
     } else {
       return ``;
     }
+  }
+
+  _findMovie() {
+    const id = this.props.match.params.id;
+    const currentMovie = this.props.movies.find((currrentMovie) => currrentMovie.key === id);
+    return currentMovie;
   }
 }
 

@@ -1,8 +1,8 @@
 import React, {Fragment, PureComponent} from 'react';
 import PropTypes from 'prop-types';
+import {Link} from 'react-router-dom';
 
 import history from '../../history.js';
-import {Link} from 'react-router-dom';
 import {Url} from '../../const.js';
 
 class Review extends PureComponent {
@@ -13,11 +13,16 @@ class Review extends PureComponent {
     this.handleRadioBtnClick = this.handleRadioBtnClick.bind(this);
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.isSavingReview && !this.props.isErrorPost) {
+      history.push(`/films/${this.props.movie.key}`);
+    }
+  }
+
   handleSubmit(evt) {
     const {rating, comment, movie, onSubmit} = this.props;
     evt.preventDefault();
     onSubmit({rating, comment}, movie.key);
-    history.goBack();
   }
 
   handleTextAreaChange(evt) {
@@ -29,11 +34,12 @@ class Review extends PureComponent {
   }
 
   render() {
-    const {movie, userInfo} = this.props;
+    const {movie, userInfo, isErrorPost} = this.props;
     const {brief, img, key, backgroundColor} = movie;
-    const disabled = (!this.props.rating || this.props.isSavingReview || (this.props.comment.length < 50) || (this.props.comment.length > 400));
+    const disabled = (!this.props.rating || this.props.isSavingReview || (this.props.comment.length < 2) || (this.props.comment.length > 400));
     return (
       <section className="movie-card movie-card--full" style={{backgroundColor}}>
+        {isErrorPost ? <div style={{textAlign: `center`}}>При отправке комментариев возникли проблемы, попробуйте отправить их позже</div> : ``}
         <div className="movie-card__header">
           <div className="movie-card__bg">
             <img src={img.bgSrc} alt={brief.title} />
@@ -131,7 +137,8 @@ Review.propTypes = {
   setComment: PropTypes.func.isRequired,
   isSavingReview: PropTypes.bool.isRequired,
   onRadioBtnClick: PropTypes.func.isRequired,
-  userInfo: PropTypes.object
+  userInfo: PropTypes.object,
+  isErrorPost: PropTypes.bool.isRequired
 };
 
 export default Review;

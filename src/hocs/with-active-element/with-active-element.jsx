@@ -12,12 +12,12 @@ const withActiveElement = (Component) => {
       this.setActiveElement = this.setActiveElement.bind(this);
     }
 
-    setActiveElement(target) {
-      this.setState({activeElement: target});
-    }
-
     componentWillUnmount() {
       this.setState = () => {};
+    }
+
+    setActiveElement(target) {
+      this.setState({activeElement: target});
     }
 
     render() {

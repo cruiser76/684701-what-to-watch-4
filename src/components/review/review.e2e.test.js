@@ -56,6 +56,7 @@ it(`clicking on buttons in Review calls calbacks`, () => {
           onSubmit={onSubmit}
           setComment={setComment}
           onRadioBtnClick={onRadioBtnClick}
+          isErrorPost={false}
         />
       </Router>
 

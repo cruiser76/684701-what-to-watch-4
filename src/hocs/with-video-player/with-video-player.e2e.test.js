@@ -50,7 +50,7 @@ it(`Checks that HOC's callback switch (play)`, () => {
   const wrapper = mount(<PlayerWrapped
     movie={movie}
     rePlay={false}
-    muted={true}
+    muted={false}
     isActive={false}
   />);
 

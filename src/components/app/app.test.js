@@ -47,7 +47,8 @@ const props = {
   isLoadingPromo: false,
   isSavingReview: false,
   onMyListClick: () => {},
-  authorizationStatus: `NO_AUTH`
+  authorizationStatus: `NO_AUTH`,
+  loadFavorite: () => {}
 };
 
 const store = mockStore({

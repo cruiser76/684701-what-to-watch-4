@@ -4,12 +4,13 @@ import {AuthorizationStatus} from './../../reducer/user/user.js';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 
-import {Operation} from '../../reducer/data/data.js';
 import {getAuthorizationStatus} from '../../reducer/user/selectors.js';
 import {Url} from '../../const.js';
 
 const Header = (props) => {
-  const {authorizationStatus, loadFavorite, userInfo} = props;
+  const {authorizationStatus, userInfo} = props;
+  // eslint-disable-next-line
+  console.log(props);
 
   return (
     <header className='page-header movie-card__head'>
@@ -27,7 +28,7 @@ const Header = (props) => {
       <div className="user-block">
         {authorizationStatus === AuthorizationStatus.AUTH
           ? <div className="user-block__avatar">
-            <Link onClick={loadFavorite} to='/mylist'><img src={`${Url.HOST}${userInfo.avatar_url}`} alt="User avatar" width="63" height="63" /></Link>
+            <Link to='/mylist'><img src={`${Url.HOST}${userInfo.avatar_url}`} alt="User avatar" width="63" height="63" /></Link>
           </div>
           : <Link to='/login' className="user-block__link">Sign in</Link>
         }
@@ -38,7 +39,6 @@ const Header = (props) => {
 
 Header.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
-  loadFavorite: PropTypes.func.isRequired,
   userInfo: PropTypes.object
 };
 
@@ -48,13 +48,5 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    loadFavorite: () => {
-      dispatch(Operation.loadFavorite());
-    },
-  };
-};
-
 export {Header};
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(mapStateToProps)(Header);

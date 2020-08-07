@@ -37,10 +37,6 @@ const withReviewData = (Component) => {
     }
 
     handleSubmit(reviewData, key) {
-      this.setState({
-        rating: 0,
-        comment: ``,
-      });
       this.props.onSubmit(reviewData, key);
     }
 

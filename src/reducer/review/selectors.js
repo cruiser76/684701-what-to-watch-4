@@ -13,3 +13,7 @@ export const getReviews = (state) => {
 export const getIsLoadingReviews = (state) => {
   return state[NAME_SPACE].isLoadingReviews;
 };
+
+export const getIsErrorPost = (state) => {
+  return state[NAME_SPACE].isErrorPost;
+};

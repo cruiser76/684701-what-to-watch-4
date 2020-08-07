@@ -38,7 +38,8 @@ const props = {
   setComment: () => {},
   isSavingReview: false,
   onRadioBtnClick: () => {},
-  userInfo
+  userInfo,
+  isErrorPost: false
 };
 
 it(`Review should render`, () => {

@@ -9,7 +9,7 @@ import {Loader} from '../loader/loader.jsx';
 import {ActionCreator} from '../../reducer/condition/condition.js';
 import {getIsLoadingMovies} from './../../reducer/data/selectors.js';
 import {getFilteredMovies} from './../../reducer/condition/selectors.js';
-import {getIsSavingReview} from './../../reducer/review/selectors.js';
+import {getIsSavingReview, getIsErrorPost} from './../../reducer/review/selectors.js';
 import {Operation as ReviewOperation} from './../../reducer/review/review.js';
 import {getAuthorizationStatus, getUserInfo} from '../../reducer/user/selectors.js';
 
@@ -31,6 +31,7 @@ const mapStateToProps = (state) => {
     isSavingReview: getIsSavingReview(state),
     authorizationStatus: getAuthorizationStatus(state),
     userInfo: getUserInfo(state),
+    isErrorPost: getIsErrorPost(state)
   };
 };
 
