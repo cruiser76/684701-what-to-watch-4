@@ -33,7 +33,6 @@ it(`Reducer without add parameters return initial state`, () => {
   });
 });
 
-
 it(`Reducer should update movies by load movies`, () => {
   expect(reducer({
     movies: [],
@@ -42,6 +41,84 @@ it(`Reducer should update movies by load movies`, () => {
     payload: movies,
   })).toEqual({
     movies,
+  });
+});
+
+it(`Reducer should update promo by load promo`, () => {
+  expect(reducer({
+    promo: {},
+  }, {
+    type: ActionType.LOAD_PROMO,
+    payload: movies[0],
+  })).toEqual({
+    promo: movies[0]
+  });
+});
+
+it(`Reducer should update promo by load favorite`, () => {
+  expect(reducer({
+    favoriteMovies: [],
+  }, {
+    type: ActionType.LOAD_FAVORITE,
+    payload: movies,
+  })).toEqual({
+    favoriteMovies: movies
+  });
+});
+
+
+it(`Reducer should change isloadingMovies`, () => {
+  expect(reducer({
+    isLoadingMovies: true,
+  }, {
+    type: ActionType.ISLOADING_MOVIES,
+    payload: false,
+  })).toEqual({
+    isLoadingMovies: false
+  });
+});
+
+it(`Reducer should change isloadingFavorite`, () => {
+  expect(reducer({
+    isLoadingFavorite: true,
+  }, {
+    type: ActionType.ISLOADING_FAVORITE,
+    payload: false,
+  })).toEqual({
+    isLoadingFavorite: false
+  });
+});
+
+it(`Reducer should change ISLOADING_PROMO`, () => {
+  expect(reducer({
+    isLoadingPromo: true,
+  }, {
+    type: ActionType.ISLOADING_PROMO,
+    payload: false,
+  })).toEqual({
+    isLoadingPromo: false
+  });
+});
+
+it(`Reducer should update movies`, () => {
+  expect(reducer({
+    movies,
+  }, {
+    type: ActionType.UPDATE_MOVIES,
+    payload: movies,
+  })).toEqual({
+    movies
+  });
+});
+
+it(`Reducer should update promo`, () => {
+  expect(reducer({
+    promo: movies[0],
+  }, {
+    type: ActionType.UPDATE_PROMO,
+    payload: movies[0],
+  })).toEqual({
+    promo: movies[0],
   });
 });
 
@@ -62,6 +139,68 @@ describe(`Operation work correctly`, () => {
           type: ActionType.LOAD_MOVIES,
           payload: [{fake: true}],
         });
+      });
+  });
+
+  it(`Should make a correct API call to /films/promo`, function () {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const promoLoader = Operation.loadPromo();
+
+    apiMock
+      .onGet(`/films/promo`)
+      .reply(200, [{fake: true}]);
+
+    return promoLoader(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(2);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.LOAD_PROMO,
+          payload: [{fake: true}],
+        });
+      });
+  });
+
+  it(`Should make a correct API call to get /favorite`, function () {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const favoriteLoader = Operation.loadFavorite();
+
+    apiMock
+      .onGet(`/favorite`)
+      .reply(200, [{fake: true}]);
+
+    return favoriteLoader(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(2);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.LOAD_FAVORITE,
+          payload: [{fake: true}],
+        });
+      });
+  });
+
+  it(`Should make a correct API call to post /favorite`, function () {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const favoritePost = Operation.setFavorite(1, 1);
+
+    apiMock
+      .onPost(`/favorite/1/1`)
+      .reply(200, [{fake: true}]);
+
+    const getState = () => {
+      return {
+        DATA: {
+          movies,
+          promo: movies[0]
+        }
+      };
+    };
+
+    return favoritePost(dispatch, getState, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(2);
       });
   });
 });

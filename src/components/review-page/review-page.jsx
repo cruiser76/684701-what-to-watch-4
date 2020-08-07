@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 
 import Review from '../review/review.jsx';
 import withReviewData from '../../hocs/with-review-data/with-review-data.jsx';
-import {Loader} from '../loader/loader.jsx';
+import Loader from '../loader/loader.jsx';
 
 import {ActionCreator} from '../../reducer/condition/condition.js';
 import {getIsLoadingMovies} from './../../reducer/data/selectors.js';

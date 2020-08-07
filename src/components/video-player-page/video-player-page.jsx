@@ -7,7 +7,7 @@ import {getFilteredMovies} from '../../reducer/condition/selectors.js';
 
 import MainVideoPlayer from '../main-video-player/main-video-player.jsx';
 import withVideoPlayer from '../../hocs/with-video-player/with-video-player.jsx';
-import {Loader} from '../loader/loader.jsx';
+import Loader from '../loader/loader.jsx';
 
 const VideoPlayerWrapped = withVideoPlayer(MainVideoPlayer);
 

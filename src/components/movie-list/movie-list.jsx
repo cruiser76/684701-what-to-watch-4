@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import MovieCard from './../movie-card/movie-card.jsx';
 import withVideoPlayer from './../../hocs/with-video-player/with-video-player.jsx';
-import {Loader} from '../loader/loader.jsx';
+import Loader from '../loader/loader.jsx';
 
 const MovieCardWrapped = withVideoPlayer(MovieCard);
 

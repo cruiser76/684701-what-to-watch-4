@@ -36,7 +36,7 @@ class Review extends PureComponent {
   render() {
     const {movie, userInfo, isErrorPost} = this.props;
     const {brief, img, key, backgroundColor} = movie;
-    const disabled = (!this.props.rating || this.props.isSavingReview || (this.props.comment.length < 2) || (this.props.comment.length > 400));
+    const disabled = (!this.props.rating || this.props.isSavingReview || (this.props.comment.length < 50) || (this.props.comment.length > 400));
     return (
       <section className="movie-card movie-card--full" style={{backgroundColor}}>
         {isErrorPost ? <div style={{textAlign: `center`}}>При отправке комментариев возникли проблемы, попробуйте отправить их позже</div> : ``}

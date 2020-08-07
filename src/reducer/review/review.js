@@ -12,7 +12,7 @@ const ActionType = {
 const initialState = {
   isSavingReview: false,
   currentReviews: [],
-  isLoadingReview: true,
+  isLoadingReviews: true,
   isErrorPost: false
 };
 

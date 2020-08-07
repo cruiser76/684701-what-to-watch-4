@@ -8,7 +8,7 @@ import MovieList from '../movie-list/movie-list.jsx';
 import GenresList from '../genres-list/genres-list.jsx';
 import ShowMore from '../show-more/show-more.jsx';
 import withActiveElement from '../../hocs/with-active-element/with-active-element.jsx';
-import {Loader} from '../loader/loader.jsx';
+import Loader from '../loader/loader.jsx';
 
 
 const MovieListWrapped = withActiveElement(MovieList);

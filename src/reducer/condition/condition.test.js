@@ -72,3 +72,25 @@ it(`Reducer should change active genre`, () => {
     activeGenre: `Drama`
   });
 });
+
+it(`Reducer should change playing movie`, () => {
+  expect(reducer({
+    playingMovie: null,
+  }, {
+    type: ActionType.SET_PLAY_MOVIE,
+    payload: movies[0],
+  })).toEqual({
+    playingMovie: movies[0]
+  });
+});
+
+it(`Reducer should change is-sign`, () => {
+  expect(reducer({
+    isSignIn: false,
+  }, {
+    type: ActionType.IS_SIGNIN,
+    payload: true,
+  })).toEqual({
+    isSignIn: true
+  });
+});
